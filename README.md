@@ -48,6 +48,6 @@ Upword.ly strives to be a11y first in all respects. User-interactable must be W3
    
     
 - User
-    - A user are the subscribed stenographers on the platform. Users log in and provide captioning.
+    - User are the subscribed stenographers on the platform. Users log in and provide captioning.
     
  
