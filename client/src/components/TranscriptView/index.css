@@ -1,0 +1,139 @@
+@keyframes toolbar {
+  0% {
+    transform: translateY(0); }
+  50% {
+    transform: translateY(0.35em); }
+  100% {
+    transform: translateY(0); } }
+
+html, body {
+  height: 100%; }
+
+.dashboard-main {
+  margin: 3em 0 0 0; }
+
+.liveTranscript--container {
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+.liveTranscript--container_observer {
+  height: 1.2em;
+  color: transparent; }
+
+.liveTranscript--buttons_floating {
+  position: fixed;
+  margin: 2em;
+  bottom: 5%;
+  right: 4em;
+  animation: toolbar 1.5s ease-in-out infinite;
+  z-index: 6; }
+
+.liveTranscript--buttons_floating .btn-group > .btn {
+  font-size: 1.4em; }
+
+.liveTranscript--menu {
+  position: fixed !important;
+  width: 100%;
+  bottom: 0;
+  left: 0; }
+
+.liveTranscript--menu_blue-mountain {
+  height: 2em;
+  width: 2em; }
+
+.liveTranscript--text-format {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 3em;
+  min-height: 100vh;
+  line-height: 1.5em;
+  margin: 0;
+  overflow: inherit;
+  padding: .5em 1.5em .2em 1em;
+  text-align: left;
+  text-shadow: 2px 2px #474a4f;
+  white-space: pre-wrap;
+  word-break: break-word; }
+
+.sweet-loading {
+  position: absolute;
+  top: 50vh;
+  left: 45vw; }
+
+.settings-panel__column-left--header-group {
+  margin: 0 0 2.5em 0; }
+
+.settings-panel__column-left {
+  margin: 0 0 2em 0;
+  padding: 0 3em 0 3em;
+  text-align: right; }
+
+.settings-panel__column-left h1 {
+  font-family: Chivo-Bold, sans-serif;
+  font-size: 3em;
+  line-height: unset; }
+
+.settings-panel__column-left h2 {
+  font-size: 2em; }
+
+.settings-panel__column-left h3 {
+  font-size: 1.5em; }
+
+.settings-panel__column-right {
+  margin: 0 0 2em 0;
+  padding: .5em 3em 0 3em;
+  text-align: left;
+  overflow-y: scroll; }
+
+.settings-panel__close-button {
+  padding: 2.5em;
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.settings-panel__close-button > svg {
+  display: block;
+  float: right;
+  font-size: 2em;
+  height: 100%;
+  width: 100%; }
+
+.settings-panel__close-button:hover {
+  background-color: #ededed;
+  padding: 2.5em;
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.settings-panel__column-right--preview {
+  overflow: scroll;
+  height: 17em; }
+
+.settings-panel__column-left--header-group {
+  margin: 0 0 2.5em 0; }
+
+.settings-panel__column-right h3 {
+  font-size: 1.5em; }
+
+.settings-panel__column-right--header-group {
+  margin: 0 0 2em 0; }
+
+.transcript-view-tools__container {
+  padding: 2em 0 0 0; }
+
+.vertical-padding-1em {
+  margin: 1em 0 0 0; }
+
+.vertical-padding-2em {
+  margin: 1em 0 1em 0; }
+
+.vertical-padding-3em {
+  margin: 1em 0 2em 0; }
+
+.vertical-padding-4em {
+  margin: 2em 0 2em 0; }
+
+.vertical-padding-5em {
+  margin: 1em 0 4em 0; }
+
+/* iPads (portrait and landscape) ----------- */
