@@ -4,7 +4,7 @@ import otText from 'ot-text';
 
 // const port = window.location.host.split(':')[1];
 const host = window.location.hostname;
-const port = 9090;
+const port = process.env.REACT_APP_PORT || 80;
 
 const socket = new ReconnectingWebSocket('ws://' + host + ':' + port, null, {
   automaticOpen: true,

@@ -8,8 +8,8 @@ const path = require('path');
 const numCPUs = require('os').cpus().length;
 const redisPubSub = require('sharedb-redis-pubsub')(
   process.env.NODE_ENV === 'dev'
-    ? 'redis://redis:6379'
-    : 'redis://localhost:6379');
+    ? 'redis://localhost:6379'
+    : 'redis://redis:6379');
 const ShareDB = require('@teamwork/sharedb');
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 9090;
 function startServer(port) {
   const share = new ShareDB({
     db: ShareDBMongo,
-    pubSub: redisPubSub,
+    pubsub: redisPubSub,
     disableSpaceDelimitedActions: true,
     disableDocAction: true
   });

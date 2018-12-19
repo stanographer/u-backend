@@ -23,7 +23,7 @@ class JobList extends React.Component {
     this.state = {
       jobs: [],
       loading: true,
-      message: ''
+      noJobsMessage: ''
     };
 
   }
@@ -36,7 +36,7 @@ class JobList extends React.Component {
 
       if (!jobs) {
         this.setState({
-          message: 'You currently have no jobs.',
+          noJobsMessage: 'You currently have no jobs.',
           loading: false
         });
         return;
@@ -50,25 +50,27 @@ class JobList extends React.Component {
       // There must be a better way to do this instead of retraversing the
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
-        const url = `${ window.location.protocol }//${ window.location.hostname }:9090`;
+        const url = `${ window.location.protocol }//${ window.location.hostname }`;
         fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
           method: 'get',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        })
-          .then(response => response.text())
-          .then(snapshot => {
-            job.snippet = snapshot;
-          })
-          .then(() => {
-            console.log('done!');
-            this.setState({
-              jobs: jobsList,
-              loading: false
-            });
+        }).then(response => response.text()).then(snapshot => {
+          job.snippet = snapshot;
+        }).then(() => {
+          console.log('done!');
+          this.setState({
+            jobs: jobsList,
+            loading: false
           });
+        }).catch(() => {
+          this.setState({
+            jobs: jobsList,
+            loading: false,
+          });
+        });
       });
     });
   }
@@ -78,15 +80,15 @@ class JobList extends React.Component {
   }
 
   deleteShareDbJob(user, job) {
-    const url = `${ window.location.protocol }//${ window.location.hostname }:9090`;
+    const url = `${ window.location.protocol }//${ window.location.hostname }`;
     return fetch(`${ url }/api?user=${ user }&job=${ job }`, {
       method: 'delete'
-    })
-      .then(response => response.json());
+    }).then(response => response.json());
   }
 
   render() {
-    const { jobs, loading } = this.state;
+    const { jobs, loading, noJobsMessage } = this.state;
+    console.log(jobs);
     return (
       <div>
         { !loading
@@ -132,12 +134,13 @@ class JobList extends React.Component {
                   <tbody>
                   <ListOfJobs jobs={ jobs }
                               hidden={ !jobs || jobs.length === 0 } />
+
                   </tbody>
                 </Table>
               </div>
             </CardBody>
           </Card>
-          : <p className="text-center">Loading...</p>
+          : <p className="text-center"><em>Loading...</em></p>
         }
       </div>
     );
