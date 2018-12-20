@@ -1,3 +1,6 @@
+const apiRouter = require('./routes/api');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const cluster = require('cluster');
 const cowsay = require('cowsay');
@@ -13,12 +16,17 @@ const redisPubSub = require('sharedb-redis-pubsub')(
 const ShareDB = require('@teamwork/sharedb');
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
+
 const ShareDBMongo = require('sharedb-mongo')(
   process.env.NODE_ENV === 'dev'
     ? 'mongodb://localhost:27017/aloft'
-    : 'mongodb://mongo:27017/upwordly'
-);
+    : 'mongodb://mongo:27017/upwordly');
 const PORT = process.env.PORT || 9090;
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 function startServer(port) {
   const share = new ShareDB({
@@ -34,25 +42,30 @@ function startServer(port) {
   const app = express();
 
   // Serve static files from the React app
+  app.use(cookieParser());
+  app.use(express.json());
   app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.set('view engine', 'ejs');
   app.use(cors());
-
-  // Global path.
-  app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  app.use('/api', apiRouter);
 
   // Creating server and WebSockets server.
   const server = http.createServer(app);
   const socket = new WebSocket.Server({ server });
 
-  app.get('/', cors(), async(req, res, next) => {
+  app.get('/', cors(corsOptions), async(req, res, next) => {
     try {
       const moo = cowsay.say({ text: 'Hello World!' });
       res.json({ moo });
     } catch (err) {
       next(err);
     }
+  });
+
+  // Global path.
+  app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 
   socket.on('connection', (websocket, req) => {
@@ -95,6 +108,6 @@ if (cluster.isMaster) {
     );
   });
 } else {
-  startServer(PORT);
+  startServer(PORT, '0.0.0.0');
   console.log(`Forked process, ${ process.pid } online. ✅`);
 }
