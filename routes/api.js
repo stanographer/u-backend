@@ -12,14 +12,16 @@ const ShareDBMongo = require('sharedb-mongo')(
     ? 'mongodb://localhost:27017/aloft'
     : 'mongodb://mongo:27017/upwordly');
 
+const shareDbOptions = {
+  db: ShareDBMongo,
+  pubsub: redisPubSub,
+  disableSpaceDelimitedActions: true,
+  disableDocAction: true
+};
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-const shareDbOptions = {
-  db: ShareDBMongo,
-  pubsub: redisPubSub
 };
 
 const backend = new ShareDB(shareDbOptions);

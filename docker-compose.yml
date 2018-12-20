@@ -5,7 +5,8 @@ services:
     restart: always
     build: .
     ports:
-      - '80:9090'
+      - '80:1988'
+      - '9090:9090'
     links:
       - mongo
       - redis

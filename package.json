@@ -4,7 +4,7 @@
   "description": "CMS for real-time captioning and transcriptions.",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production PORT=9090 node app.js",
+    "start": "NODE_ENV=production node app.js",
     "startdev": "NODE_ENV=dev nodemon app.js",
     "test": "test.js"
   },
