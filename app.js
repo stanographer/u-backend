@@ -25,7 +25,8 @@ const PORT = process.env.PORT || 9090;
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200
 };
 
 function startServer(port) {
@@ -54,18 +55,18 @@ function startServer(port) {
   const server = http.createServer(app);
   const socket = new WebSocket.Server({ server });
 
-  app.get('/', cors(corsOptions), async(req, res, next) => {
+  // Global path.
+  app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+
+  app.get('/moo', cors(corsOptions), async(req, res, next) => {
     try {
       const moo = cowsay.say({ text: 'Hello World!' });
       res.json({ moo });
     } catch (err) {
       next(err);
     }
-  });
-
-  // Global path.
-  app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 
   socket.on('connection', (websocket, req) => {

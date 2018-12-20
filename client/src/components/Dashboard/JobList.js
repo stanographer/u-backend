@@ -22,8 +22,7 @@ class JobList extends React.Component {
 
     this.state = {
       jobs: [],
-      loading: true,
-      noJobsMessage: ''
+      loading: true
     };
 
   }
@@ -36,7 +35,6 @@ class JobList extends React.Component {
 
       if (!jobs) {
         this.setState({
-          noJobsMessage: 'You currently have no jobs.',
           loading: false
         });
         return;
@@ -87,8 +85,8 @@ class JobList extends React.Component {
   }
 
   render() {
-    const { jobs, loading, noJobsMessage } = this.state;
-    console.log(jobs);
+    const { jobs, loading } = this.state;
+
     return (
       <div>
         { !loading
@@ -241,4 +239,3 @@ const ListOfJobs = ({ jobs }) =>
 JobList.propTypes = {};
 
 export default withFirebase(JobList);
-;
