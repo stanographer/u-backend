@@ -2,6 +2,7 @@ const apiRouter = require('./routes/api');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cluster = require('cluster');
+const cors = require('cors');
 const express = require('express');
 const http = require('http');
 const indexRouter = require('./routes');
@@ -42,6 +43,7 @@ function startServer(port, ws_port) {
   app.use(express.json());
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cors());
   app.set('view engine', 'ejs');
   app.use('/api', apiRouter);
   app.use('/', indexRouter);

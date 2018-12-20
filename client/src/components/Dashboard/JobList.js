@@ -49,11 +49,8 @@ class JobList extends React.Component {
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
         const url = process.env.REACT_APP_ENV === 'dev'
-        ? `${ window.location.protocol }//${ window.location.hostname }:${process.env.REACT_APP_WEB_PORT}`
+        ? `${ window.location.protocol }//${ window.location.hostname }:${process.env.REACT_APP_HTTP_PORT}`
         : `${ window.location.protocol }//${ window.location.hostname }`;
-
-        console.log(url);
-        console.log(process.env.REACT_APP_WEB_PORT);
 
         fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
           method: 'get',
@@ -62,9 +59,8 @@ class JobList extends React.Component {
             'Accept': 'application/json'
           }
         }).then(response => response.text()).then(snapshot => {
-          job.snippet = snapshot;
+          job.snippet = snapshot ? snapshot + '...' : '';
         }).then(() => {
-          console.log('done!');
           this.setState({
             jobs: jobsList,
             loading: false

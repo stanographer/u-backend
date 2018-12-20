@@ -1,9 +1,11 @@
 import React from 'react';
+import {Container} from 'reactstrap';
 
 const App = () => (
-  <div>
-    <h1>App</h1>
-  </div>
+  <Container>
+    <div className="vertical-padding-5em" />
+    <h1>Upwordly coming soon...</h1>
+  </Container>
 );
 
 export default App;
