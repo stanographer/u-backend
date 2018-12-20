@@ -38,15 +38,20 @@ function startServer(port, ws_port) {
   // Create a web server to serve files and listen to WebSocket connections
   const app = express();
 
-  // Serve static files from the React app
   app.use(cookieParser());
   app.use(express.json());
+  // Serve the static files from the React app
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cors());
   app.set('view engine', 'ejs');
-  app.use('/api', apiRouter);
   app.use('/', indexRouter);
+  app.use('/api', apiRouter);
+
+  // Global path.
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 
   // Creating server and WebSockets server.
   const server = http.createServer(app);

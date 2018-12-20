@@ -1,16 +1,8 @@
-const cors = require('cors');
 const cowsay = require('cowsay');
 const express = require('express');
 const router = express.Router();
 
-router.use(cors());
-
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-router.get('/moo', cors(corsOptions), async(req, res, next) => {
+router.get('/moo', async(req, res, next) => {
   try {
     const moo = cowsay.say({
       text: 'Welcome to Upword.ly!',
@@ -25,11 +17,6 @@ router.get('/moo', cors(corsOptions), async(req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-// Global path.
-router.get('*', cors(corsOptions), (req, res) => {
-  response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 module.exports = router;
