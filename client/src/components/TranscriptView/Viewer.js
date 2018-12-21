@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ShareDBBinding from 'sharedb-react-textbinding';
+import ShareDBBinding from '../ShareDB';
 import IntersectionObserver from 'react-intersection-observer';
 import IntersectionVisible from 'react-intersection-visible';
 import { css } from 'react-emotion';

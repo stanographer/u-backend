@@ -28,9 +28,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ChromePicker } from 'react-color';
-import SlidingPane from 'react-sliding-pane';
-import 'react-sliding-pane/dist/react-sliding-pane.css';
-
 import AloftBlueMountain from '../../assets/images/BlueMountain.png';
 import BrowserBarImage from '../../assets/images/aloft_browser_bar.png';
 
