@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
+import Clipboard from 'react-clipboard.js';
 import { withFirebase } from '../Firebase';
 import withAuthorization from '../Session/withAuthorization';
 import Navigation from '../Navigation';
@@ -11,6 +12,8 @@ import {
   Form,
   Input
 } from 'reactstrap';
+import { Tooltip } from 'react-tippy';
+import 'react-tippy/dist/tippy.css';
 import './index.css';
 import otText from 'ot-text';
 import { attachTextarea } from '../ShareDB/textarea';
@@ -18,10 +21,12 @@ import { attachTextarea } from '../ShareDB/textarea';
 class ConnectedTranscriptEditor extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       user: '',
       uid: '',
-      textArea: ''
+      textArea: '',
+      clickToCopyShown: false
     };
 
     this.query = queryString.parse(this.props.location.search);
@@ -35,7 +40,9 @@ class ConnectedTranscriptEditor extends React.Component {
     this.doc = connection.get(this.query.user, this.query.job);
 
     this.doc.subscribe(error => {
-      if (error) this.setState({error: 'Could not subscribe to the document.'});
+      if (error) {
+        this.setState({ error: 'Could not subscribe to the document.' });
+      }
       if (!this.doc.type) {
         console.log('creating');
         const defaultData = '';
@@ -86,8 +93,20 @@ class ConnectedTranscriptEditor extends React.Component {
         <Container>
           <div className="vertical-padding-3em" />
           <h1 className="display-2">Editor</h1>
-          <p
-            className="lead">{ `${ window.location.protocol }//${ window.location.host }/${ this.query.user }/${ this.query.job }` }</p>
+          <p className="lead">Click to copy</p>
+            <Tooltip
+              title="Copied!"
+              position="top"
+              trigger="click"
+              animation="perspective"
+              duration={300}
+            >
+              <Clipboard
+                component="a"
+                button-href="#"
+                data-clipboard-text={ `${ window.location.protocol }//${ window.location.host }/${ this.query.user }/${ this.query.job }` }>{ `${ window.location.protocol }//${ window.location.host }/${ this.query.user }/${ this.query.job }` }
+              </Clipboard>
+            </Tooltip>
           <div className="vertical-padding-3em" />
           <Form>
             <Input
@@ -102,22 +121,6 @@ class ConnectedTranscriptEditor extends React.Component {
               autoCapitalize="off"
               spellCheck="false"
             />
-            {/*<textarea className="sharedTextArea"*/}
-                      {/*id="sharedTextArea"*/}
-                      {/*ref={ this.sharedTextArea }*/}
-                      {/*rows={ 10 }*/}
-                      {/*autoCorrect="off"*/}
-                      {/*autoCapitalize="off"*/}
-                      {/*spellCheck="false" />*/}
-            {/*<ShareDBBinding*/ }
-            {/*cssClass="form-control form-control-alternative"*/ }
-            {/*style={ style }*/ }
-            {/*doc={ this.doc }*/ }
-            {/*// onLoaded={ this.onLoaded }*/ }
-            {/*flag='≈'*/ }
-            {/*rows={10}*/ }
-            {/*cols={2}*/ }
-            {/*elementType="textarea" />*/ }
           </Form>
         </Container>
       </div>
