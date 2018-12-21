@@ -21,7 +21,7 @@ class Index extends React.Component {
   componentWillMount() {
     const { firebase } = this.props;
 
-    firebase.findUser(this.docParams.user).on('value', snapshot => {
+    firebase.findUser(this.docParams.user).once('value', snapshot => {
       if (!snapshot.val()) return this.setState({loading: false});
 
       const returnedUser = snapshot.val();
@@ -38,13 +38,6 @@ class Index extends React.Component {
 
       return this.findJob();
     });
-  }
-
-  componentWillUnmount() {
-    const { firebase } = this.props;
-
-    firebase.findUser().off();
-    firebase.jobById().off();
   }
 
   findJob() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { updateStyle, resetStyle } from '../../actions';
 import {
@@ -187,7 +187,7 @@ class ConnectedTranscriptViewTools extends React.Component {
               <div className="settings-panel__column-left--header-group">
                 <img src={ AloftBlueMountain } className="img-fluid" width="25%" alt="Aloft Blue Mountain Logo" />
                 <h2>Settings</h2>
-                <p>Aloft Version 5.0</p>
+                <p>Upwordly version 0.1.0</p>
               </div>
               <ListGroup>
                 <ListGroupItem
