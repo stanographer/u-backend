@@ -43,8 +43,6 @@
     "require": "^2.4.20",
     "save": "^2.3.2",
     "sharedb": "^0.11.37",
-    "sharedb-generic-binding": "^0.1.0",
-    "sharedb-react-textbinding": "file:../../sharedb-react-textbinding",
     "sharedb-string-binding": "latest"
   },
   "scripts": {
