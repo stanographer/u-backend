@@ -63,7 +63,7 @@ class ConnectedLiveTranscriptView extends React.Component {
   }
 
   componentWillMount() {
-    const { user, job } = this.props;
+    const {user, job} = this.props;
     console.log('user, job', user, job);
     this.doc = connection.get(user, job);
   }
@@ -73,7 +73,7 @@ class ConnectedLiveTranscriptView extends React.Component {
   }
 
   render() {
-    const { loading, menuVisible } = this.state;
+    const { loading, menuVisible, } = this.state;
     const { style } = this.props;
 
     return (
