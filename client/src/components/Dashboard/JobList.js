@@ -61,14 +61,17 @@ class JobList extends React.Component {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        }).then(response => response.text()).then(snapshot => {
+        })
+        .then(response => response.text()).then(snapshot => {
           job.snippet = snapshot ? snapshot + '...' : '';
-        }).then(() => {
+        })
+        .then(() => {
           this.setState({
             jobs: jobsList,
             loading: false
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           this.setState({
             jobs: jobsList,
             loading: false
@@ -82,35 +85,44 @@ class JobList extends React.Component {
     this.props.firebase.allJobs().off();
   }
 
+  // Adds and removes jobs to the delete queue.
   handleJobCheck(e) {
-    const { jobsToDelete } = this.state;
-
     if (e.target.type === 'checkbox' && e.target.checked) {
-      if (!this.state.jobsToDelete || !jobsToDelete.includes(e.target.name)) {
+      if (this.state.jobsToDelete && ! this.state.jobsToDelete.includes(e.target.name)) {
         this.setState({
-          jobsToDelete: [...jobsToDelete, e.target.name]
+          jobsToDelete: [...this.state.jobsToDelete, e.target.name]
         }, () => {
           console.log('added', this.state.jobsToDelete);
         });
-      } else {
-        this.setState({
-          jobsToDelete: this.state.jobsToDelete.filter(job => job !== e.target.name)
-        }, () => {
-          console.log('removed', this.state.jobsToDelete);
-        });
       }
+    } else {
+      this.setState({
+        jobsToDelete: this.state.jobsToDelete.filter(job => job !== e.target.name)
+      }, () => {
+        console.log('removed', this.state.jobsToDelete);
+      });
     }
   }
 
-  deleteJobs() {
+  deleteJobs(e) {
     const { firebase } = this.props;
     const { jobsToDelete } = this.state;
+    let deleteQueue = [];
+
+    e.preventDefault();
 
     jobsToDelete.forEach(job => {
-      firebase.deleteJobFromJobs(job.uid);
-      firebase.deleteJobFromUser(job.slug);
-      this.deleteShareDbJob(job.username, job.slug);
+      this.setState({
+        jobs: this.state.jobs.filter(item => item.uid !== job.split(',')[0])
+      });
+
+      firebase.deleteJobFromJobs(job.split(',')[0]);
+      firebase.deleteJobFromUser(job.split(',')[1]);
+      this.deleteShareDbJob(job.split(',')[2], job.split(',')[1]);
     });
+
+    console.log(deleteQueue);
+    console.log(this.state.jobs);
   }
 
   deleteShareDbJob(user, job) {
@@ -143,9 +155,9 @@ class JobList extends React.Component {
                 <DropdownMenu aria-labelledby="dropdownMenuLink" right>
                   <DropdownItem
                     href="#pablo"
-                    onClick={ e => e.preventDefault() }
+                    onClick={ e => this.deleteJobs(e) }
                   >
-                    Action
+                    Delete
                   </DropdownItem>
                   <DropdownItem
                     href="#pablo"
@@ -191,9 +203,9 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
             <Label check>
               <Input
                 key={ job.uid }
-                name={`${job.uid}, ${job.slug}, ${job.username}`}
+                name={`${job.uid},${job.slug},${job.username}`}
                 type="checkbox"
-                onClick={ e => handleJobCheck(e) } />
+                onChange={ e => handleJobCheck(e) } />
               <span className="form-check-sign">
                 <span className="check" />
                 </span>
