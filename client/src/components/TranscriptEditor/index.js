@@ -43,14 +43,18 @@ class ConnectedTranscriptEditor extends React.Component {
       if (error) {
         this.setState({ error: 'Could not subscribe to the document.' });
       }
+
       if (!this.doc.type) {
-        console.log('creating');
+        console.log('Creating document...');
         const defaultData = '';
         const ottype = otText.type.name;
         const source = true;
         const callback = () => console.log(arguments);
         this.doc.create(defaultData, ottype, source, callback);
       }
+
+      console.log(this.doc);
+
       const textarea = document.querySelector('textarea');
       attachTextarea(textarea, this.doc);
     });
@@ -99,8 +103,7 @@ class ConnectedTranscriptEditor extends React.Component {
               position="top"
               trigger="click"
               animation="perspective"
-              duration={300}
-            >
+              duration={300}>
               <Clipboard
                 component="a"
                 button-href="#"
@@ -111,11 +114,10 @@ class ConnectedTranscriptEditor extends React.Component {
           <Form>
             <Input
               cols="80"
-              rows={ 10 }
               className="sharedTextArea"
               ref={ this.sharedTextArea }
               placeholder="Start writing here..."
-              rows="4"
+              rows="10"
               type="textarea"
               autoCorrect="off"
               autoCapitalize="off"

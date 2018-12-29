@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Binding from './react-binding';
 
 function ShareDBBinding(props) {
@@ -9,34 +8,41 @@ function ShareDBBinding(props) {
 
   useEffect(() => {
     doc.subscribe(err => {
-      if (err) console.log(err);
-      if (doc.type === null) console.error('This document could not be subscribed to.');
+      if (err) {
+        console.log(err);
+      }
+      if (doc.type === null) {
+        console.error('This document could not be subscribed to.');
+      }
     });
 
+    // Load document and bind it to local snapshot.
     doc.on('load', () => {
       binding = new Binding(doc.data, props.flag);
       setText(binding.snapshot);
       onLoaded();
     });
 
+    // Apply remote ops to local snapshot.
     doc.on('op', op => {
       setTimeout(() => {
-         setText(binding.applyOp(op));
+        setText(binding.applyOp(op));
       }, 0);
     });
 
+    // Destroy listeners.
     return () => {
       doc.unsubscribe();
       doc.destroy();
       binding = null;
-    }
+    };
   }, []);
 
-  return(
+  return (
     <div
-      className={cssClass || ''}
-      style={style || ''}>
-      {text}
+      className={ cssClass || '' }
+      style={ style || '' }>
+      { text }
     </div>
   );
 }

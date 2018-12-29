@@ -56,6 +56,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    document.title = 'Upwordly Dashboard';
     const { firebase } = this.props;
 
     firebase.user(firebase.auth.currentUser.uid).once('value', snapshot => {

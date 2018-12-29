@@ -1,5 +1,4 @@
-const apiRouter = require('./routes/api');
-const bodyParser = require('body-parser');
+/* Dependencies */
 const cookieParser = require('cookie-parser');
 const cluster = require('cluster');
 const cors = require('cors');
@@ -9,22 +8,31 @@ const indexRouter = require('./routes');
 const ottext = require('ot-text');
 const path = require('path');
 const numCPUs = require('os').cpus().length;
-const redisPubSub = require('sharedb-redis-pubsub')(
-  process.env.NODE_ENV === 'dev'
-    ? 'redis://localhost:6379'
-    : 'redis://redis:6379');
 const ShareDB = require('@teamwork/sharedb');
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 
+/* Routers */
+const apiRouter = require('./routes/api');
+const bodyParser = require('body-parser');
+
+/* Servers */
 const ShareDBMongo = require('sharedb-mongo')(
   process.env.NODE_ENV === 'dev'
     ? 'mongodb://localhost:27017/aloft'
-    : 'mongodb://mongo:27017/upwordly');
+    : 'mongodb://mongo:27017/upwordly'
+);
 
+const redisPubSub = require('sharedb-redis-pubsub')(
+  process.env.NODE_ENV === 'dev'
+    ? 'redis://localhost:6379'
+    : 'redis://redis:6379');
+
+/* Port config */
 const PORT = process.env.PORT || 1988;
 const WS_PORT = process.env.PORT || 9090;
 
+/* Main process */
 function startServer(port, ws_port) {
   const share = new ShareDB({
     db: ShareDBMongo,
@@ -69,17 +77,21 @@ function startServer(port, ws_port) {
       console.log(data);
     });
 
-    websocket.on('close', function() {
-      console.log('disconnected');
+    websocket.on('close', data => {
+      console.log('disconnected', data);
     });
 
+    // Listen to stream.
     const stream = new WebSocketJSONStream(websocket);
     share.listen(stream);
   });
 
-  app.listen(port, () => console.log(`Backend listening on port ${ port }.  📡✅`));
-  server.listen(ws_port, () => console.log(`WebSockets listening on port ${ ws_port }. 🔌✅`));
+  // Create master process.
+  app.listen(port, () =>
+    console.log(`Backend listening on port ${ port }. 📡✅`));
 
+  server.listen(ws_port, () =>
+    console.log(`WebSockets listening on port ${ ws_port }. 🔌✅`));
 }
 
 if (cluster.isMaster) {
@@ -91,11 +103,13 @@ if (cluster.isMaster) {
   }
 
   cluster.on('exit', (worker, code, signal) => {
-    console.log(
+    console.error(
       `Worker ${ worker.process.pid } died. ❌
        Code: ${ code }.
        Signal: ${ signal }`
     );
+
+    // Re-spawn after failure.
     cluster.fork();
     console.log('Restarting... ✝');
   });

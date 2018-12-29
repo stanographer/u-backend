@@ -22,9 +22,9 @@ class JobList extends React.Component {
 
     this.state = {
       jobs: [],
+      jobsToDelete: [],
       loading: true
     };
-
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class JobList extends React.Component {
         uid: key
       })).reverse();
 
-      // There must be a better way to do this instead of retraversing the
+      // There must be a better way to do this instead of re-traversing the
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
         const url = process.env.REACT_APP_ENV === 'dev'
@@ -58,14 +58,18 @@ class JobList extends React.Component {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        }).then(response => response.text()).then(snapshot => {
+        })
+        .then(response => response.text())
+        .then(snapshot => {
           job.snippet = snapshot ? snapshot + '...' : '';
-        }).then(() => {
+        })
+        .then(() => {
           this.setState({
             jobs: jobsList,
             loading: false
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           this.setState({
             jobs: jobsList,
             loading: false,
@@ -83,7 +87,8 @@ class JobList extends React.Component {
     const url = `${ window.location.protocol }//${ window.location.hostname }`;
     return fetch(`${ url }/api?user=${ user }&job=${ job }`, {
       method: 'delete'
-    }).then(response => response.json());
+    })
+    .then(response => response.json());
   }
 
   render() {

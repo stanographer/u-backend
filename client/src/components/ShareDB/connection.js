@@ -2,7 +2,6 @@ import ShareDB from '@teamwork/sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import otText from 'ot-text';
 
-// const port = window.location.host.split(':')[1];
 const host = window.location.hostname;
 const port = process.env.REACT_APP_WS_PORT || 9090;
 
@@ -15,7 +14,6 @@ const socket = new ReconnectingWebSocket('ws://' + host + ':' + port, null, {
 });
 
 const connection = new ShareDB.Connection(socket);
-console.log(connection);
 ShareDB.types.register(otText.type);
 
 export default connection;
