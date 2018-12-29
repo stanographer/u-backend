@@ -25,6 +25,9 @@ class JobList extends React.Component {
       jobsToDelete: [],
       loading: true
     };
+
+    this.handleJobCheck = this.handleJobCheck.bind(this);
+    this.deleteJobs = this.deleteJobs.bind(this);
   }
 
   componentDidMount() {
@@ -49,8 +52,8 @@ class JobList extends React.Component {
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
         const url = process.env.REACT_APP_ENV === 'dev'
-        ? `${ window.location.protocol }//${ window.location.hostname }:${process.env.REACT_APP_HTTP_PORT}`
-        : `${ window.location.protocol }//${ window.location.hostname }`;
+          ? `${ window.location.protocol }//${ window.location.hostname }:${ process.env.REACT_APP_HTTP_PORT }`
+          : `${ window.location.protocol }//${ window.location.hostname }`;
 
         fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
           method: 'get',
@@ -58,21 +61,17 @@ class JobList extends React.Component {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        })
-        .then(response => response.text())
-        .then(snapshot => {
+        }).then(response => response.text()).then(snapshot => {
           job.snippet = snapshot ? snapshot + '...' : '';
-        })
-        .then(() => {
+        }).then(() => {
           this.setState({
             jobs: jobsList,
             loading: false
           });
-        })
-        .catch(() => {
+        }).catch(() => {
           this.setState({
             jobs: jobsList,
-            loading: false,
+            loading: false
           });
         });
       });
@@ -83,12 +82,42 @@ class JobList extends React.Component {
     this.props.firebase.allJobs().off();
   }
 
+  handleJobCheck(e) {
+    const { jobsToDelete } = this.state;
+
+    if (e.target.type === 'checkbox' && e.target.checked) {
+      if (!this.state.jobsToDelete || !jobsToDelete.includes(e.target.name)) {
+        this.setState({
+          jobsToDelete: [...jobsToDelete, e.target.name]
+        }, () => {
+          console.log('added', this.state.jobsToDelete);
+        });
+      } else {
+        this.setState({
+          jobsToDelete: this.state.jobsToDelete.filter(job => job !== e.target.name)
+        }, () => {
+          console.log('removed', this.state.jobsToDelete);
+        });
+      }
+    }
+  }
+
+  deleteJobs() {
+    const { firebase } = this.props;
+    const { jobsToDelete } = this.state;
+
+    jobsToDelete.forEach(job => {
+      firebase.deleteJobFromJobs(job.uid);
+      firebase.deleteJobFromUser(job.slug);
+      this.deleteShareDbJob(job.username, job.slug);
+    });
+  }
+
   deleteShareDbJob(user, job) {
     const url = `${ window.location.protocol }//${ window.location.hostname }`;
     return fetch(`${ url }/api?user=${ user }&job=${ job }`, {
       method: 'delete'
-    })
-    .then(response => response.json());
+    }).then(response => response.json());
   }
 
   render() {
@@ -137,9 +166,10 @@ class JobList extends React.Component {
               <div className="table-full-width table-responsive">
                 <Table>
                   <tbody>
-                  <ListOfJobs jobs={ jobs }
-                              hidden={ !jobs || jobs.length === 0 } />
-
+                  <ListOfJobs
+                    handleJobCheck={ this.handleJobCheck }
+                    jobs={ jobs }
+                    hidden={ !jobs || jobs.length === 0 } />
                   </tbody>
                 </Table>
               </div>
@@ -152,14 +182,18 @@ class JobList extends React.Component {
   }
 }
 
-const ListOfJobs = ({ jobs }) =>
+const ListOfJobs = ({ handleJobCheck, jobs }) =>
   <>
     { !!jobs && jobs.map(job => (
       <tr key={ job.uid }>
         <td>
           <FormGroup check>
             <Label check>
-              <Input defaultValue="" type="checkbox" />
+              <Input
+                key={ job.uid }
+                name={`${job.uid}, ${job.slug}, ${job.username}`}
+                type="checkbox"
+                onClick={ e => handleJobCheck(e) } />
               <span className="form-check-sign">
                 <span className="check" />
                 </span>
