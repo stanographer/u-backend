@@ -25,6 +25,7 @@ function ShareDBBinding(props) {
 
     // Apply remote ops to local snapshot.
     doc.on('op', op => {
+       // window.requestAnimationFrame(() => setText(binding.applyOp(op)));
       setTimeout(() => {
         setText(binding.applyOp(op));
       }, 0);

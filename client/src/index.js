@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/scss/black-dashboard-react.scss';
 import './assets/css/nucleo-icons.css';
+import 'include-media/dist/_include-media.scss';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
