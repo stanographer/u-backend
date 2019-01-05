@@ -240,55 +240,6 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
     )) }
   </>;
 
-{/*{ !!jobs && jobs.map(job => (*/
-}
-{/*<tr key={ job.uid }>*/
-}
-{/*<th scope="row">1</th>*/
-}
-{/*<td>{ job.slug }</td>*/
-}
-{/*<td>{ job.title }</td>*/
-}
-{/*<td>{ job.timeCreated }</td>*/
-}
-{/*<td>{ job.viewCount }</td>*/
-}
-{/*<td>*/
-}
-{/*<a*/
-}
-{/*href={ `${ window.location.protocol }//${ window.location.host }/editor?user=${ job.username }&job=${ job.slug }` }>*/
-}
-{/*Edit*/
-}
-{/*</a>*/
-}
-{/*<br />*/
-}
-{/*<a href={ `${ window.location.protocol }//${ window.location.host }/${ job.username }/${ job.slug }` }*/
-}
-{/*target="_blank">Open in new window</a>*/
-}
-{/*<br />*/
-}
-{/*<a href="#" onClick={() => {*/
-}
-{/*firebase.deleteJobFromJobs(job.uid);*/
-}
-{/*firebase.deleteJobFromUser(job.slug);*/
-}
-{/*this.deleteShareDbJob(job.username, job.slug)*/
-}
-{/*}}>Delete</a>*/
-}
-{/*</td>*/
-}
-{/*</tr>*/
-}
-{/*)) }*/
-}
-
 JobList.propTypes = {};
 
 export default withFirebase(JobList);

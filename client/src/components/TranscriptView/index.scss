@@ -184,30 +184,3 @@ html, body {
 .vertical-padding-5em {
   margin: 1em 0 4em 0;
 }
-
-@include media(">phone", "<tablet") {
-}
-
-@include media(">tablet", "<950px") {
-}
-
-
-/* iPads (portrait and landscape) ----------- */
-//@media only screen
-//and (min-device-width: 768px)
-//and (max-device-width: 1024px)
-//.liveTranscript--text-format
-//  display: block
-//  font-family: 'Roboto', sans-serif
-//  font-size: 3em
-//  min-height: 100vh
-//  line-height: 1.5em
-//  margin: 0
-//  overflow: inherit
-//  padding: 1.5em 1.5em 0 1em
-//  text-align: left
-//  text-shadow: 2px 2px #474a4f
-//  white-space: pre-wrap
-//  word-break: break-word
-
-

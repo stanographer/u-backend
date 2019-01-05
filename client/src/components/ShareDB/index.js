@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Binding from './react-binding';
+import PropTypes from 'prop-types';
 
 function ShareDBBinding(props) {
   const { doc, onLoaded, cssClass, style } = props;
@@ -25,7 +26,6 @@ function ShareDBBinding(props) {
 
     // Apply remote ops to local snapshot.
     doc.on('op', op => {
-       // window.requestAnimationFrame(() => setText(binding.applyOp(op)));
       setTimeout(() => {
         setText(binding.applyOp(op));
       }, 0);
@@ -47,5 +47,13 @@ function ShareDBBinding(props) {
     </div>
   );
 }
+
+ShareDBBinding.propTypes = {
+  doc: PropTypes.object,
+  onLoaded: PropTypes.func,
+  cssClass: PropTypes.object,
+  style: PropTypes.object,
+  flag: PropTypes.string
+};
 
 export default ShareDBBinding;

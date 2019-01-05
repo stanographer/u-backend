@@ -23,7 +23,7 @@
  */
 let applyChange = function (doc, oldVal, newVal) {
 
-  // Strings are immutable and have reference equality. I think this test is O(1), so its worth doing.
+  // Strings are immutable and have reference equality. I think this tests is O(1), so its worth doing.
   if (oldVal === newVal) return;
 
   let commonStart = 0;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ShareDBBinding from '../ShareDB';
 import IntersectionObserver from 'react-intersection-observer';
 import IntersectionVisible from 'react-intersection-visible';
@@ -49,7 +48,6 @@ class LiveTranscriptView extends React.Component {
 
   componentWillMount() {
     const { user, job } = this.props;
-    console.log('user, job', user, job);
     this.doc = connection.get(user, job);
   }
 

@@ -24,7 +24,7 @@ const ShareDBMongo = require('sharedb-mongo')(
 );
 
 const redisPubSub = require('sharedb-redis-pubsub')(
-  process.env.NODE_ENV === 'dev'
+  process.env.NODE_ENV === 'dev' || 'test'
     ? 'redis://localhost:6379'
     : 'redis://redis:6379');
 

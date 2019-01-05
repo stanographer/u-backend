@@ -30,6 +30,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ChromePicker } from 'react-color';
 import AloftBlueMountain from '../../assets/images/BlueMountain.png';
 import BrowserBarImage from '../../assets/images/aloft_browser_bar.png';
+import './index.css';
 
 const mapStateToProps = state => {
   return {
@@ -110,7 +111,7 @@ class ConnectedTranscriptViewTools extends React.Component {
     return this.props.updateStyle(stylePayload);
   }
 
-  goBack(){
+  goBack() {
     this.props.history.goBack();
   }
 
@@ -177,15 +178,15 @@ class ConnectedTranscriptViewTools extends React.Component {
     } = this.props.style;
     return (
       <>
-        <div className="settings-panel__close-button" onClick={this.goBack}>
-          <FontAwesomeIcon icon="times" onClick={this.goBack} />
+        <div className="settings-panel__close-button" onClick={ this.goBack }>
+          <FontAwesomeIcon icon="times" onClick={ this.goBack } />
         </div>
         <Container className="transcript-view-tools__container">
           <Row>
             {/*Left column*/ }
             <Col md={ 4 } className="settings-panel__column-left">
               <div className="settings-panel__column-left--header-group">
-                <img src={ AloftBlueMountain } className="img-fluid" width="25%" alt="Aloft Blue Mountain Logo" />
+                <img src={ AloftBlueMountain } className="img-fluid" width="25%" alt="Upwordly Blue Mountain Logo" />
                 <h2>Settings</h2>
                 <p>Upwordly version 0.1.0</p>
               </div>
@@ -272,15 +273,18 @@ class ConnectedTranscriptViewTools extends React.Component {
                   <FormGroup row>
                     <Label for="textTransform" sm={ 6 }>All caps</Label>
                     <Col sm={ 6 }>
-                      <span className="clearfix" />
-                      <Label className="custom-toggle">
-                        <Input type="checkbox"
-                               name="textTransform"
-                               id="textTransform"
-                               defaultChecked={ textTransform === 'uppercase' }
-                               onChange={ e => this.onStyleChange(e) } />
-                        <span className="custom-toggle-slider rounded-circle" />
-                      </Label>
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="checkbox"
+                                 name="textTransform"
+                                 id="textTransform"
+                                 defaultChecked={ textTransform === 'uppercase' }
+                                 onChange={ e => this.onStyleChange(e) } />
+                          <span className="form-check-sign">
+                          <span className="check" />
+                          </span>
+                        </Label>
+                      </FormGroup>
                     </Col>
                   </FormGroup>
                   {/*All caps end*/ }

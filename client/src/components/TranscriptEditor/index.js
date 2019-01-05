@@ -131,4 +131,8 @@ class ConnectedTranscriptEditor extends React.Component {
 }
 
 const condition = authUser => !!authUser;
-export default compose(withRouter, withFirebase, withAuthorization(condition))(ConnectedTranscriptEditor);
+export default compose(
+  withRouter,
+  withFirebase,
+  withAuthorization(condition)
+)(ConnectedTranscriptEditor);

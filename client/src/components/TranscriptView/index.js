@@ -7,6 +7,7 @@ import './index.css';
 import Private from '../Placeholders/Private';
 import HasntStarted from '../Placeholders/HasntStarted';
 import { connect } from 'react-redux';
+import { UncontrolledAlert } from 'reactstrap';
 
 const mapStateToProps = state => {
   return {
@@ -83,6 +84,9 @@ class ConnectedIndex extends React.Component {
 
     return (
       <>
+        <UncontrolledAlert color="info">
+          I am an alert and I can be dismissed!
+        </UncontrolledAlert>
         { !loading
           ?
           job && jobId && job.privacy === true

@@ -4,13 +4,16 @@
     "es6": true
   },
   "extends": [
-    "standard",
-    "standard-react"
+    "eslint:recommended", "plugin:react/recommended"
   ],
   "plugins": [
     "react"
   ],
   "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
     "sourceType": "module"
   },
   "rules": {

@@ -53,11 +53,12 @@ router.get('/snippet', cors(corsOptions), (req, res) => {
 
   doc.fetch(err => {
     if (err) return res.send('');
+
     try {
       const snippet = doc.data.substring(0, 200);
       send200(res, snippet);
-    } catch {
-      res.send('');
+    } catch (err) {
+      res.send('There was an error: ' + err);
     }
   });
 });
@@ -67,6 +68,7 @@ router.get('/', (req, res, next) => {
   res.render('index', { title: 'Upword.ly' });
 });
 
+/* Deletes a job from the ShareDB repo. */
 router.delete('/', cors(corsOptions), (req, res) => {
   const doc = connection.get(req.query.user, req.query.job);
   try {

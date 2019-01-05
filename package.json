@@ -6,7 +6,11 @@
   "scripts": {
     "start": "NODE_ENV=production node app.js",
     "startdev": "NODE_ENV=dev nodemon app.js",
-    "test": "test.js"
+    "test": "NODE_ENV=dev jest"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -54,6 +58,7 @@
     "sharedb-firebase": "0.0.1",
     "sharedb-mongo": "^1.0.0-beta.8",
     "sharedb-redis-pubsub": "^1.0.0-beta.1",
+    "supertest": "^3.3.0",
     "ws": "^6.1.2"
   },
   "devDependencies": {
