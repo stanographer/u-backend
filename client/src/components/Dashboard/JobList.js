@@ -113,14 +113,14 @@ class JobList extends React.Component {
 
     selectedJobs.forEach(job => {
       fetchTranscript(job.split(',')[2], job.split(',')[1])
-      .then(() => console.log('success!'));
+      .then(() => console.log('success!'))
+      .catch(err => console.error('Failed to fetch the transcript file: ' + err));
     });
   }
 
   handleDeleteJobs(e) {
     const { firebase } = this.props;
     const { selectedJobs } = this.state;
-    let deleteQueue = [];
 
     e.preventDefault();
 
