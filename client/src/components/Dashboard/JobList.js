@@ -15,6 +15,7 @@ import {
   UncontrolledDropdown,
   UncontrolledTooltip
 } from 'reactstrap';
+import { fetchTranscript } from './downloadTranscript';
 
 class JobList extends React.Component {
   constructor(props) {
@@ -22,12 +23,13 @@ class JobList extends React.Component {
 
     this.state = {
       jobs: [],
-      jobsToDelete: [],
+      selectedJobs: [],
       loading: true
     };
 
     this.handleJobCheck = this.handleJobCheck.bind(this);
-    this.deleteJobs = this.deleteJobs.bind(this);
+    this.handleDeleteJobs = this.handleDeleteJobs.bind(this);
+    this.handleDownloadJobs = this.handleDownloadJobs.bind(this);
   }
 
   componentDidMount() {
@@ -88,30 +90,41 @@ class JobList extends React.Component {
   // Adds and removes jobs to the delete queue.
   handleJobCheck(e) {
     if (e.target.type === 'checkbox' && e.target.checked) {
-      if (this.state.jobsToDelete && ! this.state.jobsToDelete.includes(e.target.name)) {
+      if (this.state.selectedJobs && ! this.state.selectedJobs.includes(e.target.name)) {
         this.setState({
-          jobsToDelete: [...this.state.jobsToDelete, e.target.name]
+          selectedJobs: [...this.state.selectedJobs, e.target.name]
         }, () => {
-          console.log('added', this.state.jobsToDelete);
+          console.log('added', this.state.selectedJobs);
         });
       }
     } else {
       this.setState({
-        jobsToDelete: this.state.jobsToDelete.filter(job => job !== e.target.name)
+        selectedJobs: this.state.selectedJobs.filter(job => job !== e.target.name)
       }, () => {
-        console.log('removed', this.state.jobsToDelete);
+        console.log('removed', this.state.selectedJobs);
       });
     }
   }
 
-  deleteJobs(e) {
+  handleDownloadJobs(e) {
+    const { selectedJobs } = this.state;
+
+    e.preventDefault();
+
+    selectedJobs.forEach(job => {
+      fetchTranscript(job.split(',')[2], job.split(',')[1])
+      .then(() => console.log('success!'));
+    });
+  }
+
+  handleDeleteJobs(e) {
     const { firebase } = this.props;
-    const { jobsToDelete } = this.state;
+    const { selectedJobs } = this.state;
     let deleteQueue = [];
 
     e.preventDefault();
 
-    jobsToDelete.forEach(job => {
+    selectedJobs.forEach(job => {
       this.setState({
         jobs: this.state.jobs.filter(item => item.uid !== job.split(',')[0])
       });
@@ -120,9 +133,6 @@ class JobList extends React.Component {
       firebase.deleteJobFromUser(job.split(',')[1]);
       this.deleteShareDbJob(job.split(',')[2], job.split(',')[1]);
     });
-
-    console.log(deleteQueue);
-    console.log(this.state.jobs);
   }
 
   deleteShareDbJob(user, job) {
@@ -154,22 +164,14 @@ class JobList extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu aria-labelledby="dropdownMenuLink" right>
                   <DropdownItem
-                    href="#pablo"
-                    onClick={ e => this.deleteJobs(e) }
-                  >
+                    href="#"
+                    onClick={ e => this.handleDownloadJobs(e) }>
+                    Download Transcription File
+                  </DropdownItem>
+                  <DropdownItem
+                    href="#"
+                    onClick={ e => this.handleDeleteJobs(e) }>
                     Delete
-                  </DropdownItem>
-                  <DropdownItem
-                    href="#pablo"
-                    onClick={ e => e.preventDefault() }
-                  >
-                    Another action
-                  </DropdownItem>
-                  <DropdownItem
-                    href="#pablo"
-                    onClick={ e => e.preventDefault() }
-                  >
-                    Something else
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

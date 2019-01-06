@@ -1,14 +1,53 @@
 $dark-blue-header: #282f37;
 $creme: #FCF2CB;
 
-$breakpoints: (
-        mobile-portrait: 320px,
-        mobile-landscape: 480px,
-        tablet-portrait: 768px,
-        tablet-landscape: 1024px,
-        desktop: 1382px
-) !default;
+/* Media query breakpoints */
 
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+/* Media query mixins */
+
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+/* Custom devices */
+
+@mixin rwd($screen) {
+  @media (min-width: $screen+'px') {
+    @content;
+  }
+}
 
 @keyframes toolbar {
   0% {
@@ -35,7 +74,7 @@ html, body {
 
 .liveTranscript--container {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .liveTranscript--container_observer {
@@ -44,16 +83,45 @@ html, body {
 }
 
 .liveTranscript--buttons_floating {
+  @include sm {
+    right: 1em;
+    margin: 0;
+  }
+  @include md {
+    right: 1em;
+    margin: 0;
+  }
+  @include lg {
+    right: 4em;
+    margin: 2em;
+  }
+  @include xl {
+    right: 4em;
+    margin: 2em;
+  }
   position: fixed;
-  margin: 2em;
   bottom: 5%;
-  right: 4em;
   animation: toolbar 1.5s ease-in-out infinite;
   z-index: 6;
 }
 
 .liveTranscript--buttons_floating .btn-group > .btn {
-  font-size: 1.4em;
+  @include sm {
+    font-size: 1em;
+    padding: 0;
+  }
+  @include md {
+    font-size: 1em;
+    padding: .8em;
+  }
+  @include lg {
+    font-size: 1.4em;
+    padding: .8em;
+  }
+  @include xl {
+    font-size: 1.4em;
+    padding: .8em;
+  }
 }
 
 .liveTranscript--menu {

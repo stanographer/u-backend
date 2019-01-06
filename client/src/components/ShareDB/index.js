@@ -10,17 +10,24 @@ function ShareDBBinding(props) {
   useEffect(() => {
     doc.subscribe(err => {
       if (err) {
-        console.log(err);
+        setText('There was a connection error: ' + err);
       }
       if (doc.type === null) {
-        console.error('This document could not be subscribed to.');
+        setText('This document could not be subscribed to.');
       }
     });
 
     // Load document and bind it to local snapshot.
     doc.on('load', () => {
       binding = new Binding(doc.data, props.flag);
-      setText(binding.snapshot);
+      if (doc.data === '') {
+        setText(`
+[ Connection established. Waiting for incoming text. ]
+        `);
+      } else {
+        setText(binding.snapshot);
+      }
+
       onLoaded();
     });
 
@@ -51,7 +58,7 @@ function ShareDBBinding(props) {
 ShareDBBinding.propTypes = {
   doc: PropTypes.object,
   onLoaded: PropTypes.func,
-  cssClass: PropTypes.object,
+  cssClass: PropTypes.string,
   style: PropTypes.object,
   flag: PropTypes.string
 };

@@ -28,7 +28,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ChromePicker } from 'react-color';
-import AloftBlueMountain from '../../assets/images/BlueMountain.png';
 import BrowserBarImage from '../../assets/images/aloft_browser_bar.png';
 import './index.css';
 
@@ -186,7 +185,6 @@ class ConnectedTranscriptViewTools extends React.Component {
             {/*Left column*/ }
             <Col md={ 4 } className="settings-panel__column-left">
               <div className="settings-panel__column-left--header-group">
-                <img src={ AloftBlueMountain } className="img-fluid" width="25%" alt="Upwordly Blue Mountain Logo" />
                 <h2>Settings</h2>
                 <p>Upwordly version 0.1.0</p>
               </div>

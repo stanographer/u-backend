@@ -1,3 +1,6 @@
+/* Media query breakpoints */
+/* Media query mixins */
+/* Custom devices */
 @keyframes toolbar {
   0% {
     transform: translateY(0); }
@@ -15,7 +18,7 @@ html, body {
 
 .liveTranscript--container {
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: scroll; }
 
 .liveTranscript--container_observer {
   height: 1.2em;
@@ -23,14 +26,45 @@ html, body {
 
 .liveTranscript--buttons_floating {
   position: fixed;
-  margin: 2em;
   bottom: 5%;
-  right: 4em;
   animation: toolbar 1.5s ease-in-out infinite;
   z-index: 6; }
+  @media (min-width: 576px) {
+    .liveTranscript--buttons_floating {
+      right: 1em;
+      margin: 0; } }
+  @media (min-width: 768px) {
+    .liveTranscript--buttons_floating {
+      right: 1em;
+      margin: 0; } }
+  @media (min-width: 992px) {
+    .liveTranscript--buttons_floating {
+      right: 4em;
+      margin: 2em; } }
+  @media (min-width: 1200px) {
+    .liveTranscript--buttons_floating {
+      right: 4em;
+      margin: 2em; } }
 
-.liveTranscript--buttons_floating .btn-group > .btn {
-  font-size: 1.4em; }
+@media (min-width: 576px) {
+  .liveTranscript--buttons_floating .btn-group > .btn {
+    font-size: 1em;
+    padding: 0; } }
+
+@media (min-width: 768px) {
+  .liveTranscript--buttons_floating .btn-group > .btn {
+    font-size: 1em;
+    padding: .8em; } }
+
+@media (min-width: 992px) {
+  .liveTranscript--buttons_floating .btn-group > .btn {
+    font-size: 1.4em;
+    padding: .8em; } }
+
+@media (min-width: 1200px) {
+  .liveTranscript--buttons_floating .btn-group > .btn {
+    font-size: 1.4em;
+    padding: .8em; } }
 
 .liveTranscript--menu {
   position: fixed !important;

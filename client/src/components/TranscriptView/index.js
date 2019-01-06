@@ -7,7 +7,6 @@ import './index.css';
 import Private from '../Placeholders/Private';
 import HasntStarted from '../Placeholders/HasntStarted';
 import { connect } from 'react-redux';
-import { UncontrolledAlert } from 'reactstrap';
 
 const mapStateToProps = state => {
   return {
@@ -38,7 +37,7 @@ class ConnectedIndex extends React.Component {
   componentWillMount() {
     const { firebase } = this.props;
 
-    firebase.findUser(this.docParams.user).once('value', snapshot => {
+    firebase.findUser(this.docParams.user.toLowerCase()).once('value', snapshot => {
       if (!snapshot.val()) {
         return this.setState({ loading: false });
       }
@@ -48,13 +47,13 @@ class ConnectedIndex extends React.Component {
         ...returnedUser[key]
       }));
 
-      if (!user[0].jobs[this.docParams.job]) {
+      if (!user[0].jobs[this.docParams.job.toLowerCase()]) {
         return this.setState({ loading: false });
       }
 
       this.setState({
-        user: user[0].username,
-        jobId: user[0].jobs[this.docParams.job].id
+        user: user[0].username.toLowerCase(),
+        jobId: user[0].jobs[this.docParams.job.toLowerCase()].id
       });
 
       return this.findJob();
@@ -76,23 +75,23 @@ class ConnectedIndex extends React.Component {
         loading: false
       });
     });
-  };
+  }
 
   render() {
-    const { job, jobId, loading } = this.state;
+    const { job, jobId, loading, user } = this.state;
     const { style } = this.props;
 
     return (
       <>
-        <UncontrolledAlert color="info">
-          I am an alert and I can be dismissed!
-        </UncontrolledAlert>
         { !loading
           ?
           job && jobId && job.privacy === true
             ? <p>this is a private event.</p>
             : job && jobId
-            ? <Viewer user={ this.docParams.user } job={ this.docParams.job } style={ style } />
+            ? <Viewer
+                user={ user }
+                job={ job.slug }
+                style={ style } />
             : <p>No event found with that user/job combination!</p>
           : <div className='sweet-loading'>
             <SyncLoader

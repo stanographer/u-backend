@@ -56,9 +56,6 @@ class NavigationAuthUser extends React.Component {
               <NavItem>
                 <NavLink href="/dashboard/">Dashboard</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   {firstName} {lastName}
