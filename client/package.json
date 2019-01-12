@@ -1,5 +1,5 @@
 {
-  "name": "upwordly-client",
+  "name": "upwordly",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:1988",
