@@ -21,10 +21,12 @@
  *
  * This algorithm is O(N). I suspect you could speed it up somehow using regular expressions.
  */
-let applyChange = function (doc, oldVal, newVal) {
+let applyChange = function(doc, oldVal, newVal) {
 
   // Strings are immutable and have reference equality. I think this tests is O(1), so its worth doing.
-  if (oldVal === newVal) return;
+  if (oldVal === newVal) {
+    return;
+  }
 
   let commonStart = 0;
   while (oldVal.charAt(commonStart) === newVal.charAt(commonStart)) {
@@ -55,7 +57,7 @@ let applyChange = function (doc, oldVal, newVal) {
 //
 // The context is optional, and will be created from the document if its not
 // specified.
-export const attachTextarea = function (elem, doc) {
+export const attachTextarea = function(elem, doc) {
   // if (!doc) doc = this.createContext();
   // if (!doc.provides.text) throw new Error('Cannot attach to non-text document');
 
@@ -71,9 +73,9 @@ export const attachTextarea = function (elem, doc) {
   let prevValue;
   let newSelection = [];
 
-    /*
-      ADD-IN
-      Enabling the tab key on the textarea.
+  /*
+   ADD-IN
+   Enabling the tab key on the textarea.
    */
 
   elem.onkeydown = e => {
@@ -102,7 +104,7 @@ export const attachTextarea = function (elem, doc) {
   /* Replace the content of the text area with newText, and transform the
    current cursor by the specified function. */
 
-  let replaceText = function (newText, transformCursor) {
+  let replaceText = function(newText, transformCursor) {
     if (transformCursor) {
       newSelection = [transformCursor(elem.selectionStart), transformCursor(elem.selectionEnd)];
     }
@@ -112,7 +114,9 @@ export const attachTextarea = function (elem, doc) {
     let scrollTop = elem.scrollTop;
     elem.value = newText;
     prevValue = elem.value; // Not done on one line so the browser can do newline conversion.
-    if (elem.scrollTop !== scrollTop) elem.scrollTop = scrollTop;
+    if (elem.scrollTop !== scrollTop) {
+      elem.scrollTop = scrollTop;
+    }
 
     // Setting the selection moves the cursor. We'll just have to let your
     // cursor drift if the element isn't active, though usually users don't
@@ -127,68 +131,51 @@ export const attachTextarea = function (elem, doc) {
 
   // *** remote -> local changes
 
-  let onInsert = function (pos, text) {
-    let transformCursor = function (cursor) {
-      return pos < cursor ? cursor + text.length : cursor;
-    };
-
-    // Remove any window-style newline characters. Windows inserts these, and
-    // they mess up the generated diff.
-    let prev = elem.value.replace(/\r\n/g, '\n');
-    replaceText(prev.slice(0, pos) + text + prev.slice(pos), transformCursor);
-  };
-
-
-  let onRemove = function (pos, length) {
-    let transformCursor = function (cursor) {
-      // If the cursor is inside the deleted region, we only want to move back to the start
-      // of the region. Hence the Math.min.
-      return pos < cursor ? cursor - Math.min(length, cursor - pos) : cursor;
-    };
-
-    let prev = elem.value.replace(/\r\n/g, '\n');
-    replaceText(prev.slice(0, pos) + prev.slice(pos + length), transformCursor);
-  };
-
-  let _updateField = function(fields, value) {
-    if (typeof value === 'number') {
-      fields.pos = value;
-    } else if (typeof value === 'string') {
-      fields.insertStr = value;
-    } else if (typeof value === 'object' && value.d !== undefined) {
-      fields.delNum = value.d;
-    }
-  };
-
-  doc.on('op', function (op, localContext) {
+  doc.on('op', function(op, localContext) {
     if (localContext === true) {
       return;
     }
-    let fields = {pos: 0, insertStr: '', delNum: 0};
 
+    let prev = elem.value;
+    const newDoc = [];
+
+    // Loop through the ops object.
     for (let i = 0; i < op.length; i++) {
-      _updateField(fields, op[i]);
+      let component = op[i];
+      // Classifies the different components of the op.
+      switch (typeof component) {
+        // If it is a number, make it the index.
+        case 'number':
+          // fields.pos = component;
+          newDoc.push(prev.slice(0, component));
+          prev = prev.slice(component);
+          break;
+        // If it is a string, we know to insert it into the temp variable.
+        case 'string':
+          // fields.insertStr = component;
+          // onInsert(fields.pos, fields.insertStr);
+          newDoc.push(component);
+          break;
+        // If it is an object, we know it's a delete command.
+        case 'object':
+          prev = prev.slice(component.d);
+          // fields.delNum = component.d;
+          // onRemove(fields.pos, fields.delNum);
+          break;
+      }
     }
-
-    if (fields.insertStr.length > 0) {
-      // insert
-      onInsert(fields.pos, fields.insertStr);
-    }
-    if (fields.delNum > 0) {
-      // delete
-      onRemove(fields.pos, fields.delNum);
-    }
+    return replaceText(newDoc.join('') + prev);
   });
 
   // *** local -> remote changes
 
   // This function generates operations from the changed content in the textarea.
-  let genOp = function (event) {
+  let genOp = function(event) {
     // In a timeout so the browser has time to propagate the event's changes to the DOM.
-    setTimeout(function () {
+    setTimeout(function() {
       if (elem.value !== prevValue) {
         prevValue = elem.value;
-        applyChange(doc, doc.data, elem.value.replace(/\r\n/g, '\n'));
+        applyChange(doc, doc.data, elem.value);
       }
     }, 0);
   };
@@ -203,7 +190,7 @@ export const attachTextarea = function (elem, doc) {
     }
   }
 
-  doc.detach = function () {
+  doc.detach = function() {
     for (let i = 0; i < eventNames.length; i++) {
       let e = eventNames[i];
       if (elem.removeEventListener) {

@@ -13,24 +13,26 @@ import {
   Row,
   UncontrolledAlert
 } from 'reactstrap';
-
-
 import { PasswordForgetLink } from '../PasswordForget';
 import { SignUpLink } from '../SignUp';
 import * as ROUTES from '../../constants/routes';
+import './index.css';
 
 const SignInPage = () => (
-  <Container>
-    <Row>
-      <Col md="4" />
-      <Col md="4">
-        <SignInForm />
-        <PasswordForgetLink />
-        <SignUpLink />
-      </Col>
-      <Col md="4" />
-    </Row>
-  </Container>
+  <div className="login__form">
+    <Container>
+      <Row>
+        <Col md={ 3 } />
+        <Col md={ 6 }>
+          <h2 className="login__form-header">Upwordly</h2>
+          <SignInForm />
+          <PasswordForgetLink />
+          <SignUpLink />
+        </Col>
+        <Col md={ 3 } />
+      </Row>
+    </Container>
+  </div>
 );
 
 const INITIAL_STATE = {
@@ -49,15 +51,12 @@ class SignInFormBase extends Component {
   onSubmit = event => {
     const { email, password } = this.state;
 
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.DASHBOARD);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
+    this.props.firebase.doSignInWithEmailAndPassword(email, password).then(() => {
+      this.setState({ ...INITIAL_STATE });
+      this.props.history.push(ROUTES.DASHBOARD);
+    }).catch(error => {
+      this.setState({ error });
+    });
 
     event.preventDefault();
   };
@@ -72,32 +71,33 @@ class SignInFormBase extends Component {
 
     return (
       <div>
-        <h1>Aloft Sign-In</h1>
         <Form onSubmit={ this.onSubmit }>
           <FormGroup row>
             <Label for="email" sm={ 4 } size="lg">Email</Label>
             <Col sm={ 8 }>
               <Input
+                required
                 value={ email }
                 onChange={ this.onChange }
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Email address"
                 bsSize="lg" />
+              <span className="floating-label">Your email address</span>
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="password" sm={ 4 } size="lg">Password</Label>
             <Col sm={ 8 }>
               <Input
+                required
                 value={ password }
                 onChange={ this.onChange }
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Password"
                 bsSize="lg" />
+              <span className="floating-label">Your password</span>
             </Col>
           </FormGroup>
           { error &&

@@ -48,17 +48,17 @@ class Firebase {
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
 
-  // User API
+  /* User API */
 
+  // Returns user object.
   user = uid => this.db.ref(`users/${uid}`);
 
+  // Returns ref to the /users path.
   users = () => this.db.ref('users');
 
   findUser = username => this.db.ref('users')
     .orderByChild('username')
     .equalTo(username);
-
-  userJobList = uid => this.user(uid).child('jobs');
 
   deleteJobFromUser = slug =>
     this.user(this.auth.currentUser.uid)

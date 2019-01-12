@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 function ShareDBBinding(props) {
   const { doc, onLoaded, cssClass, style } = props;
+
   let [text, setText] = useState('');
   let binding;
 
@@ -27,7 +28,6 @@ function ShareDBBinding(props) {
       } else {
         setText(binding.snapshot);
       }
-
       onLoaded();
     });
 

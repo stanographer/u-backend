@@ -3,7 +3,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import otText from 'ot-text';
 
 const host = window.location.hostname;
-const port = process.env.REACT_APP_WS_PORT || 9090;
+const port = process.env.REACT_APP_WS_PORT || 1988;
 
 const socket = new ReconnectingWebSocket('ws://' + host + ':' + port, [], {
   automaticOpen: true,

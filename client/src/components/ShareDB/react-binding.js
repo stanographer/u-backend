@@ -15,11 +15,12 @@ export default class Binding {
   applyOp(op) {
     // When an op is received, transform it, and
     // set it equal to the component snapshot.
-    this.snapshot = this.transformSnapshot(op, this.snapshot);
+    this.snapshot = Binding.transformSnapshot(op, this.snapshot);
     return this.snapshot;
   }
 
-  transformSnapshot = (op, snap) => {
+  static transformSnapshot(op, snap) {
+    console.log(op);
     // Create a new temp variable to hold changes.
     const newDoc = [];
 
@@ -46,5 +47,5 @@ export default class Binding {
     // Once that is done, join the changes stored in the temp variable
     // to the snapshot and send it back to applyOp().
     return newDoc.join('') + snap;
-  };
+  }
 }

@@ -51,8 +51,31 @@ html, body {
     html, body {
       font-size: unset; } }
 
+.form-group .form-control, .input-group .form-control {
+  padding: 1.4em 1em 1em 1em; }
+
 .header--h1-margins {
   margin: 1em 0 1em 0; }
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: .2em;
+  bottom: .5em;
+  left: 3.2em;
+  font-size: .3em;
+  opacity: 1; }
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px; }
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 2em;
+  top: 1em;
+  transition: 0.2s ease all; }
 
 .nav-item {
   margin: 0 1em 0 1em; }

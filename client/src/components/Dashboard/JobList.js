@@ -93,15 +93,11 @@ class JobList extends React.Component {
       if (this.state.selectedJobs && ! this.state.selectedJobs.includes(e.target.name)) {
         this.setState({
           selectedJobs: [...this.state.selectedJobs, e.target.name]
-        }, () => {
-          console.log('added', this.state.selectedJobs);
         });
       }
     } else {
       this.setState({
         selectedJobs: this.state.selectedJobs.filter(job => job !== e.target.name)
-      }, () => {
-        console.log('removed', this.state.selectedJobs);
       });
     }
   }
@@ -166,11 +162,13 @@ class JobList extends React.Component {
                   <DropdownItem
                     href="#"
                     onClick={ e => this.handleDownloadJobs(e) }>
+                    <i className="tim-icons icon-cloud-download-93" />
                     Download Transcription File
                   </DropdownItem>
                   <DropdownItem
                     href="#"
                     onClick={ e => this.handleDeleteJobs(e) }>
+                    <i className="tim-icons icon-simple-remove" />
                     Delete
                   </DropdownItem>
                 </DropdownMenu>

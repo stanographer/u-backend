@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 import {
@@ -10,10 +11,8 @@ import Navigation from '../Navigation';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import JobCreator from './JobCreator';
-import './index.css';
 import JobList from './JobList';
-import classnames from 'classnames';
-import EventSchedulerManager from './EventSchedulerManager';
+import './index.css';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -61,7 +60,6 @@ class Dashboard extends React.Component {
 
     firebase.user(firebase.auth.currentUser.uid).once('value', snapshot => {
       const userSnapshot = snapshot.val();
-      console.log(snapshot.val());
       this.setState({
         user: {
           ...userSnapshot,
@@ -71,6 +69,10 @@ class Dashboard extends React.Component {
     });
   }
 }
+
+Dashboard.propTypes = {
+  firebase: PropTypes.object
+};
 
 const condition = authUser => !!authUser;
 
