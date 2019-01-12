@@ -13,10 +13,13 @@ services:
   mongo:
     container_name: mongo
     image: mongo
+    restart: always
     ports:
       - '27017:27017'
+    command: mongod --bind_ip 127.0.0.1,172.16.0.1
   redis:
     container_name: redis
+    restart: always
     image: redis:alpine
     ports:
       - '6379:6379'
