@@ -3,6 +3,7 @@ import Binding from './react-binding';
 import PropTypes from 'prop-types';
 
 function ShareDBBinding(props) {
+  console.log(props);
   const { doc, onLoaded, cssClass, style } = props;
 
   let [text, setText] = useState('');

@@ -17,13 +17,6 @@ import {
 
 import * as ROUTES from '../../constants/routes';
 
-const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
-  </div>
-);
-
 const INITIAL_STATE = {
   fullName: '',
   fullNameValid: null,
@@ -241,18 +234,14 @@ class SignUpFormBase extends Component {
   render() {
 
     const {
-      fullName,
       fullNameValid,
       username,
       email,
       emailValid,
       emailAvailable,
-      parsedName,
       passwordOne,
       passwordTwo,
       passwordStrength,
-      privilegeLevel,
-      usersList,
       error
     } = this.state;
 

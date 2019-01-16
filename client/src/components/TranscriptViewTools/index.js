@@ -170,9 +170,7 @@ class ConnectedTranscriptViewTools extends React.Component {
       backgroundColor,
       color,
       fontSize,
-      fontFamily,
       lineHeight,
-      margin,
       textTransform
     } = this.props.style;
     return (

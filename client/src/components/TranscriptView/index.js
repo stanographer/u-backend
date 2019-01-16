@@ -4,8 +4,6 @@ import Viewer from './Viewer';
 import { css } from 'react-emotion';
 import { SyncLoader } from 'react-spinners';
 import './index.css';
-import Private from '../Placeholders/Private';
-import HasntStarted from '../Placeholders/HasntStarted';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {

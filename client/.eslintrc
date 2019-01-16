@@ -1,29 +1,42 @@
 {
-  "env": {
-    "jest": true,
-    "es6": true
-  },
-  "extends": [
-    "eslint:recommended", "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react"
-  ],
+  "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
+    "ecmaVersion": 2017
+  },
+  "env": {
+    "es6": true,
+    "node": true
   },
   "rules": {
-    // don't force es6 functions to include space before paren
-    "space-before-function-paren": ["error", "never"],
-    "semi": [2, "always"],
-    "skipBlankLines": false,
-    "ignoreComments": false,
-
-    // allow specifying true explicitly for boolean props
-    "react/jsx-boolean-value": 0
+    // enable additional rules
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eqeqeq": "off",
+    "curly": "error",
+    // override default options for rules from base configurations
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "no-cond-assign": [
+      "error",
+      "always"
+    ],
+    // disable rules from base configurations
+    "no-console": "off"
   }
 }
