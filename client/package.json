@@ -53,7 +53,7 @@
     "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
     "startdev": "NODE_PATH=./src REACT_APP_ENV=dev npm-run-all -p watch-css start-js",
     "start-js": "react-scripts start",
-    "build": "NODE_PATH=./src REACT_APP_ENV=production npm run build-css && react-scripts build --verbose",
+    "build": "npm run build-css && react-scripts build",
     "clean": "rm -rf node_modules",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

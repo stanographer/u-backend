@@ -18,15 +18,16 @@ const bodyParser = require('body-parser');
 
 /* Servers */
 const ShareDBMongo = require('sharedb-mongo')(
-  process.env.NODE_ENV === 'dev'
-    ? 'mongodb://localhost:27017/aloft'
-    : 'mongodb://mongo:27017/upwordly'
+  process.env.NODE_ENV === 'production'
+    ? 'mongodb://mongo:27017/upwordly'
+    : 'mongodb://localhost:27017/aloft'
 );
 
 const redisPubSub = require('sharedb-redis-pubsub')(
-  process.env.NODE_ENV === 'dev' || 'test'
-    ? 'redis://localhost:6379'
-    : 'redis://redis:6379');
+  process.env.NODE_ENV === 'production'
+    ? 'redis://redis:6379'
+    : 'redis://localhost:6379'
+);
 
 /* Port config */
 const PORT = process.env.PORT || 1988;
@@ -57,7 +58,7 @@ function startServer(port, ws_port) {
   app.use('/api', apiRouter);
 
   // Global path.
-  app.get('/*', (req, res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 
