@@ -30,15 +30,17 @@ services:
     ports:
       - '6379:6379'
   client:
+    container_name: upwordly_client
+    command: serve -s build
     build:
       context: ./client/
-    command: serve -s build
     volumes:
-      - ./client/:/usr/app/client
+      - ./client/:/usr/app
       - /usr/app/node_modules
     depends_on:
       - server
     environment:
       - REACT_APP_ENV=production
+      - API_URI=http://localhost:1988
     ports:
       - '5000:5000'

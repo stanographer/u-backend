@@ -19,5 +19,6 @@ COPY server/ ./
 
 ENV NODE_ENV production
 
-EXPOSE 9090 1988
+EXPOSE 9090 1988 5000
+
 CMD ["npm", "start"]
