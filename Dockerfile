@@ -9,6 +9,9 @@ WORKDIR /usr/src/app
 # Copy the package.json.
 COPY package*.json ./
 
+# Get rid of Error: could not get uid/gid.
+RUN npm config set unsafe-perm true
+
 # Install dependencies.
 RUN npm install -qy
 
