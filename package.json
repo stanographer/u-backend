@@ -1,0 +1,28 @@
+{
+  "name": "upwordly",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "startdev": "NODE_ENV=dev nodemon ./bin/www",
+    "start": "NODE_ENV=production nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@teamwork/sharedb": "^3.0.1",
+    "@teamwork/websocket-json-stream": "^1.1.1",
+    "cluster": "^0.7.7",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "cowsay": "^1.4.0",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "ot-text": "^1.0.2",
+    "pug": "2.0.0-beta11",
+    "sharedb-mongo": "^1.0.0-beta.8",
+    "sharedb-redis-pubsub": "^1.0.0-beta.1",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1"
+  }
+}

@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+const start = require('./start');
+
+// Normalize a port into a number, string, or false.
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
+
+// Get port from environment and store in Express.
+const port = normalizePort(process.env.PORT || '9000');
+
+if (cluster.isMaster) {
+  console.log(`Master ${ process.pid } is running. ✅`);
+
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.error(
+      `Worker ${ worker.process.pid } died. ❌
+       Code: ${ code }.
+       Signal: ${ signal }`
+    );
+
+    // Re-spawn after failure.
+    cluster.fork();
+    console.log('Restarting... ✝');
+  });
+} else {
+  // Start server.
+  start(port);
+  console.log(`Worker process, ${ process.pid } online. 👷`);
+}
