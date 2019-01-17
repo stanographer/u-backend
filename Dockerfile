@@ -21,6 +21,6 @@ COPY . .
 
 ENV NODE_ENV production
 
-EXPOSE 9000
+EXPOSE 443 9000
 
 CMD ["npm", "start"]
