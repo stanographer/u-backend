@@ -23,6 +23,7 @@ function normalizePort(val) {
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '9000');
 
+// Using Cluster to create worker processes.
 if (cluster.isMaster) {
   console.log(`Master ${ process.pid } is running. ✅`);
 

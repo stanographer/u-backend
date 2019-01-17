@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "startdev": "NODE_ENV=dev nodemon ./bin/www",
-    "start": "NODE_ENV=production nodemon ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "@teamwork/sharedb": "^3.0.1",

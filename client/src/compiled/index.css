@@ -1,0 +1,81 @@
+/* Media query breakpoints */
+/* Media query mixins */
+/* Custom devices */
+@font-face {
+  font-family: 'Cousine';
+  src: url("./assets/fonts/Cousine/Cousine-Regular.eot");
+  src: url("./assets/fonts/Cousine/Cousine-Regular.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Cousine/Cousine-Regular.woff2") format("woff2"), url("./assets/fonts/Cousine/Cousine-Regular.woff") format("woff"), url("./assets/fonts/Cousine/Cousine-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Chivo';
+  src: url("./assets/fonts/Chivo/Chivo-Regular.eot");
+  src: url("./assets/fonts/Chivo/Chivo-Regular.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Chivo/Chivo-Regular.woff2") format("woff2"), url("./assets/fonts/Chivo/Chivo-Regular.woff") format("woff"), url("./assets/fonts/Chivo/Chivo-Regular.svg#Chivo-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Chivo-Bold';
+  src: url("./assets/fonts/Chivo/Chivo-Bold.eot");
+  src: url("./assets/fonts/Chivo/Chivo-Bold.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Chivo/Chivo-Bold.woff2") format("woff2"), url("./assets/fonts/Chivo/Chivo-Bold.woff") format("woff"), url("./assets/fonts/Chivo/Chivo-Bold.svg#Chivo-Bold") format("svg");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("./assets/fonts/Poppins/Poppins-Regular.eot");
+  src: url("./assets/fonts/Poppins/Poppins-Regular.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Poppins/Poppins-Regular.woff2") format("woff2"), url("./assets/fonts/Poppins/Poppins-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins Medium';
+  src: url("./assets/fonts/Poppins/Poppins-Medium.eot");
+  src: url("./assets/fonts/Poppins/Poppins-Medium.eot?#iefix") format("embedded-opentype"), url("./assets/fonts/Poppins/Poppins-Medium.woff2") format("woff2"), url("./assets/fonts/Poppins/Poppins-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+html, body {
+  font-family: 'Poppins', sans-serif; }
+  @media (min-width: 576px) {
+    html, body {
+      font-size: 62.5%; } }
+  @media (min-width: 768px) {
+    html, body {
+      font-size: 62.5%; } }
+  @media (min-width: 992px) {
+    html, body {
+      font-size: unset; } }
+  @media (min-width: 1200px) {
+    html, body {
+      font-size: unset; } }
+
+.form-group .form-control, .input-group .form-control {
+  padding: 1.4em 1em 1em 1em; }
+
+.header--h1-margins {
+  margin: 1em 0 1em 0; }
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: .2em;
+  bottom: .5em;
+  left: 3.2em;
+  font-size: .3em;
+  opacity: 1; }
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px; }
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 2em;
+  top: 1em;
+  transition: 0.2s ease all; }
+
+.nav-item {
+  margin: 0 1em 0 1em; }

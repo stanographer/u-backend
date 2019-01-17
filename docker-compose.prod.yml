@@ -4,14 +4,14 @@ services:
     container_name: upwordly
     restart: always
     build: .
-    command: npm run startdev
+    command: npm start
     ports:
       - '9000:9000'
     links:
       - mongo
       - redis
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=production
   mongo:
     container_name: mongo
     image: mongo
@@ -28,8 +28,8 @@ services:
     build:
       context: ./client/
     environment:
-      - REACT_APP_ENV=dev
-    command: npm run startdev
+      - REACT_APP_ENV=production
+    command: npm start
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules

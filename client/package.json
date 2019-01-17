@@ -2,7 +2,7 @@
   "name": "upwordly",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9000",
+  "proxy": "http://server:9000",
   "homepage": "https://upword.ly",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -48,14 +48,14 @@
     "sharedb-string-binding": "latest"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
+    "build": "npm-run-all build-css build-js",
+    "build-css": "node-sass --include-path ./src  --include-path ./node_modules src/ -o src/compiled",
     "build-js": "react-scripts build",
     "move-build-to-server": "mv build _build && mv _build ../server && cd ../server && rm -rf public && mv _build public",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
+    "start": "npm-run-all -p watch-css start-js",
     "startdev": "NODE_PATH=./src REACT_APP_ENV=dev npm-run-all -p watch-css start-js",
     "start-js": "NODE_PATH=./src/ react-scripts start",
-    "build": "npm-run-all build-css build-js",
     "clean": "rm -rf node_modules",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

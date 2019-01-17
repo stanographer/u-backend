@@ -1,26 +1,28 @@
-# Setup and build the client
+# ========= BUILD SERVER =========
 
-FROM node:10-alpine as client
-WORKDIR /usr/app/client/
-COPY client/package*.json ./
+# Grab image.
+FROM node:10-alpine as node
+
+# Where our app will live in the container
+WORKDIR /usr/src/app
+
+# Copy the package.json.
+COPY package*.json ./
+
+# Install dependencies.
 RUN npm install -qy
-COPY client/ ./
-RUN npm run build --production
 
-# Setup the server
-FROM node:10-alpine as server
-WORKDIR /usr/app/
-COPY --from=client /usr/app/client/build/ ./client/build/
-
-WORKDIR /usr/app/
-COPY ./package*.json ./
-RUN npm config set unsafe-perm true
-RUN npm install -qy
+# Install Nodemon.
 RUN npm install nodemon -g
+
+# Copy everything else into container.
 COPY . .
 
-ENV NODE_ENV production
+# Expose the port.
+EXPOSE 9000
 
-EXPOSE 443 9000
-
+# Start
 CMD ["npm", "start"]
+
+
+
