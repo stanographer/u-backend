@@ -8,7 +8,7 @@ COPY client/ ./
 RUN npm run build --production
 
 # Setup the server
-FROM node:10-alpine
+FROM node:10-alpine as server
 WORKDIR /usr/app/
 COPY --from=upwordly-client /usr/app/client/build/ ./client/build/
 
