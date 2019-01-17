@@ -41,6 +41,5 @@ services:
       - server
     environment:
       - REACT_APP_ENV=production
-      - API_URI=http://localhost:1988
     ports:
       - '5000:5000'

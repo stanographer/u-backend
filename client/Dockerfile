@@ -23,6 +23,9 @@ RUN npm run build --production
 # Install `serve` to run the application.
 RUN npm install -g serve
 
+# Set to production env.
+ENV REACT_APP_ENV production
+
 # Tell Docker about the port we'll run on.
 EXPOSE 5000
 
