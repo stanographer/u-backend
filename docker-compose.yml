@@ -32,11 +32,13 @@ services:
   client:
     build:
       context: ./client/
-    command: npm start
+    command: serve -s build
     volumes:
-      - ./client/:/usr/app
+      - ./client/:/usr/app/client
       - /usr/app/node_modules
     depends_on:
       - server
+    environment:
+      - REACT_APP_ENV=production
     ports:
-      - '3000:3000'
+      - '5000:5000'

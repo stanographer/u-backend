@@ -58,7 +58,7 @@ function startServer(port, ws_port) {
   app.use('/api', apiRouter);
 
   // Global path.
-  app.get('*', (req, res) => {
+  app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 

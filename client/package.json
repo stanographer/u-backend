@@ -48,12 +48,14 @@
     "sharedb-string-binding": "latest"
   },
   "scripts": {
-    "build-css": "NODE_PATH=./src node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "build-js": "react-scripts build",
+    "move-build-to-server": "mv build _build && mv _build ../server && cd ../server && rm -rf public && mv _build public",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
     "startdev": "NODE_PATH=./src REACT_APP_ENV=dev npm-run-all -p watch-css start-js",
-    "start-js": "react-scripts start",
-    "build": "npm run build-css && react-scripts build",
+    "start-js": "NODE_PATH=./src/ react-scripts start",
+    "build": "npm-run-all build-css build-js",
     "clean": "rm -rf node_modules",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -67,6 +69,6 @@
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "eslint": "^5.6.0",
-    "npm-run-all": "^4.1.3"
+    "npm-run-all": "^4.1.5"
   }
 }
