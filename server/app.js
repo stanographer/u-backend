@@ -59,7 +59,7 @@ function startServer(port, ws_port) {
 
   // Global path.
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'app.js'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.js'));
   });
 
   // Creating server and WebSockets server.

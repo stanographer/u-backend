@@ -12,6 +12,7 @@ services:
     ports:
       - '1988:1988'
       - '9090:9090'
+      - '443:443'
     links:
       - mongo
       - redis
