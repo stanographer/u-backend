@@ -1,16 +1,3 @@
-FROM node:10-alpine
-
-WORKDIR /usr/app
-
-COPY package*.json ./
-
-RUN npm install -qy
-
-COPY . .
-
-RUN npm run build
-
-
 # You should always specify a full version here to ensure all of your developers
 # are running the same version of Node.
 FROM node:10-alpine
@@ -21,14 +8,17 @@ WORKDIR /usr/app
 # Copy the package.json file.
 COPY package*.json ./
 
+# Stop errors.
+RUN npm config set unsafe-perm true
+
 # Install dependencies.
-RUN npm install
+RUN npm install -qy
 
 # Copy all local files into the image.
 COPY . .
 
 # Build for production.
-RUN npm run build
+RUN npm run build --production
 
 # Install `serve` to run the application.
 RUN npm install -g serve

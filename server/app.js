@@ -31,7 +31,7 @@ const redisPubSub = require('sharedb-redis-pubsub')(
 
 /* Port config */
 const PORT = process.env.PORT || 1988;
-const WS_PORT = process.env.PORT || 9090;
+const WS_PORT = process.env.NODE_ENV === 'production' ? 443 : 9090;
 
 /* Main process */
 function startServer(port, ws_port) {
