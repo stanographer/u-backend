@@ -1,28 +1,68 @@
 {
   "name": "upwordly",
   "version": "0.1.0",
-  "private": true,
+  "description": "CMS for real-time captioning and transcriptions.",
+  "main": "app.js",
   "scripts": {
-    "startdev": "NODE_ENV=dev nodemon ./bin/www",
-    "start": "nodemon ./bin/www"
+    "start": "NODE_ENV=production nodemon app.js",
+    "startdev": "NODE_ENV=dev nodemon app.js",
+    "test": "NODE_ENV=dev jest"
   },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanographer/upwordly.git"
+  },
+  "keywords": [
+    "steno",
+    "stenography",
+    "captioning",
+    "captions",
+    "transcription",
+    "transcriptions",
+    "live",
+    "transcriptions",
+    "live",
+    "captioning",
+    "realtime",
+    "captioning",
+    "realtime",
+    "transcription",
+    "real-time",
+    "transcription",
+    "real-time",
+    "captioning"
+  ],
+  "author": "Stanley Sakai, Sam Kimbrel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stanographer/upwordly/issues"
+  },
+  "homepage": "https://github.com/stanographer/upwordly#readme",
   "dependencies": {
     "@teamwork/sharedb": "^3.0.1",
     "@teamwork/websocket-json-stream": "^1.1.1",
+    "body-parser": "^1.18.3",
     "cluster": "^0.7.7",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
-    "cowsay": "^1.4.0",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
+    "cowsay": "^1.3.1",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "os": "^0.1.1",
     "ot-text": "^1.0.2",
-    "pug": "2.0.0-beta11",
+    "path": "^0.12.7",
+    "sharedb-firebase": "0.0.1",
     "sharedb-mongo": "^1.0.0-beta.8",
     "sharedb-redis-pubsub": "^1.0.0-beta.1",
+    "supertest": "^3.3.0",
     "ws": "^6.1.2"
   },
   "devDependencies": {
-    "morgan": "^1.9.1"
+    "nodemon": "^1.18.9",
+    "standard": "^12.0.1"
   }
 }

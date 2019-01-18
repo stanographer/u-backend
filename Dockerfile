@@ -1,7 +1,7 @@
 # ========= BUILD SERVER =========
 
 # Grab image.
-FROM node:10-alpine as node
+FROM node:10-alpine
 
 # Where our app will live in the container
 WORKDIR /usr/src/app
@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm config set unsafe-perm true
 
 # Install dependencies.
-RUN npm install -qy
+RUN npm install
 
 # Install Nodemon.
 RUN npm install nodemon -g
@@ -22,7 +22,7 @@ RUN npm install nodemon -g
 COPY . .
 
 # Expose the port.
-EXPOSE 9000
+EXPOSE 1988
 
 # Start
 CMD ["npm", "start"]

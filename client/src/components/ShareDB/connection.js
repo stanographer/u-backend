@@ -2,11 +2,16 @@ import ShareDB from '@teamwork/sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import otText from 'ot-text';
 
-const host = window.location.hostname;
-const port = process.env.REACT_APP_ENV === 'production' ? '' : 9000;
-const protocol = process.env.REACT_APP_ENV === 'production' ? 'wss://' : 'ws://';
+const server = {
+  host: window.location.hostname,
+  port: process.env.REACT_APP_ENV === 'production' ? '' : ':1988',
+  protocol: process.env.REACT_APP_ENV === 'production' ? 'wss://' : 'ws://',
+  getAddress: function() {
+    return this.protocol + this.host + this.port;
+  }
+};
 
-const socket = new ReconnectingWebSocket(protocol + host + ':' + port, [], {
+const socket = new ReconnectingWebSocket(server.getAddress(), [], {
   automaticOpen: true,
   maxReconnectionDelay: 2000,
   reconnectInterval: 2000,

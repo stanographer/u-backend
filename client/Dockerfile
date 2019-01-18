@@ -4,7 +4,7 @@
 FROM node:10-alpine
 
 # Where our app will live in the container
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 # Copy the package.json.
 COPY package*.json ./
@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm config set unsafe-perm true
 
 # Install dependencies.
-RUN npm install -qy
+RUN npm install
 
 # Copy everything else into container.
 COPY . .
