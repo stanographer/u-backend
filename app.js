@@ -27,9 +27,11 @@ const RedisPubSub = require('sharedb-redis-pubsub')('redis://redis:6379');
 
 /* Port config */
 const PORT = process.env.PORT || 1988;
+const CLIENT_BUILD_PATH = path.join(__dirname, 'client/build');
+// const HOST = '0.0.0.0';
 
 /* Main process */
-function startServer(port) {
+function startServer(port, host) {
   const share = new ShareDB({
     db: ShareDBMongo,
     pubsub: RedisPubSub,
@@ -49,7 +51,7 @@ function startServer(port) {
   app.use(cookieParser());
   app.use(express.json());
   // Serve the static files from the React app
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(CLIENT_BUILD_PATH));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cors());
   app.set('view engine', 'ejs');
@@ -59,7 +61,7 @@ function startServer(port) {
 
   // Global path.
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.js'));
+    res.sendFile(CLIENT_BUILD_PATH, 'index.html');
   });
 
   socket.on('connection', (websocket, req) => {
@@ -85,8 +87,8 @@ function startServer(port) {
 
   // Create master process.
 
-  server.listen(port, () =>
-    console.log(`WebSockets & Express listening on port ${ port }. 🔌✅`));
+  server.listen(port);
+  console.log(`WebSockets & Express listening on port ${ port }. 🔌✅`)
 }
 
 if (cluster.isMaster) {

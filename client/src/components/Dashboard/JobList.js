@@ -141,7 +141,6 @@ class JobList extends React.Component {
 
   render() {
     const { jobs, loading } = this.state;
-
     return (
       <div>
         { !loading

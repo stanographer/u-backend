@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 
 import { withAuthentication } from '../Session';
-import Coachella from '../Coachella';
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
@@ -25,7 +24,6 @@ const App = () =>
     <div>
       <Route path={ ROUTES.ACCOUNT } component={ AccountPage } />
       <Route path={ ROUTES.ADMIN } component={ AdminPage } />
-      <Route path={ ROUTES.COACHELLA } component={ Coachella } />
       <Route path={ ROUTES.DASHBOARD } component={ DashboardPage } />
       <Route exact path={ ROUTES.LANDING } component={ LandingPage } />
       <Route path={ ROUTES.SIGN_UP } component={ SignUpPage } />

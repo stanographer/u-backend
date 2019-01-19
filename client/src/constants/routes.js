@@ -1,7 +1,6 @@
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const APP = '/app';
-export const COACHELLA = '/coachella';
 export const DASHBOARD = '/dashboard';
 export const LANDING = '/';
 export const PASSWORD_CHANGE = 'pw-change';

@@ -2,7 +2,7 @@
   "name": "upwordly",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://server:9000",
+  "proxy": "http://server:1988",
   "homepage": "https://upword.ly",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -36,6 +36,7 @@
     "react-scroll": "^1.7.10",
     "react-spinners": "^0.4.7",
     "react-tippy": "^1.2.3",
+    "react-typed": "^1.1.0",
     "reactstrap": "^6.5.0",
     "recompose": "^0.30.0",
     "reconnecting-websocket": "^4.1.10",

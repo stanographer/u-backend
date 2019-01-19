@@ -1,7 +1,32 @@
 version: '3'
 services:
-  web:
+  server:
     build: .
     ports:
-      - '80:1988'
+      - '1988:1988'
     restart: always
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+#  client:
+#    build:
+#      context: ./client/
+#    command: npm run startdev
+#    volumes:
+#      - ./client/:/usr/app
+#      - /usr/app/node_modules
+#    depends_on:
+#      - server
+#    env_file: ./client/.env
+#    ports:
+#       - '3000:3000'

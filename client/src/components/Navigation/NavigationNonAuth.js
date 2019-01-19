@@ -1,19 +1,23 @@
 import React from 'react';
 import {
-  Collapse, DropdownItem, DropdownMenu, DropdownToggle,
-  Nav,
+  Container,
+  Collapse,
   Navbar,
-  NavbarBrand,
   NavbarToggler,
+  NavbarBrand,
+  Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown
-} from 'reactstrap/src';
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 import SignOutButton from './index';
 
 class NavigationNonAuth extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -29,24 +33,50 @@ class NavigationNonAuth extends React.Component {
 
   render() {
     return (
-      <div>
-        <Navbar className="navbar-horizontal navbar-expand-lg" expand="md">
-          <NavbarBrand href="/">
-            Upwordly
-          </NavbarBrand>
-          <NavbarToggler onClick={ this.toggle } />
-          <Collapse isOpen={ this.state.isOpen } navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/dashboard/">Dashboard</NavLink>
-              </NavItem>
-              <NavItem>
-                <SignOutButton />
-              </NavItem>
-            </Nav>
-          </Collapse>
+      <>
+        <Navbar color="dark"
+                className="navbar fixed-top navbar-dark bg-primary"
+                expand="lg"
+                fixed="true">
+          <Container>
+            <NavbarBrand href="/">UPWORDLY</NavbarBrand>
+            <NavbarToggler onClick={ this.toggle } />
+            <Collapse isOpen={ this.state.isOpen } navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/components/">About</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="https://github.com/reactstrap/reactstrap">Pricing</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="https://github.com/reactstrap/reactstrap">Features</NavLink>
+                </NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Options
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      Option 1
+                    </DropdownItem>
+                    <DropdownItem>
+                      Option 2
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      Reset
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <NavItem>
+                  <a href="#" className="btn btn-outline-light btn-md">Login</a>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Container>
         </Navbar>
-      </div>
+      </>
     );
   }
 }
