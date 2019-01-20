@@ -13,6 +13,7 @@ import { withRouter } from 'react-router-dom';
 import JobCreator from './JobCreator';
 import JobList from './JobList';
 import './index.css';
+import Footer from '../Footer';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -39,8 +40,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Navigation user={ this.state.user } />
-        <Container className="wrapper">
-          <div className="vertical-padding-5em" />
+        <Container className="container clear-navbar-footer">
           <Row>
             <Col lg="6" md="12">
               <JobCreator user={ this.state.user } />
@@ -50,6 +50,7 @@ class Dashboard extends React.Component {
             </Col>
           </Row>
         </Container>
+        <Footer />
       </div>
     );
   }

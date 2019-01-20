@@ -2,7 +2,7 @@
   "name": "upwordly",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://server:1988",
+  "proxy": "http://localhost:1988",
   "homepage": "https://upword.ly",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",

@@ -26,5 +26,28 @@ hr {
   width: 80vw;
   font-size: 1.4em; }
 
+.job-creator-card .card-header {
+  font-family: 'Poppins Medium', sans-serif !important; }
+
+.job-creator-card .card-header {
+  border-bottom: unset;
+  padding: 2rem 1em 0 1.6rem; }
+
+.job-creator-card .card-footer {
+  border-top: unset;
+  padding: 0 0 1.25rem 1.3rem; }
+
+.recent-jobs-card .card-header {
+  font-family: 'Poppins Medium', sans-serif !important;
+  border-bottom: unset;
+  padding: 2rem 1em 0 1.6rem; }
+
+.recent-jobs-card .card-footer {
+  border-top: unset;
+  padding: 0 0 1.25rem 1.3rem; }
+
+.recent-jobs--card-title {
+  font-family: 'Poppins Medium', sans-serif !important; }
+
 .textField-hidden {
   display: none; }

@@ -13,7 +13,6 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-import SignOutButton from './index';
 
 class NavigationNonAuth extends React.Component {
   constructor(props) {

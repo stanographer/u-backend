@@ -53,7 +53,7 @@ class JobList extends React.Component {
       // There must be a better way to do this instead of re-traversing the
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
-        const port = process.env.REACT_APP_ENV === 'production' ? '' : 9000;
+        const port = process.env.REACT_APP_ENV === 'production' ? '' : 1988;
         const url = process.env.REACT_APP_ENV === 'production'
         ? `${ window.location.protocol }//${ window.location.hostname }`
         : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
@@ -144,9 +144,9 @@ class JobList extends React.Component {
     return (
       <div>
         { !loading
-          ? <Card className="card-tasks">
+          ? <Card className="card-tasks recent-jobs-card">
             <CardHeader>
-              <h4 className="title d-inline text-primary">REPOSITORY</h4>
+              <h4 className="title d-inline text-primary">RECENT JOBS</h4>
               {/*<p className="card-category d-inline"> today</p>*/ }
               <UncontrolledDropdown>
                 <DropdownToggle
@@ -213,7 +213,7 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
           </FormGroup>
         </td>
         <td>
-          <p className="title text-info">{ job.title ? job.title : job.slug }</p>
+          <p className="title text-primary recent-jobs--card-title">{ job.title ? job.title : job.slug }</p>
           <p className="small text-muted">{ new Date(job.timeCreated).toLocaleString() }</p>
           <p>
             { job.snippet ? job.snippet : <em>This job has no preview.</em> }

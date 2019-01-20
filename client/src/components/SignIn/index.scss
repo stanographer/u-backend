@@ -1,8 +1,13 @@
 .login__form {
-  margin: 14em 0 0 0;
+  padding: 14em 0 0 0;
 }
 
-.login__form-header {
+.login--form-header {
   color: #27293d;
+  font-weight: bold;
+  margin: 0 1em 0 0;
+}
+
+.login--form-welcome {
   margin: 0 0 2em 0;
 }

@@ -6,6 +6,7 @@ export const DASHBOARD = '/dashboard';
 export const LANDING = '/';
 export const PASSWORD_CHANGE = 'pw-change';
 export const PASSWORD_FORGET = '/pw-forget';
+export const REPO = '/repo';
 export const SIGN_IN = '/signin';
 export const SIGN_UP = '/signup';
 export const TRANSCRIPT_VIEW_TOOLS = 'transcript-view-tools';

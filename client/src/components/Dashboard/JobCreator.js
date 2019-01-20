@@ -157,7 +157,7 @@ class JobCreator extends React.Component {
 
     return (
       <div>
-        <Card>
+        <Card className="job-creator-card">
           <CardHeader>
             <h4 className="title d-inline text-primary">CREATE NEW JOB</h4>
             <hr />
@@ -219,15 +219,15 @@ class JobCreator extends React.Component {
                       : '' }
                   </FormGroup>
                   <FormGroup check>
-                    <Input defaultChecked={ this.state.privacy }
-                           onChange={ this.onTogglePrivacy }
-                           type="checkbox"
-                           name="privacy"
-                           id="privacy" />
-                    <span className="form-check-sign">
-                <span className="check" />
-                </span>
-                    <Label for="privacy" check>Private</Label>
+                    <div className="custom-control custom-checkbox d-inline">
+                      <Input defaultChecked={ this.state.privacy }
+                             onChange={ this.onTogglePrivacy }
+                             type="checkbox"
+                             name="privacy"
+                             id="privacy"
+                             className="custom-control-input"/>
+                      <Label for="privacy" className="custom-control-label" check>Private</Label>
+                    </div>
                   </FormGroup>
                   <br />
                   <FormGroup hidden={!this.state.privacy}>
@@ -250,11 +250,12 @@ class JobCreator extends React.Component {
           </CardBody>
           <CardFooter>
             <Button
+              size="lg"
               type="submit"
               color="primary"
               disabled={ formInvalid }
               onClick={ e => this.onSubmit(e) }>
-              CREATE EVENT
+              Create Event
             </Button>
           </CardFooter>
         </Card>
