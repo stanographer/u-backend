@@ -4,6 +4,10 @@
   "description": "CMS for real-time captioning and transcriptions.",
   "main": "app.js",
   "scripts": {
+    "docker-up": "sudo docker-compose up",
+    "docker-build": "sudo docker-compose build",
+    "docker-prod": "sudo docker-compose -f docker-compose.prod.yml up",
+    "docker-prune": "sudo docker system prune -a",
     "start": "NODE_ENV=production nodemon app.js",
     "startdev": "NODE_ENV=dev nodemon app.js",
     "test": "NODE_ENV=dev jest"

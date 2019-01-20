@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/nucleo-icons.css';
-import './assets/scss/upwordly-theme.css';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';

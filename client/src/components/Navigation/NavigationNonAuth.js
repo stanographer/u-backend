@@ -44,13 +44,13 @@ class NavigationNonAuth extends React.Component {
             <Collapse isOpen={ this.state.isOpen } navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/components/">About</NavLink>
+                  <NavLink href="#about">About</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">Pricing</NavLink>
+                  <NavLink href="#features">Features</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">Features</NavLink>
+                  <NavLink href="#pricing">Pricing</NavLink>
                 </NavItem>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
@@ -70,7 +70,7 @@ class NavigationNonAuth extends React.Component {
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <NavItem>
-                  <a href="#" className="btn btn-outline-light btn-md">Login</a>
+                  <a href="/signin" className="btn btn-outline-light btn-md">Sign In</a>
                 </NavItem>
               </Nav>
             </Collapse>

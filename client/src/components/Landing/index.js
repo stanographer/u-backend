@@ -1,84 +1,180 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 import {
   Button,
   Card,
-  CardBody,
   CardDeck,
-  CardImg,
-  CardSubtitle,
   CardText,
   CardTitle,
+  Col,
   Container,
   Row
 } from 'reactstrap';
+import Mockup from '../Mockup';
 import Navigation from '../Navigation/NavigationNonAuth';
 import Typed from 'react-typed';
+import '../../assets/css/browserMockup.css';
 
-const App = () => (
-  <>
-    <Navigation />
-    <header className="bg-primary">
-      <Container className="h-100">
-        <Row className="h-100">
-          <div className="col-12">
-            <div className="text-center m-0 vh-100 d-flex flex-column justify-content-center text-light">
-              <h1 className="display-4">Upwordly</h1>
-              <p className="lead header--typed-text"><Typed
-                strings={ ['Web-based live stenography, simplified.'] }
-                typeSpeed={ 40 }
-              /></p>
-              <div className="mt-2">
-                <div className="btn-group-lg">
-                  <a href="#" className="btn btn-outline-light btn-lg">Learn More</a>
+const Landing = () => {
+  return (
+    <>
+      <Navigation />
+      <header className="bg-mustard">
+        <Container className="h-100">
+          <Row className="h-100">
+            <Col lg={ 12 }>
+              <div className="text-center m-0 vh-100 d-flex flex-column justify-content-center text-primary">
+                <h1 className="display-4 header-main">Upwordly</h1>
+                <p className="lead text-primary mt-2">
+                  <Typed strings={ ['One platform to sync, send, and integrate your real-time transcriptions.', 'Web-based live stenography, anywhere.'] }
+                         typeSpeed={ 40 }
+                  /></p>
+                <div className="mt-4">
+                  <div className="btn-group-lg">
+                    <a href="#about" className="btn btn-outline-dark btn-lg">Learn More</a>
+                  </div>
                 </div>
               </div>
+            </Col>
+          </Row>
+        </Container>
+      </header>
+      <div id="about" />
+      <section className="container mt-10">
+        <h1 className="text-center mt-4 section-header">About Upwordly</h1>
+        <Row>
+          <Col lg={ 6 } md={ 6 } sm={ 12 }>
+            <p className="mt-4">
+              Upwordly is a real-time transcription delivery tool and a content management system (CMS) for real-time
+              stenographers. You login, create a job, connect your CAT software via a small helper app, and start
+              writing.
+              Distribute your live feed to anyone via a short URL and that's it! Since it is web based, there's no need
+              for
+              your consumers to install anything on their end. When the job is over, it's your choice to use the variety
+              of
+              tools to save or disseminate the transcript or to delete it. Simple.
+            </p>
+          </Col>
+          <Col lg={ 6 } md={ 6 } sm={ 12 }>
+            <div className="browser-mockup with-url">
+              <div className="upwordly-mockup">
+                <Mockup />
+              </div>
             </div>
-          </div>
+          </Col>
         </Row>
-      </Container>
-    </header>
-    <section className="container mt-10">
-      <h1 className="text-center mt-4">About Upwordly</h1>
-      <p className="mt-4">
-        Upwordly is a real-time transcription delivery tool and a content management system (CMS) for real-time
-        stenographers. You login, create a job, connect your CAT software via a small helper app, and start writing.
-        Distribute your live feed to anyone via a short URL and that's it! Since it is web based, there's no need for
-        your consumers to install anything on their end. When the job is over, it's your choice to use the variety of
-        tools to save or disseminate the transcript or to delete it. Simple.
-      </p>
-    </section>
-    <section className="container mt-10">
-      <CardDeck>
-        <Card>
-          <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-            <Button>Button</Button>
-          </CardBody>
+      </section>
+      <div id="features" />
+      <section className="container mt-10">
+        <h1 className="text-center mt-4 mb-6 section-header">Send your live transcriptions to the cloud.</h1>
+        <CardDeck>
+          <Card body outline color="primary">
+            <CardTitle className="text-primary card-title">
+              Fast
+            </CardTitle>
+            <CardText>Utilizing distributed WebSockets connections ensures your viewers get text at nearly instantaneous
+              speeds.</CardText>
+          </Card>
+          <Card body outline color="primary">
+            <CardTitle className="text-primary card-title">
+              Simple
+            </CardTitle>
+            <CardText>Web based means there's nothing to set up for your clients. You simply point them to a URL and
+              your
+              live transcription shows up in their browser.</CardText>
+          </Card>
+          <Card body outline color="primary">
+            <CardTitle className="text-primary card-title">
+              Versatile
+            </CardTitle>
+            <CardText>Upwordly offers stenographers not only the tools to make their realtime available anywhere; it
+              makes
+              saving, archiving, and sending transcripts a breeze.</CardText>
+          </Card>
+        </CardDeck>
+      </section>
+      <div id="pricing" />
+      <section className="container mt-10">
+        <h1 className="text-center mt-4 mb-6 section-header">Flexible Pricing</h1>
+        <CardDeck>
+          <Card body inverse className="bg-primary">
+            <CardTitle>Single User</CardTitle>
+            <CardText>You're a single freelancer and expect to use the service around 10 times per week.</CardText>
+            <Button outline size="lg" className="btn btn-outline-light">$48 per month</Button>
+          </Card> <Card body inverse className="bg-primary">
+          <CardTitle>Agency</CardTitle>
+          <CardText>You're an agency employing 2-10 writers and expect to use the service 10-30 times per week.</CardText>
+          <Button outline size="lg" className="btn btn-outline-light">$98 per month</Button>
+        </Card> <Card body inverse className="bg-primary">
+          <CardTitle>Enterprise</CardTitle>
+          <CardText>You have a large staff and clientele base with an average of over 30 uses per week.</CardText>
+          <Button outline size="lg" className="btn btn-outline-light">$280 per month</Button>
         </Card>
-        <Card>
-          <CardBody className="d-flex flex-column justify-content-center align-items-center">
-            <h1 className="display-2 text-primary">
-              <i className="tim-icons icon-tablet-2" />
-            </h1>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
-            <Button>Button</Button>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</CardText>
-            <Button>Button</Button>
-          </CardBody>
-        </Card>
-      </CardDeck>
-    </section>
-  </>
-);
+        </CardDeck>
+      </section>
+      <section className="container mt-10">
+      </section>
+      <footer className="bg-mustard text-primary py-5">
+        <Container className="py-5">
+          <Row>
+            <Col lg={ 3 } md={ 6 } sm={ 12 } xs={ 12 } className="mb-2 footer--section-header">
+              <h5 className="text-uppercase text-header">Upwordly</h5>
+              <p>
+                <small>
+                  &copy;2019 Upwordly, LLC.
+                  <br />
+                  All rights reserved.
+                </small>
+              </p>
+              <p>
+                <small>Proudly built in NYC. &hearts;</small>
+              </p>
+            </Col>
+            <Col lg={ 3 } md={ 6 } sm={ 12 } xs={ 12 } className="mb-2 footer--section-header">
+              <h6 className="text-header">Company</h6>
+              <ul className="nav flex-column footer--list-items">
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>About us</Link>
+                </li>
+              </ul>
+            </Col>
+            <Col lg={ 3 } md={ 6 } sm={ 12 } xs={ 12 } className="mb-2 footer--section-header">
+              <h6 className="text-header">Features</h6>
+              <ul className="nav flex-column footer--list-items">
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>Live Transcription Anywhere</Link>
+                </li>
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>Repository</Link>
+                </li>
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>Delivery</Link>
+                </li>
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>Analytics</Link>
+                </li>
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>API</Link>
+                </li>
+              </ul>
+            </Col>
+            <Col lg={ 3 } md={ 6 } sm={ 12 } xs={ 12 } className="mb-2 footer--section-header">
+              <h6 className="text-header">Support</h6>
+              <ul className="nav flex-column footer--list-items">
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>Contact</Link>
+                </li>
+                <li>
+                  <Link className="text-light-brown" to={ ROUTES.ABOUT }>FAQs</Link>
+                </li>
+              </ul>
+            </Col>
+          </Row>
+        </Container>
+      </footer>
+    </>
+  );
+};
 
-export default App;
+export default Landing;

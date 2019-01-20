@@ -1,3 +1,4 @@
+export const ABOUT = '/about';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const APP = '/app';
