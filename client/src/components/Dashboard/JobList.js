@@ -55,8 +55,8 @@ class JobList extends React.Component {
       jobsList.forEach(job => {
         const port = process.env.REACT_APP_ENV === 'production' ? '' : 1988;
         const url = process.env.REACT_APP_ENV === 'production'
-        ? `${ window.location.protocol }//${ window.location.hostname }`
-        : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
+          ? `${ window.location.protocol }//${ window.location.hostname }`
+          : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
 
         fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
           method: 'get',
@@ -65,21 +65,21 @@ class JobList extends React.Component {
             'Accept': 'application/json'
           }
         })
-        .then(response => response.text()).then(snapshot => {
+          .then(response => response.text()).then(snapshot => {
           job.snippet = snapshot ? snapshot + '...' : '';
         })
-        .then(() => {
-          this.setState({
-            jobs: jobsList,
-            loading: false
+          .then(() => {
+            this.setState({
+              jobs: jobsList,
+              loading: false
+            });
+          })
+          .catch(() => {
+            this.setState({
+              jobs: jobsList,
+              loading: false
+            });
           });
-        })
-        .catch(() => {
-          this.setState({
-            jobs: jobsList,
-            loading: false
-          });
-        });
       });
     });
   }
@@ -91,7 +91,7 @@ class JobList extends React.Component {
   // Adds and removes jobs to the delete queue.
   handleJobCheck(e) {
     if (e.target.type === 'checkbox' && e.target.checked) {
-      if (this.state.selectedJobs && ! this.state.selectedJobs.includes(e.target.name)) {
+      if (this.state.selectedJobs && !this.state.selectedJobs.includes(e.target.name)) {
         this.setState({
           selectedJobs: [...this.state.selectedJobs, e.target.name]
         });
@@ -110,8 +110,8 @@ class JobList extends React.Component {
 
     selectedJobs.forEach(job => {
       fetchTranscript(job.split(',')[2], job.split(',')[1])
-      .then(() => console.log('success!'))
-      .catch(err => console.error('Failed to fetch the transcript file: ' + err));
+        .then(() => console.log('success!'))
+        .catch(err => console.error('Failed to fetch the transcript file: ' + err));
     });
   }
 
@@ -200,16 +200,16 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
       <tr key={ job.uid }>
         <td>
           <FormGroup check>
-            <Label check>
+            <div className="custom-control custom-checkbox d-inline">
               <Input
                 key={ job.uid }
-                name={`${job.uid},${job.slug},${job.username}`}
+                name={ `${ job.uid },${ job.slug },${ job.username }` }
+                id={ `${ job.uid },${ job.slug },${ job.username }` }
                 type="checkbox"
-                onChange={ e => handleJobCheck(e) } />
-              <span className="form-check-sign">
-                <span className="check" />
-                </span>
-            </Label>
+                onChange={ e => handleJobCheck(e) }
+                className="custom-control-input" />
+              <Label className="custom-control-label" for={ `${ job.uid },${ job.slug },${ job.username }` } check />
+            </div>
           </FormGroup>
         </td>
         <td>

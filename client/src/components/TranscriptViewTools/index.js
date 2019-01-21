@@ -114,7 +114,6 @@ class ConnectedTranscriptViewTools extends React.Component {
     this.props.history.goBack();
   }
 
-
   onClick(field) {
     const fields = {
       colors: false,

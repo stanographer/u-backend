@@ -1,22 +1,31 @@
+$font-size-body-em: 1em;
+$header: #212529;
+$border: #e8e8e8;
+
 body {
-  font-size: 1em; }
+  font-size: $font-size-body-em;
+}
 
 .dashboard-link {
-  margin-left: 1.5em; }
+  margin-left: 1.5em;
+}
 
 .editor {
   padding: 1em !important;
   font-family: 'Cousine', sans-serif;
-  color: #212529;
+  color: $header;
   font-size: 2em !important;
   min-height: 100vh;
   white-space: pre-wrap;
   word-wrap: break-word;
   resize: none;
-  line-height: 1.5em !important; }
+  line-height: 1.5em !important;
+}
 
 .editor-wrapper {
-  border-right: 2px solid #e8e8e8; }
+  border-right: 2px solid $border;
+}
 
 .editor-class > .form-control {
-  border: none !important; }
+  border: none !important;
+}
