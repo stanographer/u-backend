@@ -5,7 +5,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 
-function startServer(port) {
+function startServer(port, ws_port) {
   const sharedb = app.sharedb;
   // Create HTTP server & WebSocket server.
   const server = http.createServer(app);
@@ -67,9 +67,14 @@ function startServer(port) {
   }
 
   // Listen on provided port, on all network interfaces.
-  server.listen(port, () => console.log('Running on: ' + port));
+  server.listen(ws_port, () => console.log('WS port running on: ' + port));
+  app.listen(port, () => console.log('App port unning on: ' + port));
+
   server.on('error', onError);
   server.on('listening', onListening);
+
+  app.on('error', onError);
+  app.on('listening', onListening);
 }
 
 module.exports = startServer;

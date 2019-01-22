@@ -6,6 +6,7 @@ services:
     build: .
     ports:
       - '1988:1988'
+      - '9090:9090'
     links:
       - mongo
       - redis
@@ -19,17 +20,3 @@ services:
     image: redis:alpine
     ports:
       - '6379:6379'
-#  client:
-#    build:
-#      context: ./client/
-#    environment:
-#      - REACT_APP_ENV=dev
-#    command: npm run startdev
-#    volumes:
-#      - ./client/:/usr/app
-#      - /usr/app/node_modules
-#    depends_on:
-#      - server
-#    env_file: ./client/.env
-#    ports:
-#      - '3000:3000'

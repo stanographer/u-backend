@@ -22,7 +22,8 @@ function normalizePort(val) {
 }
 
 // Get port from environment and store in Express.
-const PORT = normalizePort(process.env.PORT || '9090');
+const WS_PORT = normalizePort(process.env.PORT || '9090');
+const PORT = normalizePort(process.env.PORT || '1988');
 
 // Using Cluster to create worker processes.
 if (cluster.isMaster) {
@@ -46,6 +47,6 @@ if (cluster.isMaster) {
   });
 } else {
   // Start server.
-  startServer(PORT);
+  startServer(PORT, WS_PORT);
   console.log(`Worker process, ${ process.pid } online. 👷`);
 }
