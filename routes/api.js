@@ -58,9 +58,9 @@ router.get('/snippet', cors(corsOptions), (req, res, next) => {
   });
 });
 
-
 /* Deletes a job from the ShareDB repo. */
 router.delete('/', cors(corsOptions), (req, res) => {
+  const connection = req.app.sharedb.connect();
   const doc = connection.get(req.query.user, req.query.job);
   try {
     doc.fetch(err => {
