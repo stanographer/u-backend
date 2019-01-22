@@ -23,16 +23,16 @@ RUN npm install nodemon -g
 # Copy everything else into container.
 COPY . .
 
-WORKDIR /usr/app/client
+#WORKDIR /usr/app/client
+#
+## Install dependencies.
+#RUN npm install -qy
 
-# Install dependencies.
-RUN npm install -qy
-
-RUN npm run build --production
-
-COPY ./ /usr/app
-
-WORKDIR /usr/app
+#RUN npm run build --production
+#
+#COPY ./ /usr/app
+#
+#WORKDIR /usr/app
 
 # Expose the port.
 EXPOSE 1988

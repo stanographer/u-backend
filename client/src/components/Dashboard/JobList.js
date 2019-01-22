@@ -53,7 +53,7 @@ class JobList extends React.Component {
       // There must be a better way to do this instead of re-traversing the
       // returned array and assigning the snippets to it.
       jobsList.forEach(job => {
-        const port = process.env.REACT_APP_ENV === 'production' ? '' : 1988;
+        const port = process.env.REACT_APP_ENV === 'production' ? '' : 9090;
         const url = process.env.REACT_APP_ENV === 'production'
           ? `${ window.location.protocol }//${ window.location.hostname }`
           : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
@@ -213,9 +213,9 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
           </FormGroup>
         </td>
         <td>
-          <p className="title text-primary recent-jobs--card-title">{ job.title ? job.title : job.slug }</p>
-          <p className="small text-muted">{ new Date(job.timeCreated).toLocaleString() }</p>
-          <p>
+          <p className="title text-primary recent-jobs--card-title">{ job.title ? job.title : job.slug } <small className="job-date text-muted">{ new Date(job.timeCreated).toLocaleString() }</small></p>
+          <small>{job.slug}</small>
+          <p className="mt-3">
             { job.snippet ? job.snippet : <em>This job has no preview.</em> }
           </p>
         </td>

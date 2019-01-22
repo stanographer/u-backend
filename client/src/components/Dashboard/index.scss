@@ -48,7 +48,10 @@ hr {
 .job-creator-card .card-footer {
   border-top: unset;
   padding: 0 0 1.25rem 1.3rem;
+}
 
+.job-date {
+  float: right;
 }
 
 .recent-jobs-card .card-header {
@@ -64,6 +67,7 @@ hr {
 
 .recent-jobs--card-title {
   font-family: 'Poppins Medium', sans-serif !important;
+  margin-bottom: 0;
 }
 
 .textField-hidden {

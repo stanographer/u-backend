@@ -1,0 +1,22 @@
+body {
+  font-size: 1em; }
+
+.dashboard-link {
+  margin-left: 1.5em; }
+
+.editor {
+  padding: 1em !important;
+  font-family: 'Cousine', sans-serif;
+  color: #212529;
+  font-size: 2em !important;
+  min-height: 100vh;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  resize: none;
+  line-height: 1.5em !important; }
+
+.editor-wrapper {
+  border-right: 2px solid #e8e8e8; }
+
+.editor-class > .form-control {
+  border: none !important; }

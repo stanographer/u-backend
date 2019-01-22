@@ -154,9 +154,9 @@ class ConnectedTranscriptEditor extends React.Component {
                 Back to Dashboard
               </Link>
               <Card body>
-                <CardTitle>"{ this.state.job.title }"</CardTitle>
+                <CardTitle>{ this.state.job.title ? `"${this.state.job.title}"` : `"${this.state.job.slug}"` }</CardTitle>
                 <CardText>
-                  Speaker(s): { this.state.job.speakers }<br />
+                  Speaker(s): { this.state.job.speakers ? this.state.job.speakers : <em>None designated.</em>  }<br />
                 </CardText>
                 <Tooltip
                   title="Copied!"

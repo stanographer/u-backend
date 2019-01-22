@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Upwordly' });
+  res.send('Upwordly Server version 0.1.0');
 });
 
 /* Get moo */

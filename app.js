@@ -1,116 +1,71 @@
-/* Dependencies */
 const cookieParser = require('cookie-parser');
-const cluster = require('cluster');
 const cors = require('cors');
+const createError = require('http-errors');
 const express = require('express');
-const http = require('http');
-const indexRouter = require('./routes');
-const ottext = require('ot-text');
 const path = require('path');
-const numCPUs = require('os').cpus().length;
+const logger = require('morgan');
+const ottext = require('ot-text');
 const ShareDB = require('@teamwork/sharedb');
-const WebSocket = require('ws');
-const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
+
+const mongoAndRedisConnection = require('./bin/mongoRedisConnection');
+
+const share = new ShareDB({
+  db: mongoAndRedisConnection.mongo,
+  pubsub: mongoAndRedisConnection.redis,
+  disableSpaceDelimitedActions: true,
+  disableDocAction: true
+});
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+ShareDB.types.register(ottext.type);
 
 /* Routers */
+const indexRouter = require('./routes');
 const apiRouter = require('./routes/api');
-const bodyParser = require('body-parser');
 
-/* Servers */
-const ShareDBMongo = require('sharedb-mongo')(
-  process.env.NODE_ENV === 'production'
-    ? 'mongodb://mongo:27017/upwordly'
-    : 'mongodb://localhost:27017/aloft'
-);
+/* Start Express */
+const app = express();
 
-const RedisPubSub = require('sharedb-redis-pubsub')('redis://redis:6379');
+/* view engine setup */
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-/* Port config */
-const PORT = process.env.PORT || 1988;
-const CLIENT_BUILD_PATH = path.join(__dirname, 'client/build');
-// const HOST = '0.0.0.0';
+/* Routers */
+app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
-/* Main process */
-function startServer(port, host) {
-  const share = new ShareDB({
-    db: ShareDBMongo,
-    pubsub: RedisPubSub,
-    disableSpaceDelimitedActions: true,
-    disableDocAction: true
-  });
+/* Middlewares */
+app.use(cors(corsOptions));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-  ShareDB.types.register(ottext.type);
+/* Global path */
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
-  // Create a web server to serve files and listen to WebSocket connections
-  const app = express();
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
 
-  /* Creating server and WebSockets server. */
-  const server = http.createServer(app);
-  const socket = new WebSocket.Server({ server });
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  app.use(cookieParser());
-  app.use(express.json());
-  // Serve the static files from the React app
-  app.use(express.static(CLIENT_BUILD_PATH));
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cors());
-  app.set('view engine', 'ejs');
-  app.use('/', indexRouter);
-  app.use('/api', apiRouter);
-  // app.set('port', port);
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
-  // Global path.
-  app.get('*', (req, res) => {
-    res.sendFile(CLIENT_BUILD_PATH, 'index.html');
-  });
-
-  socket.on('connection', (websocket, req) => {
-    // Test message.
-    websocket.on('message', data => {
-      if (data === 'ping') {
-        websocket.emit('pong');
-      }
-    });
-
-    websocket.on('message', data => {
-      console.log(data);
-    });
-
-    websocket.on('close', data => {
-      console.log('disconnected', data);
-    });
-
-    // Listen to stream.
-    const stream = new WebSocketJSONStream(websocket);
-    share.listen(stream);
-  });
-
-  // Create master process.
-
-  server.listen(port);
-  console.log(`WebSockets & Express listening on port ${ port }. 🔌✅`)
-}
-
-if (cluster.isMaster) {
-  console.log(`Master ${ process.pid } is running. ✅`);
-
-  // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-  cluster.on('exit', (worker, code, signal) => {
-    console.error(
-      `Worker ${ worker.process.pid } died. ❌
-       Code: ${ code }.
-       Signal: ${ signal }`
-    );
-
-    // Re-spawn after failure.
-    cluster.fork();
-    console.log('Restarting... ✝');
-  });
-} else {
-  startServer(PORT);
-  console.log(`Worker process, ${ process.pid } online. 👷`);
-}
+app.sharedb = share;
+module.exports = app;
