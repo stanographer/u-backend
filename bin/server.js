@@ -67,8 +67,8 @@ function startServer(port, ws_port) {
   }
 
   // Listen on provided port, on all network interfaces.
-  server.listen(ws_port, () => console.log('WS port running on: ' + port));
-  app.listen(port, () => console.log('App port unning on: ' + port));
+  server.listen(ws_port, () => console.log('WS port running on: ' + ws_port));
+  app.listen(port, () => console.log('App port running on: ' + port));
 
   server.on('error', onError);
   server.on('listening', onListening);

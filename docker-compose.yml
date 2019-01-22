@@ -7,7 +7,7 @@ services:
     ports:
       - '1988:1988'
       - '9090:9090'
-    links:
+    depends_on:
       - mongo
       - redis
   mongo:

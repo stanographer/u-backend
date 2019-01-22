@@ -4,6 +4,7 @@ services:
     build: .
     ports:
       - '1988:1988'
+      - '9090:9090'
     restart: always
     depends_on:
       - mongo
@@ -18,15 +19,3 @@ services:
     image: redis:alpine
     ports:
       - '6379:6379'
-#  client:
-#    build:
-#      context: ./client/
-#    command: npm run startdev
-#    volumes:
-#      - ./client/:/usr/app
-#      - /usr/app/node_modules
-#    depends_on:
-#      - server
-#    env_file: ./client/.env
-#    ports:
-#       - '3000:3000'

@@ -30,7 +30,7 @@ router.get('/', cors(corsOptions), (req, res, next) => {
 
   doc.fetch(err => {
     if (err) {
-      res.send(500, 'Sorry, that doc could not be fetched.');
+      return res.send(500, 'Sorry, that doc could not be fetched.');
     }
     send200(res, doc.data);
     next();
@@ -49,10 +49,9 @@ router.get('/snippet', cors(corsOptions), (req, res, next) => {
 
   doc.fetch(err => {
     if (err) {
-      return res.send(200, '');
+      return res.end('Sorry, that doc could not be fetched.');
     }
-
-    const snippet = doc.data.substring(0, 200);
+    const snippet = doc.data ? doc.data.substring(0, 200) : '';
     send200(res, snippet);
     next();
   });

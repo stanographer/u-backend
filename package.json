@@ -9,7 +9,7 @@
     "docker-prod": "sudo docker-compose -f docker-compose.prod.yml up",
     "docker-prune": "sudo docker system prune -a",
     "startdev": "NODE_ENV=dev nodemon ./bin/www",
-    "start": "node NODE_ENV=production ./bin/www",
+    "start": "NODE_ENV=production node ./bin/www",
     "test": "NODE_ENV=dev jest"
   },
   "jest": {
