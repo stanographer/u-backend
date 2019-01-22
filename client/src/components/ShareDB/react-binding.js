@@ -20,7 +20,6 @@ export default class Binding {
   }
 
   static transformSnapshot(op, snap) {
-    console.log(op);
     // Create a new temp variable to hold changes.
     const newDoc = [];
 
