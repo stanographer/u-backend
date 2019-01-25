@@ -50,8 +50,13 @@ hr {
   padding: 0 0 1.25rem 1.3rem; }
 
 .recent-jobs--card-title {
+  float: left;
   font-family: 'Poppins Medium', sans-serif !important;
-  margin-bottom: 0; }
+  white-space: nowrap;
+  margin-bottom: 0;
+  max-width: 14ch;
+  text-overflow: ellipsis;
+  overflow: hidden; }
 
 .textField-hidden {
   display: none; }

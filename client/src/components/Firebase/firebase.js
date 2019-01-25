@@ -53,6 +53,12 @@ class Firebase {
   // Returns user object.
   user = uid => this.db.ref(`users/${uid}`);
 
+  // Returns user jobs
+  jobs = uid => {
+    this.db.ref(`users/${uid}`)
+      .child('jobs');
+  };
+
   // Returns ref to the /users path.
   users = () => this.db.ref('users');
 

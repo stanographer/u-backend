@@ -22,8 +22,8 @@ const StepTwo = (props) => {
             type="text"
             name="email"
             id="email"
-            valid={!!props.emailValid && !props.emailFound}
-            invalid={!!props.emailFound}
+            valid={ !!props.emailValid && !props.emailFound }
+            invalid={ !!props.emailFound }
             onChange={ props.onChange } />
           <span className="floating-label">Your email address</span>
           { !props.emailValid
@@ -53,7 +53,8 @@ const StepTwo = (props) => {
             onChange={ props.onChange }
             id="username"
             bsSize="lg"
-            valid={!props.usernameFound && !!props.username} />
+            invalid={ !!props.usernameFound }
+            valid={ !props.usernameFound && !!props.username } />
           <span className="floating-label">Your username</span>
           { props.usernameFound
             ? <FormFeedback invalid>This username is already taken.</FormFeedback>
@@ -65,7 +66,7 @@ const StepTwo = (props) => {
         className="btn btn-primary float-right"
         size="lg"
         onClick={ props.finishStep }
-        disabled={!props.username || !props.emailValid}
+        disabled={ !props.username || !props.emailValid || props.usernameFound || props.emailFound }
         type="submit">
         Next step&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon="arrow-right" />
       </Button>

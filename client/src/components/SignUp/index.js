@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import {
   Alert, Button,
   Col,
@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { validateEmail, validatePassword } from './validations';
+import StepZero from './StepZero';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
@@ -37,8 +38,10 @@ class SignUp extends React.Component {
       passwordTwo: '',
       passwordStrength: {},
       privilegeLevel: '',
+      regKey: '',
+      regKeyValid: false,
       error: '',
-      step: 1
+      step: 0
     };
     this.checkFbEmail = this.checkFbForEmail.bind(this);
     this.checkFbEmail = _.debounce(this.checkFbForEmail, 1000);
@@ -58,22 +61,22 @@ class SignUp extends React.Component {
       .equalTo(this.state.email)
       .once('value', snapshot => {
         // If the snapshot is null, that means there's no users! So allow user to sign up.
-         if (snapshot.val()) {
-           this.setState({
-             emailFound: true
-           });
-         } else {
-           this.setState({
-             emailFound: false
-           });
-         }
+        if (snapshot.val()) {
+          this.setState({
+            emailFound: true
+          });
+        } else {
+          this.setState({
+            emailFound: false
+          });
+        }
       }).catch(err => console.log('error! ' + err));
   };
 
   checkFbForUsername = () => {
     this.props.firebase.users()
       .orderByChild('username')
-      .equalTo(this.state.email)
+      .equalTo(this.state.username)
       .once('value', snapshot => {
         // If the snapshot is null, that means there's no users! So allow user to sign up.
         if (snapshot.val()) {
@@ -92,7 +95,7 @@ class SignUp extends React.Component {
     this.setState({
       step: this.state.step + 1
     });
-    console.log(this.state);
+
   };
 
   onChange = event => {
@@ -111,6 +114,11 @@ class SignUp extends React.Component {
     if (event.target.name === 'username') {
       this.checkFbUsername();
     }
+    if (event.target.name === 'regKey') {
+      this.setState({
+        regKeyValid: event.target.value === process.env.REACT_APP_REG_KEY
+      });
+    }
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -123,29 +131,35 @@ class SignUp extends React.Component {
             username,
             email,
             passwordOne,
-            privilegeLevel
+            privilegeLevel,
+            regKeyValid
           } = this.state;
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        return this.props.firebase
-          .user(authUser.user.uid)
-          .set({
-            fullName,
-            nickName,
-            username,
-            email,
-            privilegeLevel
-          });
-      })
-      .then(authUser => {
-        this.props.history.push(ROUTES.DASHBOARD);
-      })
-      .catch(error => {
-        this.setState({ error });
+    if (regKeyValid) {
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, passwordOne)
+        .then(authUser => {
+          return this.props.firebase
+            .user(authUser.user.uid)
+            .set({
+              fullName,
+              nickName,
+              username,
+              email,
+              privilegeLevel
+            });
+        })
+        .then(authUser => {
+          this.props.history.push(ROUTES.DASHBOARD);
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+    } else {
+      this.setState({
+        error: 'Sorry. Your registration token was declined.'
       });
-
+    }
     event.preventDefault();
   };
 
@@ -174,6 +188,14 @@ class SignUp extends React.Component {
               </Alert> }
               <Form onSubmit={ this.onSubmit }>
                 {
+                  this.state.step === 0
+                    ? <StepZero onChange={ this.onChange }
+                                regKey={ this.state.regKey }
+                                regKeyValid={ this.state.regKeyValid }
+                                finishStep={ this.finishStep } />
+                    : ''
+                }
+                {
                   this.state.step === 1
                     ? <StepOne onChange={ this.onChange }
                                fullName={ this.state.fullName }
@@ -184,11 +206,12 @@ class SignUp extends React.Component {
                 {
                   this.state.step === 2
                     ? <StepTwo onChange={ this.onChange }
-                               checkFbForEmail={this.checkFbForEmail}
-                               checkFbForUser={this.checkFbForUser}
+                               checkFbForEmail={ this.checkFbForEmail }
+                               checkFbForUser={ this.checkFbForUser }
                                emailValid={ this.state.emailValid }
-                               emailFound={this.state.emailFound }
+                               emailFound={ this.state.emailFound }
                                username={ this.state.username }
+                               usernameFound={ this.state.usernameFound }
                                finishStep={ this.finishStep } />
                     : ''
                 }

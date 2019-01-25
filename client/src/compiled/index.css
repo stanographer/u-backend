@@ -1,36 +1,5 @@
 /* Import fonts */
-@import url("https://fonts.googleapis.com/css?family=Comfortaa:400,700");
-@import url("https://fonts.googleapis.com/css?family=Crete+Round:200,300,400,700");
-@import url("https://fonts.googleapis.com/css?family=Nunito:200,300,400,700");
-@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono");
-@font-face {
-  font-family: 'Chivo';
-  src: url("../fonts/Chivo/Chivo-Regular.eot");
-  src: url("../fonts/Chivo/Chivo-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Chivo/Chivo-Regular.woff2") format("woff2"), url("../fonts/Chivo/Chivo-Regular.woff") format("woff"), url("../fonts/Chivo/Chivo-Regular.svg#Chivo-Regular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Chivo-Bold';
-  src: url("../fonts/Chivo/Chivo-Bold.eot");
-  src: url("../fonts/Chivo/Chivo-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Chivo/Chivo-Bold.woff2") format("woff2"), url("../fonts/Chivo/Chivo-Bold.woff") format("woff"), url("../fonts/Chivo/Chivo-Bold.svg#Chivo-Bold") format("svg");
-  font-weight: bold;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Poppins';
-  src: url("../fonts/Poppins/Poppins-Regular.eot");
-  src: url("../fonts/Poppins/Poppins-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Poppins/Poppins-Regular.woff2") format("woff2"), url("../fonts/Poppins/Poppins-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Poppins Medium';
-  src: url("../fonts/Poppins/Poppins-Medium.eot");
-  src: url("../fonts/Poppins/Poppins-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Poppins/Poppins-Medium.woff2") format("woff2"), url("../fonts/Poppins/Poppins-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal; }
-
+@import url(./assets/scss/fonts.css);
 .btn-group,
 .btn-group-vertical {
   position: relative;
@@ -669,6 +638,9 @@ a:not([href]):not([tabindex]):focus {
 .card-tasks {
   height: 473px; }
 
+.card-tasks .card-body i {
+  color: #083358; }
+
 .card-tasks .table-full-width {
   max-height: 410px;
   position: relative; }
@@ -976,6 +948,12 @@ a:not([href]):not([tabindex]):focus {
 
 .section-header {
   font-family: 'Poppins Medium', sans-serif; }
+
+.svg-inline--fa {
+  font-size: 1.4em; }
+
+.svg-inline--fa:hover {
+  color: #6c757d; }
 
 .text-strong {
   font-weight: bold; }

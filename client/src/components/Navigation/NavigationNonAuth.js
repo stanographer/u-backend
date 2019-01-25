@@ -7,11 +7,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from 'reactstrap';
 
 class NavigationNonAuth extends React.Component {
@@ -51,23 +47,9 @@ class NavigationNonAuth extends React.Component {
                 <NavItem>
                   <NavLink href="#pricing">Pricing</NavLink>
                 </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Options
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                      Option 1
-                    </DropdownItem>
-                    <DropdownItem>
-                      Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      Reset
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                <NavItem>
+                  <NavLink href="/signup">Sign Up</NavLink>
+                </NavItem>
                 <NavItem>
                   <a href="/signin" className="btn btn-outline-light btn-md">Sign In</a>
                 </NavItem>

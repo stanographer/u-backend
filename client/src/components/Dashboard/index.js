@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import Navigation from '../Navigation';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import JobCreator from './JobCreator';
 import JobList from './JobList';
 import './index.css';
@@ -28,33 +28,6 @@ class Dashboard extends React.Component {
     this.toggleTab = this.toggleTab.bind(this);
   }
 
-  toggleTab(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <Navigation user={ this.state.user } />
-        <Container className="container clear-navbar-footer">
-          <Row>
-            <Col lg="6" md="12">
-              <JobCreator user={ this.state.user } />
-            </Col>
-            <Col lg="6" md="12">
-              <JobList />
-            </Col>
-          </Row>
-        </Container>
-        <Footer />
-      </div>
-    );
-  }
-
   componentDidMount() {
     document.title = 'Upwordly Dashboard';
     const { firebase } = this.props;
@@ -68,6 +41,36 @@ class Dashboard extends React.Component {
         }
       });
     });
+  }
+
+  toggleTab(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
+
+  render() {
+    const { user } = this.state;
+    const { firebase } = this.props;
+
+    return (
+      <div>
+        <Navigation user={ user } />
+        <Container className="container clear-navbar-footer">
+          <Row>
+            <Col lg="6" md="12">
+              <JobCreator user={ user } />
+            </Col>
+            <Col lg="6" md="12">
+              <JobList user={ user } uid={ firebase.auth.currentUser.uid } />
+            </Col>
+          </Row>
+        </Container>
+        <Footer />
+      </div>
+    );
   }
 }
 

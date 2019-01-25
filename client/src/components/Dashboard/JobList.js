@@ -16,6 +16,9 @@ import {
   UncontrolledTooltip
 } from 'reactstrap';
 import { fetchTranscript } from './downloadTranscript';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 class JobList extends React.Component {
   constructor(props) {
@@ -24,7 +27,8 @@ class JobList extends React.Component {
     this.state = {
       jobs: [],
       selectedJobs: [],
-      loading: true
+      loading: true,
+      user: {}
     };
 
     this.handleJobCheck = this.handleJobCheck.bind(this);
@@ -33,10 +37,27 @@ class JobList extends React.Component {
   }
 
   componentDidMount() {
-    const { firebase } = this.props;
+    this.fetchUserThenJobs();
+  }
 
-    firebase.allJobsList().on('value', snapshot => {
+  componentWillUnmount() {
+    this.props.firebase.allJobs().off();
+    this.props.firebase.user().off();
+  }
+
+  fetchUserThenJobs() {
+    const { firebase, uid } = this.props;
+    firebase.user(uid).once('value', snapshot => this.setState({ user: snapshot.val() },
+      this.fetchJobs));
+  }
+
+  fetchJobs() {
+    const { firebase } = this.props;
+    const { user } = this.state;
+
+    firebase.allJobs().on('value', snapshot => {
       const jobs = snapshot.val();
+      console.log('boys, boys boys', jobs);
 
       if (!jobs) {
         this.setState({
@@ -45,10 +66,10 @@ class JobList extends React.Component {
         return;
       }
 
-      let jobsList = Object.keys(jobs).map(key => ({
-        ...jobs[key],
-        uid: key
-      })).reverse();
+      const jobsList = Object.keys(jobs)
+        .map(key => ({ ...jobs[key], uid: key }))
+        .filter(item => item.username === user.username)
+        .reverse();
 
       // There must be a better way to do this instead of re-traversing the
       // returned array and assigning the snippets to it.
@@ -82,10 +103,6 @@ class JobList extends React.Component {
           });
       });
     });
-  }
-
-  componentWillUnmount() {
-    this.props.firebase.allJobs().off();
   }
 
   // Adds and removes jobs to the delete queue.
@@ -128,11 +145,11 @@ class JobList extends React.Component {
 
       firebase.deleteJobFromJobs(job.split(',')[0]);
       firebase.deleteJobFromUser(job.split(',')[1]);
-      this.deleteShareDbJob(job.split(',')[2], job.split(',')[1]);
+      JobList.deleteShareDbJob(job.split(',')[2], job.split(',')[1]);
     });
   }
 
-  deleteShareDbJob(user, job) {
+  static deleteShareDbJob(user, job) {
     const url = `${ window.location.protocol }//${ window.location.hostname }`;
     return fetch(`${ url }/api?user=${ user }&job=${ job }`, {
       method: 'delete'
@@ -140,14 +157,16 @@ class JobList extends React.Component {
   }
 
   render() {
+    library.add(faEdit);
     const { jobs, loading } = this.state;
+
     return (
       <div>
         { !loading
           ? <Card className="card-tasks recent-jobs-card">
             <CardHeader>
               <h4 className="title d-inline text-primary">RECENT JOBS</h4>
-              {/*<p className="card-category d-inline"> today</p>*/ }
+              {/*<p className="card-category d-inline"> today</p>*/}
               <UncontrolledDropdown>
                 <DropdownToggle
                   caret
@@ -162,13 +181,13 @@ class JobList extends React.Component {
                   <DropdownItem
                     href="#"
                     onClick={ e => this.handleDownloadJobs(e) }>
-                    <i className="tim-icons icon-cloud-download-93" />
+                    <i className="tim-icons icon-cloud-download-93" />&nbsp;&nbsp;
                     Download Transcription File
                   </DropdownItem>
                   <DropdownItem
                     href="#"
                     onClick={ e => this.handleDeleteJobs(e) }>
-                    <i className="tim-icons icon-simple-remove" />
+                    <i className="tim-icons icon-simple-remove" />&nbsp;&nbsp;
                     Delete
                   </DropdownItem>
                 </DropdownMenu>
@@ -213,8 +232,10 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
           </FormGroup>
         </td>
         <td>
-          <p className="title text-primary recent-jobs--card-title">{ job.title ? job.title : job.slug } <small className="job-date text-muted">{ new Date(job.timeCreated).toLocaleString() }</small></p>
-          <small>{job.slug}</small>
+          <p className="title text-primary recent-jobs--card-title">{ job.title ? job.title : job.slug }</p>
+          <small className="job-date text-muted">{ new Date(job.timeCreated).toLocaleString() }</small>
+          <br />
+          <small>{ job.slug }</small>
           <p className="mt-3">
             { job.snippet ? job.snippet : <em>This job has no preview.</em> }
           </p>
@@ -226,7 +247,7 @@ const ListOfJobs = ({ handleJobCheck, jobs }) =>
             title=""
             type="button"
             to={ `/editor?user=${ job.username }&job=${ job.slug }` }>
-            <i className="tim-icons icon-pencil" />
+            <FontAwesomeIcon icon="edit" />
           </Link>
           <UncontrolledTooltip
             delay={ 0 }

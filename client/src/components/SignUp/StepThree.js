@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Col, FormFeedback, FormGroup, FormText, Input, Label } from 'reactstrap';
+import { Col, FormFeedback, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 const StepThree = (props) => {
   return (
@@ -12,6 +12,7 @@ const StepThree = (props) => {
           sm={ 4 }>Password</Label>
         <Col sm={ 8 }>
           <Input
+            autoFocus
             type="password"
             name="passwordOne"
             id="passwordOne"

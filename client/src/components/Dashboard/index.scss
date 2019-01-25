@@ -66,8 +66,13 @@ hr {
 }
 
 .recent-jobs--card-title {
+  float: left;
   font-family: 'Poppins Medium', sans-serif !important;
+  white-space: nowrap;
   margin-bottom: 0;
+  max-width: 14ch;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .textField-hidden {

@@ -638,6 +638,9 @@ a:not([href]):not([tabindex]):focus {
 .card-tasks {
   height: 473px; }
 
+.card-tasks .card-body i {
+  color: #083358; }
+
 .card-tasks .table-full-width {
   max-height: 410px;
   position: relative; }
@@ -945,6 +948,12 @@ a:not([href]):not([tabindex]):focus {
 
 .section-header {
   font-family: 'Poppins Medium', sans-serif; }
+
+.svg-inline--fa {
+  font-size: 1.4em; }
+
+.svg-inline--fa:hover {
+  color: #6c757d; }
 
 .text-strong {
   font-weight: bold; }
