@@ -1,67 +1,7 @@
+@import '../../assets/scss/mediaQueries.scss';
+
 $dark-blue-header: #282f37;
 $creme: #FCF2CB;
-
-/* Media query breakpoints */
-
-// Small tablets and large smartphones (landscape view)
-$screen-sm-min: 576px;
-
-// Small tablets (portrait view)
-$screen-md-min: 768px;
-
-// Tablets and small desktops
-$screen-lg-min: 992px;
-
-// Large tablets and desktops
-$screen-xl-min: 1200px;
-
-/* Media query mixins */
-
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
-
-/* Custom devices */
-
-@mixin rwd($screen) {
-  @media (min-width: $screen+'px') {
-    @content;
-  }
-}
-
-@keyframes toolbar {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(0.35em);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
 
 html, body {
   height: 100%;
@@ -83,6 +23,10 @@ html, body {
 }
 
 .liveTranscript--buttons_floating {
+  position: fixed;
+  bottom: 5%;
+  animation: toolbar 1.5s ease-in-out infinite;
+  z-index: 6;
   @include sm {
     right: 1em;
     margin: 0;
@@ -99,10 +43,6 @@ html, body {
     right: 4em;
     margin: 2em;
   }
-  position: fixed;
-  bottom: 5%;
-  animation: toolbar 1.5s ease-in-out infinite;
-  z-index: 6;
 }
 
 .liveTranscript--buttons_floating .btn-group > .btn {
@@ -139,9 +79,7 @@ html, body {
 .liveTranscript--text-format {
   display: block;
   font-family: 'Roboto', sans-serif;
-  font-size: 3em;
   min-height: 100vh;
-  line-height: 1.5em;
   margin: 0;
   overflow: inherit;
   padding: .5em 1.5em .2em 1em;
@@ -149,6 +87,31 @@ html, body {
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
   word-break: break-word;
+
+  @include sm {
+    font-size: 1.8em;
+    right: 1em;
+    margin: 0;
+    line-height: 1.2em;
+  }
+  @include md {
+    font-size: 3em;
+    right: 1em;
+    margin: 0;
+    line-height: 1.5em;
+  }
+  @include lg {
+    font-size: 3em;
+    right: 4em;
+    margin: 2em;
+    line-height: 1.5em;
+  }
+  @include xl {
+    font-size: 3em;
+    right: 4em;
+    margin: 2em;
+    line-height: 1.5em;
+  }
 }
 
 .sweet-loading {

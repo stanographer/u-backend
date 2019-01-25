@@ -175,7 +175,7 @@ class ConnectedTranscriptViewTools extends React.Component {
     return (
       <>
         <div className="settings-panel__close-button" onClick={ this.goBack }>
-          <FontAwesomeIcon icon="times" onClick={ this.goBack } />
+          <FontAwesomeIcon icon="times" />
         </div>
         <Container className="transcript-view-tools__container">
           <Row>

@@ -1,3 +1,5 @@
+@import '../../assets/scss/mediaQueries.scss';
+
 $font-size-body-em: 1em;
 $header: #212529;
 $border: #e8e8e8;
@@ -15,15 +17,37 @@ body {
   font-family: 'Cousine', sans-serif;
   color: $header;
   font-size: 2em !important;
-  min-height: 100vh;
   white-space: pre-wrap;
   word-wrap: break-word;
   resize: none;
   line-height: 1.5em !important;
+  @include sm {
+    min-height: 50vh;
+  }
+  @include md {
+    min-height: 50vh;
+  }
+  @include lg {
+    min-height: 100vh;
+  }
+  @include xl {
+    min-height: 100vh;
+  }
 }
 
 .editor-wrapper {
-  border-right: 2px solid $border;
+  @include sm {
+    border-bottom: 2px solid $border;
+  }
+  @include md {
+    border-right: 2px solid $border;
+  }
+  @include lg {
+    border-right: 2px solid $border;
+  }
+  @include xl {
+    border-right: 2px solid $border;
+  }
 }
 
 .editor-class > .form-control {

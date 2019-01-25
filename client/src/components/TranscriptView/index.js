@@ -1,6 +1,6 @@
 import React from 'react';
 import { withFirebase } from '../Firebase';
-import Viewer from './Viewer';
+import TranscriptContainer from './TranscriptContainer';
 import { css } from 'react-emotion';
 import { SyncLoader } from 'react-spinners';
 import './index.css';
@@ -76,6 +76,9 @@ class ConnectedIndex extends React.Component {
   }
 
   render() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      console.log('the user is using mobile');
+    }
     const { job, jobId, loading, user } = this.state;
     const { style } = this.props;
 
@@ -86,7 +89,7 @@ class ConnectedIndex extends React.Component {
           job && jobId && job.privacy === true
             ? <p>this is a private event.</p>
             : job && jobId
-            ? <Viewer
+            ? <TranscriptContainer
                 user={ user }
                 job={ job.slug }
                 style={ style } />

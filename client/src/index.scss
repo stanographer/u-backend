@@ -1,6 +1,7 @@
 /* Import fonts */
 @import './assets/scss/fonts.css';
-@import './assets/scss/inputs.css';
+@import './assets/scss/inputs.scss';
+@import './assets/scss/mediaQueries.scss';
 
 /* Define fonts */
 
@@ -35,54 +36,6 @@ $hover-bg: #041829;
 $hover: #051f35;
 $muted: #6c757d;
 
-/* Media query breakpoints */
-
-// Small tablets and large smartphones (landscape view)
-$screen-sm-min: 576px;
-
-// Small tablets (portrait view)
-$screen-md-min: 768px;
-
-// Tablets and small desktops
-$screen-lg-min: 992px;
-
-// Large tablets and desktops
-$screen-xl-min: 1200px;
-
-/* Media query mixins */
-
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
-
-/* Custom devices */
-
-@mixin rwd($screen) {
-  @media (min-width: $screen+'px') {
-    @content;
-  }
-}
-
 @font-face {
   font-family: 'Cousine';
   src: url('./assets/fonts/Cousine/Cousine-Regular.eot');
@@ -95,19 +48,8 @@ $screen-xl-min: 1200px;
 }
 
 html, body {
-  @include sm {
-    font-size: 62.5%;
-  }
-  @include md {
-    font-size: 62.5%;
-  }
-  @include lg {
-    font-size: 90%;
-  }
-  @include xl {
-    font-size: unset;
-  }
   font-family: 'Comfortaa', sans-serif;
+  font-size: 17px;
 }
 
 a {
@@ -344,6 +286,10 @@ a:not([href]):not([tabindex]):focus {
   transition: 0.2s ease all;
 }
 
+.float-right {
+  float: right;
+}
+
 .footer--list-items > li {
   margin: 0 0 .6em 0;
 }
@@ -460,7 +406,7 @@ a:not([href]):not([tabindex]):focus {
 
 .mb-2,
 .my-2 {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: .5rem !important;
 }
 
 .mb-4,
@@ -468,9 +414,19 @@ a:not([href]):not([tabindex]):focus {
   margin-bottom: 1.5em !important;
 }
 
+.mb-5,
+.my-5 {
+  margin-bottom: 2em !important;
+}
+
 .mb-6,
 .my-6 {
   margin-bottom: 3rem !important;
+}
+
+.mb-8,
+.my-8 {
+  margin-bottom: 4rem !important;
 }
 
 .mt-2,
@@ -654,9 +610,9 @@ h6 {
 
 input:focus ~ .floating-label,
 input:not(:focus):valid ~ .floating-label {
-  top: .5em;
+  top: .45em;
   bottom: .5em;
-  left: 3em;
-  font-size: .3em;
+  left: 2.8em;
+  font-size: .65em;
   opacity: 1;
 }

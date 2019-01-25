@@ -2,7 +2,7 @@
   "name": "upwordly",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:1988",
+  "proxy": "http://localhost:9090",
   "homepage": "https://upword.ly",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -71,6 +71,7 @@
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "eslint": "^5.6.0",
+    "node-sass": "^4.11.0",
     "npm-run-all": "^4.1.5"
   }
 }

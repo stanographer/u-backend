@@ -1,14 +1,6 @@
 /* Media query breakpoints */
 /* Media query mixins */
 /* Custom devices */
-@keyframes toolbar {
-  0% {
-    transform: translateY(0); }
-  50% {
-    transform: translateY(0.35em); }
-  100% {
-    transform: translateY(0); } }
-
 html, body {
   height: 100%;
   width: 100%; }
@@ -79,9 +71,7 @@ html, body {
 .liveTranscript--text-format {
   display: block;
   font-family: 'Roboto', sans-serif;
-  font-size: 3em;
   min-height: 100vh;
-  line-height: 1.5em;
   margin: 0;
   overflow: inherit;
   padding: .5em 1.5em .2em 1em;
@@ -89,6 +79,30 @@ html, body {
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
   word-break: break-word; }
+  @media (min-width: 576px) {
+    .liveTranscript--text-format {
+      font-size: 1.8em;
+      right: 1em;
+      margin: 0;
+      line-height: 1.2em; } }
+  @media (min-width: 768px) {
+    .liveTranscript--text-format {
+      font-size: 3em;
+      right: 1em;
+      margin: 0;
+      line-height: 1.5em; } }
+  @media (min-width: 992px) {
+    .liveTranscript--text-format {
+      font-size: 3em;
+      right: 4em;
+      margin: 2em;
+      line-height: 1.5em; } }
+  @media (min-width: 1200px) {
+    .liveTranscript--text-format {
+      font-size: 3em;
+      right: 4em;
+      margin: 2em;
+      line-height: 1.5em; } }
 
 .sweet-loading {
   position: absolute;

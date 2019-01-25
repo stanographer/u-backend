@@ -131,7 +131,7 @@ class ConnectedTranscriptEditor extends React.Component {
     return (
       <div>
         <Row>
-          <Col lg={ 6 }>
+          <Col lg={ 6 } sm={ 12 }>
             <div className="editor-wrapper">
               <Form className="editor-class">
                 <Input
@@ -147,16 +147,16 @@ class ConnectedTranscriptEditor extends React.Component {
               </Form>
             </div>
           </Col>
-          <Col lg={ 6 }>
+          <Col lg={ 6 } sm={ 12 }>
             <div>
               <Link to={ ROUTES.DASHBOARD } className="dashboard-link btn btn-primary align-bottom mt-5 mb-5">
                 <FontAwesomeIcon icon="arrow-left" onClick={ this.goBack } />&nbsp;&nbsp;&nbsp;
                 Back to Dashboard
               </Link>
               <Card body>
-                <CardTitle>{ this.state.job.title ? `"${this.state.job.title}"` : `"${this.state.job.slug}"` }</CardTitle>
+                <CardTitle>{ this.state.job.title ? `"${ this.state.job.title }"` : `"${ this.state.job.slug }"` }</CardTitle>
                 <CardText>
-                  Speaker(s): { this.state.job.speakers ? this.state.job.speakers : <em>None designated.</em>  }<br />
+                  Speaker(s): { this.state.job.speakers ? this.state.job.speakers : <em>None designated.</em> }<br />
                 </CardText>
                 <Tooltip
                   title="Copied!"

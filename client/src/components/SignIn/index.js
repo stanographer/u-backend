@@ -17,6 +17,9 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { SignUpLink } from '../SignUp';
 import * as ROUTES from '../../constants/routes';
 import Typed from 'react-typed';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './index.css';
 
 import { AuthUserContext } from '../Session';
@@ -24,7 +27,7 @@ import { AuthUserContext } from '../Session';
 const SignIn = (props) => (
   <AuthUserContext.Consumer>
     { authUser => authUser
-      ?  <Redirect to="/dashboard" {...props} />
+      ? <Redirect to={ ROUTES.DASHBOARD } {...props} />
       : <SignInPage /> }
   </AuthUserContext.Consumer>
 );
@@ -66,7 +69,6 @@ const SignInPage = () => (
           <Col lg={ 6 } md={ 6 } sm={ 12 } className="mb-2 footer--section-header">
             <h4 className="text-header pb-3 text-strong">Need help?</h4>
             <ul className="nav flex-column footer--list-items">
-              <li><Link to={ ROUTES.LANDING }>Back to Landing Page</Link></li>
               <li><PasswordForgetLink /></li>
               <li><SignUpLink /></li>
             </ul>
@@ -109,6 +111,8 @@ class SignInFormBase extends Component {
   };
 
   render() {
+    library.add(faArrowLeft);
+
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
 
@@ -148,13 +152,14 @@ class SignInFormBase extends Component {
             { error.message }
           </UncontrolledAlert> }
           <Button
-            className="btn btn-primary btn-lg mt-4"
+            className="btn btn-primary btn-lg mt-4 mb-4"
             disabled={ isInvalid }
             type="submit"
             size="lg"
             block>
             Sign In
           </Button>
+          <Link to={ ROUTES.LANDING }><FontAwesomeIcon icon="arrow-left" />&nbsp;&nbsp;&nbsp;Back to Landing</Link>
         </Form>
       </div>
     );

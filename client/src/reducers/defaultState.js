@@ -3,7 +3,7 @@ export default {
     style: {
       backgroundColor: '#262A38',
       color: '#F2F2F2',
-      fontSize: '3em',
+      fontSize: '3rem',
       fontFamily: 'Cousine, sans-serif',
       lineHeight: '1.5em',
       margin: '0',
