@@ -71,37 +71,45 @@ class JobList extends React.Component {
         .filter(item => item.username === user.username)
         .reverse();
 
+      this.setState({
+        jobs: jobsList,
+        loading: false
+      });
+
+      console.log('state', this.state);
+
       // There must be a better way to do this instead of re-traversing the
       // returned array and assigning the snippets to it.
-      jobsList.forEach(job => {
-        const port = process.env.REACT_APP_ENV === 'production' ? '' : 9090;
-        const url = process.env.REACT_APP_ENV === 'production'
-          ? `${ window.location.protocol }//${ window.location.hostname }`
-          : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
-
-        fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
-          method: 'get',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        })
-          .then(response => response.text()).then(snapshot => {
-          job.snippet = snapshot ? snapshot + '...' : '';
-        })
-          .then(() => {
-            this.setState({
-              jobs: jobsList,
-              loading: false
-            });
-          })
-          .catch(() => {
-            this.setState({
-              jobs: jobsList,
-              loading: false
-            });
-          });
-      });
+      // jobsList.forEach(job => {
+      //   const port = process.env.REACT_APP_ENV === 'production' ? '' : 9090;
+      //   const url = process.env.REACT_APP_ENV === 'production'
+      //     ? `${ window.location.protocol }//${ window.location.hostname }`
+      //     : `${ window.location.protocol }//${ window.location.hostname }:${ port }`;
+      //
+      //   fetch(`${ url }/api/snippet?user=${ job.username }&job=${ job.slug }`, {
+      //     method: 'GET',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'Accept': 'application/json'
+      //     }
+      //   })
+      //     .then(response => response.text())
+      //     .then(snapshot => {
+      //     job.snippet = snapshot ? snapshot + '...' : '';
+      //   })
+      //     .then(() => {
+      //       this.setState({
+      //         jobs: jobsList,
+      //         loading: false
+      //       });
+      //     })
+      //     .catch(() => {
+      //       this.setState({
+      //         jobs: jobsList,
+      //         loading: false
+      //       });
+      //     });
+      // });
     });
   }
 
@@ -166,7 +174,7 @@ class JobList extends React.Component {
           ? <Card className="card-tasks recent-jobs-card">
             <CardHeader>
               <h4 className="title d-inline text-primary">RECENT JOBS</h4>
-              {/*<p className="card-category d-inline"> today</p>*/}
+              {/*<p className="card-category d-inline"> today</p>*/ }
               <UncontrolledDropdown>
                 <DropdownToggle
                   caret

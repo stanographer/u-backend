@@ -19,7 +19,7 @@ import * as ROUTES from '../../constants/routes';
 import Typed from 'react-typed';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './index.css';
 
 import { AuthUserContext } from '../Session';
@@ -27,14 +27,14 @@ import { AuthUserContext } from '../Session';
 const SignIn = (props) => (
   <AuthUserContext.Consumer>
     { authUser => authUser
-      ? <Redirect to={ ROUTES.DASHBOARD } {...props} />
+      ? <SignInPage { ...props} authUser={authUser} />
       : <SignInPage /> }
   </AuthUserContext.Consumer>
 );
 
 const SignInPage = () => (
   <div className="login__form h-100-vh bg-mustard">
-    <Container>
+    <Container className="bg-mustard">
       <Row>
         <Col md={ 3 } />
         <Col md={ 6 }>
@@ -50,9 +50,9 @@ const SignInPage = () => (
         <Col md={ 3 } />
       </Row>
     </Container>
-    <footer className="bg-mustard text-primary pt-5 mt-5">
+    <footer className="bg-mustard text-primary">
       <Container className="pt-5">
-        <Row>
+        <Row className="mt-6">
           <Col lg={ 6 } md={ 6 } sm={ 12 } className="mb-2 footer--section-header">
             <h5 className="text-uppercase text-header">Upwordly</h5>
             <p>
@@ -112,9 +112,13 @@ class SignInFormBase extends Component {
 
   render() {
     library.add(faArrowLeft);
+    library.add(faArrowRight);
 
     const { email, password, error } = this.state;
+    const { firebase } = this.props;
     const isInvalid = password === '' || email === '';
+
+    console.log(this.props);
 
     return (
       <div>
@@ -159,7 +163,11 @@ class SignInFormBase extends Component {
             block>
             Sign In
           </Button>
-          <Link to={ ROUTES.LANDING }><FontAwesomeIcon icon="arrow-left" />&nbsp;&nbsp;&nbsp;Back to Landing</Link>
+          {
+            !firebase.auth.O
+              ? <Link to={ ROUTES.DASHBOARD }><FontAwesomeIcon icon="arrow-left" />&nbsp;&nbsp;&nbsp;Back to Landing</Link>
+              : <Link to={ ROUTES.DASHBOARD }>Continue to Dashboard &nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon="arrow-right" /></Link>
+          }
         </Form>
       </div>
     );
