@@ -23,4 +23,7 @@ const socket = new ReconnectingWebSocket(server.getAddress(), [], {
 const connection = new ShareDB.Connection(socket);
 ShareDB.types.register(otText.type);
 
-export default connection;
+export {
+  connection,
+  socket
+};

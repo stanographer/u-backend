@@ -2,7 +2,7 @@ import React from 'react';
 import { withFirebase } from '../Firebase';
 import TranscriptContainer from './TranscriptContainer';
 import { css } from 'react-emotion';
-import { SyncLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import './index.css';
 import { connect } from 'react-redux';
 
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 const override = css`
     display: block;
     margin: 0 auto;
-    border-color: red;
+    color: style.color;
 `;
 
 class ConnectedIndex extends React.Component {
@@ -32,7 +32,7 @@ class ConnectedIndex extends React.Component {
     this.docParams = this.props.match.params;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { firebase } = this.props;
 
     firebase.findUser(this.docParams.user.toLowerCase()).once('value', snapshot => {
@@ -76,36 +76,33 @@ class ConnectedIndex extends React.Component {
   }
 
   render() {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-      console.log('the user is using mobile');
-    }
     const { job, jobId, loading, user } = this.state;
     const { style } = this.props;
 
     return (
-      <>
+      <div style={ { backgroundColor: style.backgroundColor } }>
         { !loading
           ?
           job && jobId && job.privacy === true
             ? <p>this is a private event.</p>
             : job && jobId
             ? <TranscriptContainer
-                user={ user }
-                job={ job.slug }
-                style={ style } />
+              className="transcript--main-container"
+              user={ user }
+              job={ job.slug }
+              style={ style } />
             : <p>No event found with that user/job combination!</p>
-          : <div className='sweet-loading'>
-            <SyncLoader
-              className={ override }
+          : <div className="sweet-loading">
+            <BarLoader
+              css={ override }
               sizeUnit={ 'px' }
               size={ 13 }
               margin={ '6px' }
-              color={ style.color }
               loading={ loading }
             />
           </div>
         }
-      </>
+      </div>
     );
   }
 }

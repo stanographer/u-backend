@@ -171,49 +171,94 @@ class JobList extends React.Component {
     return (
       <div>
         { !loading
-          ? <Card className="card-tasks recent-jobs-card">
-            <CardHeader>
-              <h4 className="title d-inline text-primary">RECENT JOBS</h4>
-              {/*<p className="card-category d-inline"> today</p>*/ }
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  caret
-                  className="btn-icon"
-                  color="link"
-                  data-toggle="dropdown"
-                  type="button"
-                >
-                  <i className="tim-icons icon-settings-gear-63" />
-                </DropdownToggle>
-                <DropdownMenu aria-labelledby="dropdownMenuLink" right>
-                  <DropdownItem
-                    href="#"
-                    onClick={ e => this.handleDownloadJobs(e) }>
-                    <i className="tim-icons icon-cloud-download-93" />&nbsp;&nbsp;
-                    Download Transcription File
-                  </DropdownItem>
-                  <DropdownItem
-                    href="#"
-                    onClick={ e => this.handleDeleteJobs(e) }>
-                    <i className="tim-icons icon-simple-remove" />&nbsp;&nbsp;
-                    Delete
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </CardHeader>
-            <CardBody>
-              <div className="table-full-width table-responsive">
-                <Table>
-                  <tbody>
-                  <ListOfJobs
-                    handleJobCheck={ this.handleJobCheck }
-                    jobs={ jobs }
-                    hidden={ !jobs || jobs.length === 0 } />
-                  </tbody>
-                </Table>
-              </div>
-            </CardBody>
-          </Card>
+          ? jobs && jobs.length === 0
+            ? <Card className="card-tasks recent-jobs-card">
+              <CardHeader>
+                <h4 className="title d-inline text-primary">RECENT JOBS</h4>
+                {/*<p className="card-category d-inline"> today</p>*/ }
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    caret
+                    className="btn-icon"
+                    color="link"
+                    data-toggle="dropdown"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-settings-gear-63" />
+                  </DropdownToggle>
+                  <DropdownMenu aria-labelledby="dropdownMenuLink" right>
+                    <DropdownItem
+                      disabled
+                      href="#"
+                      onClick={ e => this.handleDownloadJobs(e) }>
+                      <i className="tim-icons icon-cloud-download-93" />&nbsp;&nbsp;
+                      Download Transcription File
+                    </DropdownItem>
+                    <DropdownItem
+                      disabled
+                      href="#"
+                      onClick={ e => this.handleDeleteJobs(e) }>
+                      <i className="tim-icons icon-simple-remove" />&nbsp;&nbsp;
+                      Delete
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </CardHeader>
+              <CardBody>
+                <div className="table-full-width table-responsive">
+                  <Table>
+                    <tbody>
+                      <p>
+                        <em>No jobs yet...</em>
+                      </p>
+                    </tbody>
+                  </Table>
+                </div>
+              </CardBody>
+            </Card>
+            : <Card className="card-tasks recent-jobs-card">
+              <CardHeader>
+                <h4 className="title d-inline text-primary">RECENT JOBS</h4>
+                {/*<p className="card-category d-inline"> today</p>*/ }
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    caret
+                    className="btn-icon"
+                    color="link"
+                    data-toggle="dropdown"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-settings-gear-63" />
+                  </DropdownToggle>
+                  <DropdownMenu aria-labelledby="dropdownMenuLink" right>
+                    <DropdownItem
+                      href="#"
+                      onClick={ e => this.handleDownloadJobs(e) }>
+                      <i className="tim-icons icon-cloud-download-93" />&nbsp;&nbsp;
+                      Download Transcription File
+                    </DropdownItem>
+                    <DropdownItem
+                      href="#"
+                      onClick={ e => this.handleDeleteJobs(e) }>
+                      <i className="tim-icons icon-simple-remove" />&nbsp;&nbsp;
+                      Delete
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </CardHeader>
+              <CardBody>
+                <div className="table-full-width table-responsive">
+                  <Table>
+                    <tbody>
+                    <ListOfJobs
+                      handleJobCheck={ this.handleJobCheck }
+                      jobs={ jobs }
+                      hidden={ !jobs || jobs.length === 0 } />
+                    </tbody>
+                  </Table>
+                </div>
+              </CardBody>
+            </Card>
           : <p className="text-center"><em>Loading...</em></p>
         }
       </div>

@@ -4,7 +4,10 @@ import IntersectionObserver from 'react-intersection-observer';
 import IntersectionVisible from 'react-intersection-visible';
 import FloatingButtons from './FloatingButtons';
 import { animateScroll as scroll } from 'react-scroll';
-import connection from '../ShareDB/connection';
+import { connection, socket } from '../ShareDB/connection';
+import { ToastContainer } from 'react-toastify';
+import { loadingToast, loadSuccessToast, disconnectToast, reconnectToast } from './UpdateToasts';
+import _ from 'lodash';
 
 class LiveTranscriptView extends React.Component {
   constructor(props) {
@@ -15,6 +18,9 @@ class LiveTranscriptView extends React.Component {
       menuVisible: false,
       style: {}
     };
+
+    const { user, job } = props;
+    this.doc = connection.get(user, job);
 
     this.scrollDown = this.scrollDown.bind(this);
     this.onLoaded = this.onLoaded.bind(this);
@@ -27,6 +33,7 @@ class LiveTranscriptView extends React.Component {
   }
 
   onLoaded() {
+    loadSuccessToast();
     this.setState({
       loading: false
     }, this.scrollDown);
@@ -46,9 +53,21 @@ class LiveTranscriptView extends React.Component {
     });
   }
 
-  componentWillMount() {
-    const { user, job } = this.props;
-    this.doc = connection.get(user, job);
+  componentDidMount() {
+    let hasDisconnected = false;
+    loadingToast();
+
+    const notifyDisconnected = _.once(disconnectToast);
+    const notifyReconnected = _.once(reconnectToast);
+
+    socket.onclose = () => {
+      hasDisconnected = true;
+      notifyDisconnected();
+    };
+
+    socket.onopen = () => {
+      if (hasDisconnected) notifyReconnected();
+    };
   }
 
   componentWillUnmount() {
@@ -90,6 +109,9 @@ class LiveTranscriptView extends React.Component {
                  style={ { backgroundColor: style.backgroundColor } } />
           ) }
         </IntersectionObserver>
+        <ToastContainer
+          draggable
+          autoClose={ 5000 } />
       </div>
     );
   }

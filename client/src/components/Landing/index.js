@@ -102,11 +102,11 @@ const Landing = () => {
           <Card body inverse className="bg-primary">
             <CardTitle>Single User</CardTitle>
             <CardText>You're a single freelancer and expect to use the service around 10 times per week.</CardText>
-            <Button outline size="lg" className="btn btn-outline-light">$48 per month</Button>
+            <Button outline size="lg" className="btn btn-outline-light">$58 per month</Button>
           </Card> <Card body inverse className="bg-primary">
           <CardTitle>Agency</CardTitle>
           <CardText>You're an agency employing 2-10 writers and expect to use the service 10-30 times per week.</CardText>
-          <Button outline size="lg" className="btn btn-outline-light">$98 per month</Button>
+          <Button outline size="lg" className="btn btn-outline-light">$108 per month</Button>
         </Card> <Card body inverse className="bg-primary">
           <CardTitle>Enterprise</CardTitle>
           <CardText>You have a large staff and clientele base with an average of over 30 uses per week.</CardText>

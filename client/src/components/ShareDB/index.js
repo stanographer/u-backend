@@ -3,7 +3,7 @@ import Binding from './react-binding';
 import PropTypes from 'prop-types';
 
 function ShareDBBinding(props) {
-  const { doc, onLoaded, cssClass, style } = props;
+  const { doc, onLoaded, cssClass, flag, style } = props;
 
   let [text, setText] = useState('');
   let binding;
@@ -20,14 +20,8 @@ function ShareDBBinding(props) {
 
     // Load document and bind it to local snapshot.
     doc.on('load', () => {
-      binding = new Binding(doc.data, props.flag);
-      if (doc.data === '') {
-        setText(`
-[ Connection established. Waiting for incoming text. ]
-        `);
-      } else {
-        setText(binding.snapshot);
-      }
+      binding = new Binding(doc.data, flag);
+      setText(binding.snapshot);
       onLoaded();
     });
 

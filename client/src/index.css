@@ -973,6 +973,14 @@ a:not([href]):not([tabindex]):focus {
 .text-primary {
   color: #083358 !important; }
 
+.Toastify__toast-body {
+  padding: .5em 1em .62em 1em;
+  font-family: 'Comfortaa', sans-serif;
+  color: #212529; }
+
+.Toastify__close-button {
+  color: #212529; }
+
 .upwordly-mockup {
   background-color: #212529;
   color: #F2F2F0;

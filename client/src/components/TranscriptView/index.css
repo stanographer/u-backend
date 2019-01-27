@@ -3,7 +3,8 @@
 /* Custom devices */
 html, body {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  -webkit-overflow-scrolling: touch; }
 
 .dashboard-main {
   margin: 3em 0 0 0; }
@@ -13,7 +14,7 @@ html, body {
   overflow-y: scroll; }
 
 .liveTranscript--container_observer {
-  height: 1.2em;
+  height: .5em;
   color: transparent; }
 
 .liveTranscript--buttons_floating {
@@ -74,40 +75,73 @@ html, body {
   min-height: 100vh;
   margin: 0;
   overflow: inherit;
-  padding: .5em 1.5em .2em 1em;
   text-align: left;
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
-  word-break: break-word; }
+  word-break: break-word;
+  padding: .5em 1.5em .2em 1em; }
   @media (min-width: 576px) {
     .liveTranscript--text-format {
+      height: 100%;
       font-size: 1.8em;
       right: 1em;
       margin: 0;
       line-height: 1.2em; } }
+  @media (min-width: 576px) and (orientation: landscape) {
+    .liveTranscript--text-format {
+      padding: .5em 1.5em .2em 1em;
+      min-width: 100vw;
+      right: 1em;
+      margin: 0; } }
   @media (min-width: 768px) {
     .liveTranscript--text-format {
       font-size: 3em;
       right: 1em;
       margin: 0;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1em; } }
   @media (min-width: 992px) {
     .liveTranscript--text-format {
       font-size: 3em;
       right: 4em;
       margin: 2em;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1em; } }
   @media (min-width: 1200px) {
     .liveTranscript--text-format {
       font-size: 3em;
       right: 4em;
       margin: 2em;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1em; } }
 
-.sweet-loading {
-  position: absolute;
-  top: 50vh;
-  left: 45vw; }
+@media (min-width: 576px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 20%; } }
+
+@media (min-width: 768px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
+
+@media (min-width: 992px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
+
+@media (min-width: 1200px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
 
 .settings-panel__column-left--header-group {
   margin: 0 0 2.5em 0; }

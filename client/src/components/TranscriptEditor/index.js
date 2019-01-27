@@ -19,7 +19,7 @@ import {
   Row
 } from 'reactstrap';
 import { Tooltip } from 'react-tippy';
-import connection from '../ShareDB/connection';
+import { connection } from '../ShareDB/connection';
 import 'react-tippy/dist/tippy.css';
 import './index.css';
 import otText from 'ot-text';

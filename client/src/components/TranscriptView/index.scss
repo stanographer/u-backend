@@ -6,6 +6,7 @@ $creme: #FCF2CB;
 html, body {
   height: 100%;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .dashboard-main {
@@ -18,7 +19,7 @@ html, body {
 }
 
 .liveTranscript--container_observer {
-  height: 1.2em;
+  height: .5em;
   color: transparent;
 }
 
@@ -82,42 +83,73 @@ html, body {
   min-height: 100vh;
   margin: 0;
   overflow: inherit;
-  padding: .5em 1.5em .2em 1em;
   text-align: left;
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
   word-break: break-word;
+  padding: .5em 1.5em .2em 1em;
 
   @include sm {
+    height: 100%;
     font-size: 1.8em;
     right: 1em;
     margin: 0;
     line-height: 1.2em;
   }
+
+  @include sm-h {
+    padding: .5em 1.5em .2em 1em;
+    min-width: 100vw;
+    right: 1em;
+    margin: 0;
+  }
+
   @include md {
     font-size: 3em;
     right: 1em;
     margin: 0;
     line-height: 1.5em;
+    padding: .5em 1.5em .2em 1em;
   }
+
   @include lg {
     font-size: 3em;
     right: 4em;
     margin: 2em;
     line-height: 1.5em;
+    padding: .5em 1.5em .2em 1em;
   }
+
   @include xl {
     font-size: 3em;
     right: 4em;
     margin: 2em;
     line-height: 1.5em;
+    padding: .5em 1.5em .2em 1em;
   }
 }
 
 .sweet-loading {
-  position: absolute;
-  top: 50vh;
-  left: 45vw;
+  @include sm {
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 20%;
+  }
+  @include md {
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 45%;
+  }
+  @include lg {
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 45%;
+  }
+  @include xl {
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 45%;
+  }
 }
 
 .settings-panel__column-left--header-group {
@@ -190,6 +222,10 @@ html, body {
 
 .settings-panel__column-right--header-group {
   margin: 0 0 2em 0;
+}
+
+.transcript--main-container {
+
 }
 
 .transcript-view-tools__container {

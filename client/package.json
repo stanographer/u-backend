@@ -30,13 +30,13 @@
     "react-intersection-visible": "^2.0.6",
     "react-jsonschema-form": "^1.0.6",
     "react-modal": "^3.6.1",
-    "react-notifications": "^1.4.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",
     "react-scroll": "^1.7.10",
     "react-spinners": "^0.4.7",
     "react-tippy": "^1.2.3",
+    "react-toastify": "^4.5.2",
     "react-typed": "^1.1.0",
     "reactstrap": "^6.5.0",
     "recompose": "^0.30.0",
@@ -50,7 +50,7 @@
     "sharedb-string-binding": "latest"
   },
   "scripts": {
-    "build": "npm-run-all build-css build-js",
+    "build": "REACT_APP_API_KEY=AIzaSyD9kUhusklUOTC36blxrrGYILIaPd3e7Bw REACT_APP_AUTH_DOMAIN=aloft-53221.firebaseapp.com REACT_APP_DATABASE_URL=https://aloft-53221.firebaseio.com REACT_APP_PROJECT_ID=aloft-53221 REACT_APP_STORAGE_BUCKET=aloft-53221.appspot.com  REACT_APP_MESSAGING_SENDER_ID=439623820482 REACT_APP_HTTP_PORT=1988 REACT_APP_REG_KEY=pusheen88 SKIP_PREFLIGHT_CHECK=true REACT_APP_STAGE=production REACT_APP_ENV=production npm-run-all build-css build-js\n",
     "build-css": "node-sass --include-path ./src  --include-path ./node_modules src/ -o src/compiled",
     "build-js": "react-scripts build",
     "deploy": "cd ~/Developer/upwordly/client/build && scp -r . stanley@upword.ly:/var/www/upword.ly/html",

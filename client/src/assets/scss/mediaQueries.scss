@@ -20,6 +20,12 @@ $screen-xl-min: 1200px;
   }
 }
 
+@mixin sm-h {
+  @media (min-width: #{$screen-sm-min}) and (orientation: landscape) {
+    @content;
+  }
+}
+
 @mixin md {
   @media (min-width: #{$screen-md-min}) {
     @content;
