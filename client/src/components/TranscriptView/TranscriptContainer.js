@@ -1,7 +1,7 @@
 import React from 'react';
 import ShareDBBinding from '../ShareDB';
 import IntersectionObserver from 'react-intersection-observer';
-import IntersectionVisible from 'react-intersection-visible';
+import 'react-intersection-visible';
 import FloatingButtons from './FloatingButtons';
 import { animateScroll as scroll } from 'react-scroll';
 import { connection, socket } from '../ShareDB/connection';
@@ -65,6 +65,7 @@ class LiveTranscriptView extends React.Component {
       notifyDisconnected();
     };
 
+    // Will display a message to the user that the connection is rectified.
     socket.onopen = () => {
       if (hasDisconnected) notifyReconnected();
     };

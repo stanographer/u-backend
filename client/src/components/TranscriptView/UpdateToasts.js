@@ -21,7 +21,7 @@ const LoadedToast = () => {
       <FontAwesomeIcon icon="check" />&nbsp;&nbsp;&nbsp;<strong>Success!</strong>
       <br />
       <br />
-      Live transcription is now active.
+      Live transcription is now active. 🦄
     </div>
   );
 };
@@ -46,7 +46,7 @@ const ReconnectToast = () => {
     <div>
       <FontAwesomeIcon icon="wifi" />&nbsp;&nbsp;&nbsp;<strong>Connection restored.</strong>
       <br />
-      <em>Whew!</em>
+      <em>Whew! 🦄</em>
     </div>
   );
 };
