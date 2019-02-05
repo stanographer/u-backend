@@ -3,10 +3,8 @@
 $dark-blue-header: #282f37;
 $creme: #FCF2CB;
 
-html, body {
-  height: 100%;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
+body:local {
+  font-size: 70%;
 }
 
 .dashboard-main {
@@ -15,54 +13,12 @@ html, body {
 
 .liveTranscript--container {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .liveTranscript--container_observer {
   height: .5em;
   color: transparent;
-}
-
-.liveTranscript--buttons_floating {
-  position: fixed;
-  bottom: 5%;
-  animation: toolbar 1.5s ease-in-out infinite;
-  z-index: 6;
-  @include sm {
-    right: 1em;
-    margin: 0;
-  }
-  @include md {
-    right: 1em;
-    margin: 0;
-  }
-  @include lg {
-    right: 4em;
-    margin: 2em;
-  }
-  @include xl {
-    right: 4em;
-    margin: 2em;
-  }
-}
-
-.liveTranscript--buttons_floating .btn-group > .btn {
-  @include sm {
-    font-size: 1em;
-    padding: 0;
-  }
-  @include md {
-    font-size: 1em;
-    padding: .8em;
-  }
-  @include lg {
-    font-size: 1.4em;
-    padding: .8em;
-  }
-  @include xl {
-    font-size: 1.4em;
-    padding: .8em;
-  }
 }
 
 .liveTranscript--menu {
@@ -72,26 +28,21 @@ html, body {
   left: 0;
 }
 
-.liveTranscript--menu_blue-mountain {
-  height: 2em;
-  width: 2em;
-}
-
 .liveTranscript--text-format {
   display: block;
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   margin: 0;
-  overflow: inherit;
+  overflow: auto;
   text-align: left;
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
   word-break: break-word;
-  padding: .5em 1.5em .2em 1em;
+  padding: .5rem 1.5rem .2rem 1rem;
 
   @include sm {
     height: 100%;
-    font-size: 1.8em;
+    font-size: 62.5%;
     right: 1em;
     margin: 0;
     line-height: 1.2em;
@@ -99,56 +50,64 @@ html, body {
 
   @include sm-h {
     padding: .5em 1.5em .2em 1em;
+    font-size: 62.5%;
     min-width: 100vw;
     right: 1em;
     margin: 0;
   }
 
   @include md {
-    font-size: 3em;
     right: 1em;
     margin: 0;
     line-height: 1.5em;
-    padding: .5em 1.5em .2em 1em;
+    padding: .5em 1.5em .2em 1.5em;
   }
 
   @include lg {
-    font-size: 3em;
+    //font-size: 3em;
     right: 4em;
     margin: 2em;
     line-height: 1.5em;
-    padding: .5em 1.5em .2em 1em;
+    padding: .5em 1.5em .2em 1.5em;
   }
 
   @include xl {
-    font-size: 3em;
+    //font-size: 3em;
     right: 4em;
     margin: 2em;
     line-height: 1.5em;
-    padding: .5em 1.5em .2em 1em;
+    padding: .5em 1.5em .2em 1.5em;
   }
+}
+
+.rtf--ab {
+  margin: 1rem 0 1rem 0;
 }
 
 .sweet-loading {
   @include sm {
     margin: auto;
     position: absolute;
-    top: 50%; left: 20%;
+    top: 50%;
+    left: 20%;
   }
   @include md {
     margin: auto;
     position: absolute;
-    top: 50%; left: 45%;
+    top: 50%;
+    left: 45%;
   }
   @include lg {
     margin: auto;
     position: absolute;
-    top: 50%; left: 45%;
+    top: 50%;
+    left: 45%;
   }
   @include xl {
     margin: auto;
     position: absolute;
-    top: 50%; left: 45%;
+    top: 50%;
+    left: 45%;
   }
 }
 
@@ -224,8 +183,8 @@ html, body {
   margin: 0 0 2em 0;
 }
 
-.transcript--main-container {
-
+.transcript--container-toolbar {
+  font-family: 'Poppins Medium', sans-serif;
 }
 
 .transcript-view-tools__container {

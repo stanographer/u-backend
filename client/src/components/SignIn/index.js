@@ -96,7 +96,7 @@ class SignInFormBase extends Component {
     const { email, password } = this.state;
 
     this.props.firebase
-      .doSignInWithEmailAndPassword(email, password).then(() => {
+      .doSignInWithEmailAndPassword(email.trim().toLowerCase(), password).then(() => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push(ROUTES.DASHBOARD);
     }).catch(error => {
@@ -117,8 +117,6 @@ class SignInFormBase extends Component {
     const { email, password, error } = this.state;
     const { firebase } = this.props;
     const isInvalid = password === '' || email === '';
-
-    console.log(this.props);
 
     return (
       <div>

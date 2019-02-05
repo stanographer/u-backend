@@ -1,13 +1,23 @@
 import React from 'react';
 import ShareDBBinding from '../ShareDB';
-import IntersectionObserver from 'react-intersection-observer';
+import { InView } from 'react-intersection-observer';
 import 'react-intersection-visible';
-import FloatingButtons from './FloatingButtons';
 import { animateScroll as scroll } from 'react-scroll';
 import { connection, socket } from '../ShareDB/connection';
 import { ToastContainer } from 'react-toastify';
-import { loadingToast, loadSuccessToast, disconnectToast, reconnectToast } from './UpdateToasts';
-import _ from 'lodash';
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowDown, faCog, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import {
+  loadingToast,
+  loadSuccessToast,
+  disconnectToast,
+  reconnectToast
+} from './Toasts';
+import TranscriptViewMenu from '../TranscriptViewMenu';
 
 class LiveTranscriptView extends React.Component {
   constructor(props) {
@@ -16,18 +26,23 @@ class LiveTranscriptView extends React.Component {
     this.state = {
       loading: true,
       menuVisible: false,
-      style: {}
+      style: {},
+      fabOpen: false
     };
 
     const { user, job } = props;
-    this.doc = connection.get(user, job);
+    this.doc = connection.get(user, job.slug);
 
     this.scrollDown = this.scrollDown.bind(this);
     this.onLoaded = this.onLoaded.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
   }
 
   onScrollToBottom(atBottom) {
-    if (!atBottom) {
+    const { loading } = this.state;
+
+    if (!atBottom && !loading) {
       this.scrollDown();
     }
   }
@@ -36,7 +51,7 @@ class LiveTranscriptView extends React.Component {
     loadSuccessToast();
     this.setState({
       loading: false
-    }, this.scrollDown);
+    }, this.scrollDownDelay);
   }
 
   scrollDown() {
@@ -47,73 +62,104 @@ class LiveTranscriptView extends React.Component {
         isDynamic: true
       });
     }, 0);
+  }
+
+  scrollDownDelay() {
+    setTimeout(() => {
+      scroll.scrollToBottom({
+        delay: 0,
+        duration: 200,
+        isDynamic: true
+      });
+    }, 470);
+  }
+
+  toggleMenu() {
+    const { menuVisible } = this.state;
 
     this.setState({
-      menuVisible: false
+      menuVisible: !menuVisible
     });
   }
 
+  handleMenuClick() {
+    this.toggleMenu();
+  }
+
   componentDidMount() {
+    // HasConnected makes sure that the disconnection message isn't
+    // shown to the user at start-up.
     let hasDisconnected = false;
     loadingToast();
 
-    const notifyDisconnected = _.once(disconnectToast);
-    const notifyReconnected = _.once(reconnectToast);
-
+    // Will display a message to the user that the connection was lost.
     socket.onclose = () => {
       hasDisconnected = true;
-      notifyDisconnected();
+      disconnectToast();
     };
 
     // Will display a message to the user that the connection is rectified.
     socket.onopen = () => {
-      if (hasDisconnected) notifyReconnected();
+      if (hasDisconnected) reconnectToast();
     };
   }
 
   componentWillUnmount() {
+    // Destroy subscription.
     this.doc.destroy();
   }
 
   render() {
-    const { menuVisible } = this.state;
+    library.add(faPlus, faCog);
+    library.add(faArrowDown);
+
     const { style } = this.props;
+    const { menuVisible } = this.state;
+    const fabPosition = {
+      top: 2,
+      right: 2
+    };
 
     return (
-      <div className="liveTranscript--container">
-        { menuVisible
-          ? <FloatingButtons
-            scrollDown={ this.scrollDown }
-            style={ style } />
-          : null
-        }
-        <div className="liveTranscript"
-             onClick={ () => {
-               this.setState({
-                 menuVisible: true
-               });
-             } }>
-          <ShareDBBinding
-            cssClass="liveTranscript--text-format"
-            style={ style }
-            doc={ this.doc }
-            onLoaded={ this.onLoaded }
-            flag='≈'
-            elementType="div" />
+      <>
+        <Fab
+          mainButtonStyles={ { color: '#fff', backgroundColor: '#072247' } }
+          position={ fabPosition }
+          icon={ <FontAwesomeIcon icon="plus" /> }
+          event={ 'click' }
+        >
+          <Action
+            style={ { backgroundColor: '#ffd460', color: '#083358' } }
+            text="Scroll to Bottom"
+            onClick={() => this.scrollDown()}
+          >
+            <FontAwesomeIcon icon="arrow-down"/>
+          </Action>
+          <Action
+            text="Settings"
+            onClick={() => this.handleMenuClick()}
+          >
+            <FontAwesomeIcon icon="cog"/>
+          </Action>
+        </Fab>
+        <TranscriptViewMenu visibility={ menuVisible } style={style} job={this.props.job} handleMenuClick={ this.handleMenuClick } />
+        <div className="liveTranscript--container">
+          <div className="liveTranscript">
+            <ShareDBBinding
+              ref={ this.observer }
+              cssClass="liveTranscript--text-format"
+              style={ style }
+              doc={ this.doc }
+              onLoaded={ this.onLoaded }
+              flag='≈'
+              elementType="div" />
+          </div>
+          <InView tag="div" threshold={ .1 } onChange={ state => this.onScrollToBottom(state) } />
+          <ToastContainer
+            draggable
+            autoClose={ 5000 } />
         </div>
-        <IntersectionObserver
-          threshold={ .1 }
-          onChange={ state => this.onScrollToBottom(state) }>
-          { ({ inView, ref }) => (
-            <div ref={ ref }
-                 className="liveTranscript--container_observer"
-                 style={ { backgroundColor: style.backgroundColor } } />
-          ) }
-        </IntersectionObserver>
-        <ToastContainer
-          draggable
-          autoClose={ 5000 } />
-      </div>
+      </>
     );
   }
 }

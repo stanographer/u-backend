@@ -100,6 +100,7 @@ class SignUp extends React.Component {
 
   onChange = event => {
     console.log(this.state);
+
     if (event.target.name === 'passwordOne') {
       this.setState({
         passwordStrength: validatePassword(event.target.value)
@@ -142,10 +143,10 @@ class SignUp extends React.Component {
           return this.props.firebase
             .user(authUser.user.uid)
             .set({
-              fullName,
-              nickName,
-              username,
-              email,
+              fullName: fullName.trim(),
+              nickName: nickName.trim(),
+              username: username.trim().toLowerCase(),
+              email: email.trim().toLowerCase(),
               privilegeLevel
             });
         })

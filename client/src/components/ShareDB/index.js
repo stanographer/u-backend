@@ -13,9 +13,6 @@ function ShareDBBinding(props) {
       if (err) {
         setText('There was a connection error: ' + err);
       }
-      if (doc.type === null) {
-        setText('This document could not be subscribed to.');
-      }
     });
 
     // Load document and bind it to local snapshot.

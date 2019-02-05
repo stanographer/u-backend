@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Col, FormGroup, Input, Label } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 
 const StepOne = (props) => {
   console.log(props);

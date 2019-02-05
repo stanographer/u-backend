@@ -1,7 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700');
-@import url('https://fonts.googleapis.com/css?family=Crete+Round:200,300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+//@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Crete+Round:200,300,400,700');
+//@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,700');
+//@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+
+@font-face {
+  font-family: 'Cousine';
+  src: url('../fonts/Cousine/Cousine-Regular.eot');
+  src: url('../fonts/Cousine/Cousine-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Cousine/Cousine-Regular.woff2') format('woff2'),
+  url('../fonts/Cousine/Cousine-Regular.woff') format('woff'),
+  url('../fonts/Cousine/Cousine-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @font-face {
   font-family: 'Chivo';
   src: url('../fonts/Chivo/Chivo-Regular.eot');
@@ -43,3 +55,48 @@
   font-weight: 500;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat/Montserrat-Regular.eot');
+  src: url('../fonts/Montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Montserrat/Montserrat-Regular.woff2') format('woff2'),
+  url('../fonts/Montserrat/Montserrat-Regular.woff') format('woff'),
+  url('../fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Light';
+  src: url('../fonts/Montserrat/Montserrat-Light.eot');
+  src: url('../fonts/Montserrat/Montserrat-Light.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Montserrat/Montserrat-Light.woff2') format('woff2'),
+  url('../fonts/Montserrat/Montserrat-Light.woff') format('woff'),
+  url('../fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Medium';
+  src: url('../fonts/Montserrat/Montserrat-Medium.eot');
+  src: url('../fonts/Montserrat/Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Montserrat/Montserrat-Medium.woff2') format('woff2'),
+  url('../fonts/Montserrat/Montserrat-Medium.woff') format('woff'),
+  url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('../fonts/Inconsolata/Inconsolata-Regular.eot');
+  src: url('../fonts/Inconsolata/Inconsolata-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Inconsolata/Inconsolata-Regular.woff2') format('woff2'),
+  url('../fonts/Inconsolata/Inconsolata-Regular.woff') format('woff'),
+  url('../fonts/Inconsolata/Inconsolata-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+

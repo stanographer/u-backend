@@ -79,6 +79,8 @@ class ConnectedIndex extends React.Component {
     const { job, jobId, loading, user } = this.state;
     const { style } = this.props;
 
+    document.title = job.title;
+
     return (
       <div style={ { backgroundColor: style.backgroundColor } }>
         { !loading
@@ -89,7 +91,7 @@ class ConnectedIndex extends React.Component {
             ? <TranscriptContainer
               className="transcript--main-container"
               user={ user }
-              job={ job.slug }
+              job={ job }
               style={ style } />
             : <p>No event found with that user/job combination!</p>
           : <div className="sweet-loading">

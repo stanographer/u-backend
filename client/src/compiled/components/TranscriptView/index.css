@@ -1,62 +1,19 @@
 /* Media query breakpoints */
 /* Media query mixins */
 /* Custom devices */
-html, body {
-  height: 100%;
-  width: 100%; }
+body:local {
+  font-size: 70%; }
 
 .dashboard-main {
   margin: 3em 0 0 0; }
 
 .liveTranscript--container {
   overflow-x: hidden;
-  overflow-y: scroll; }
+  overflow-y: hidden; }
 
 .liveTranscript--container_observer {
-  height: 1.2em;
+  height: .5em;
   color: transparent; }
-
-.liveTranscript--buttons_floating {
-  position: fixed;
-  bottom: 5%;
-  animation: toolbar 1.5s ease-in-out infinite;
-  z-index: 6; }
-  @media (min-width: 576px) {
-    .liveTranscript--buttons_floating {
-      right: 1em;
-      margin: 0; } }
-  @media (min-width: 768px) {
-    .liveTranscript--buttons_floating {
-      right: 1em;
-      margin: 0; } }
-  @media (min-width: 992px) {
-    .liveTranscript--buttons_floating {
-      right: 4em;
-      margin: 2em; } }
-  @media (min-width: 1200px) {
-    .liveTranscript--buttons_floating {
-      right: 4em;
-      margin: 2em; } }
-
-@media (min-width: 576px) {
-  .liveTranscript--buttons_floating .btn-group > .btn {
-    font-size: 1em;
-    padding: 0; } }
-
-@media (min-width: 768px) {
-  .liveTranscript--buttons_floating .btn-group > .btn {
-    font-size: 1em;
-    padding: .8em; } }
-
-@media (min-width: 992px) {
-  .liveTranscript--buttons_floating .btn-group > .btn {
-    font-size: 1.4em;
-    padding: .8em; } }
-
-@media (min-width: 1200px) {
-  .liveTranscript--buttons_floating .btn-group > .btn {
-    font-size: 1.4em;
-    padding: .8em; } }
 
 .liveTranscript--menu {
   position: fixed !important;
@@ -64,50 +21,80 @@ html, body {
   bottom: 0;
   left: 0; }
 
-.liveTranscript--menu_blue-mountain {
-  height: 2em;
-  width: 2em; }
-
 .liveTranscript--text-format {
   display: block;
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   margin: 0;
-  overflow: inherit;
-  padding: .5em 1.5em .2em 1em;
+  overflow: auto;
   text-align: left;
   text-shadow: 2px 2px #474a4f;
   white-space: pre-wrap;
-  word-break: break-word; }
+  word-break: break-word;
+  padding: .5rem 1.5rem .2rem 1rem; }
   @media (min-width: 576px) {
     .liveTranscript--text-format {
-      font-size: 1.8em;
+      height: 100%;
+      font-size: 62.5%;
       right: 1em;
       margin: 0;
       line-height: 1.2em; } }
+  @media (min-width: 576px) and (orientation: landscape) {
+    .liveTranscript--text-format {
+      padding: .5em 1.5em .2em 1em;
+      font-size: 62.5%;
+      min-width: 100vw;
+      right: 1em;
+      margin: 0; } }
   @media (min-width: 768px) {
     .liveTranscript--text-format {
-      font-size: 3em;
       right: 1em;
       margin: 0;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1.5em; } }
   @media (min-width: 992px) {
     .liveTranscript--text-format {
-      font-size: 3em;
       right: 4em;
       margin: 2em;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1.5em; } }
   @media (min-width: 1200px) {
     .liveTranscript--text-format {
-      font-size: 3em;
       right: 4em;
       margin: 2em;
-      line-height: 1.5em; } }
+      line-height: 1.5em;
+      padding: .5em 1.5em .2em 1.5em; } }
 
-.sweet-loading {
-  position: absolute;
-  top: 50vh;
-  left: 45vw; }
+.rtf--ab {
+  margin: 1rem 0 1rem 0; }
+
+@media (min-width: 576px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 20%; } }
+
+@media (min-width: 768px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
+
+@media (min-width: 992px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
+
+@media (min-width: 1200px) {
+  .sweet-loading {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 45%; } }
 
 .settings-panel__column-left--header-group {
   margin: 0 0 2.5em 0; }
@@ -166,6 +153,9 @@ html, body {
 
 .settings-panel__column-right--header-group {
   margin: 0 0 2em 0; }
+
+.transcript--container-toolbar {
+  font-family: 'Poppins Medium', sans-serif; }
 
 .transcript-view-tools__container {
   padding: 2em 0 0 0; }

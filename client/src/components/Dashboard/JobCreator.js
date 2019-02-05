@@ -83,24 +83,25 @@ class JobCreator extends React.Component {
 
   addJobToJobs = () => {
     const { firebase } = this.props;
-    const { username, firstName, lastName } = this.props.user;
+    const { username, fullName } = this.props.user;
+    console.log(this.props.user);
     const {
-      slug,
-      title,
-      speakers,
-      timeCreated,
-      privacy,
-      privacyPassword,
-      viewCount,
-      completed
-    } = this.state;
+            slug,
+            title,
+            speakers,
+            timeCreated,
+            privacy,
+            privacyPassword,
+            viewCount,
+            completed
+          } = this.state;
 
     firebase.allJobs()
       .push({
         slug: !!slug && slug.trim().toLowerCase(),
         title: !!title && title.trim(),
         username,
-        userFullName: `${ firstName } ${ lastName }`,
+        userFullName: fullName,
         speakers: !!speakers && speakers.trim(),
         timeCreated,
         privacy,
@@ -146,12 +147,14 @@ class JobCreator extends React.Component {
   render() {
     const { username } = this.props.user;
     const {
-      error,
-      slug,
-      speakers,
-      privacyPassword,
-      title
-    } = this.state;
+            error,
+            message,
+            privacy,
+            privacyPassword,
+            slug,
+            speakers,
+            title
+          } = this.state;
 
     let formInvalid = (error !== '' || slug === '');
 
@@ -176,7 +179,7 @@ class JobCreator extends React.Component {
                            name="slug"
                            id="slug"
                            placeholder='e.g. srcconpower2018-power-people-of-color'
-                           value={ this.state.slug }
+                           value={ slug }
                            onChange={ e => this.onChange(e) } />
                     { slug && !error
                       ? <p
@@ -195,7 +198,7 @@ class JobCreator extends React.Component {
                       name="title"
                       id="title"
                       placeholder='e.g. Power to the People—of Color'
-                      value={ this.state.title }
+                      value={ title }
                       onChange={ e => this.onChange(e) } />
                     { title && !error
                       ? <p className="text-success">{ `"${ title }"` }</p>
@@ -212,7 +215,7 @@ class JobCreator extends React.Component {
                       name="speakers"
                       id="speakers"
                       placeholder='e.g. Emmanuel Martinez, Julia B. Chan'
-                      value={ this.state.speakers }
+                      value={ speakers }
                       onChange={ e => this.onChange(e) } />
                     { speakers && !error
                       ? <p className="text-success">{ `"${ speakers }"` }</p>
@@ -220,17 +223,17 @@ class JobCreator extends React.Component {
                   </FormGroup>
                   <FormGroup check>
                     <div className="custom-control custom-checkbox d-inline">
-                      <Input defaultChecked={ this.state.privacy }
+                      <Input defaultChecked={ privacy }
                              onChange={ this.onTogglePrivacy }
                              type="checkbox"
                              name="privacy"
                              id="privacy"
-                             className="custom-control-input"/>
+                             className="custom-control-input" />
                       <Label for="privacy" className="custom-control-label" check>Private</Label>
                     </div>
                   </FormGroup>
                   <br />
-                  <FormGroup hidden={!this.state.privacy}>
+                  <FormGroup hidden={ !privacy }>
                     <Input
                       autoComplete="false"
                       data-lpignore="true" // Disable LastPass's autofill thingy.
@@ -239,10 +242,11 @@ class JobCreator extends React.Component {
                       required
                       name="privacyPassword"
                       id="privacyPassword"
-                      value={ this.state.privacyPassword }
+                      value={ privacyPassword }
                       onChange={ e => this.onChange(e) } />
                     <br />
-                    <p className="text-success">Users will have to type in this password to access the transcription.</p>
+                    <p className="text-success">Users will have to type in this password to access the
+                      transcription.</p>
                   </FormGroup>
                 </Col>
               </Row>
@@ -259,7 +263,7 @@ class JobCreator extends React.Component {
             </Button>
           </CardFooter>
         </Card>
-        { !!this.state.message && <p>{ this.state.message }</p> }
+        { !!message && <p>{ message }</p> }
       </div>
     );
   }
