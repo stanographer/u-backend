@@ -13,6 +13,7 @@ import PasswordForgetPage from '../PasswordForget';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import DashboardPage from '../Dashboard';
+import Doc from '../Doc';
 import TranscriptEditor from '../TranscriptEditor';
 import TranscriptView from '../TranscriptView';
 import TranscriptViewTools from '../TranscriptViewTools';
@@ -24,6 +25,7 @@ const App = () =>
       <Route path={ ROUTES.ACCOUNT } component={ AccountPage } />
       <Route path={ ROUTES.ADMIN } component={ AdminPage } />
       <Route path={ ROUTES.DASHBOARD } component={ DashboardPage } />
+      <Route path={ ROUTES.DOC } component={ Doc } />
       <Route exact path={ ROUTES.LANDING } component={ LandingPage } />
       <Route path={ ROUTES.SIGN_UP } component={ SignUpPage } />
       <Route path={ ROUTES.SIGN_IN } component={ SignInPage } />

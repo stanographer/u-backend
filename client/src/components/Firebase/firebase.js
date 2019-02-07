@@ -27,6 +27,8 @@ class Firebase {
     this.db = app.database();
   }
 
+
+
   // Auth API
 
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -56,7 +58,7 @@ class Firebase {
   // Returns user jobs
   jobs = uid => {
     this.db.ref(`users/${uid}`)
-      .child('jobs');
+      .orderByChild('jobs');
   };
 
   // Returns ref to the /users path.
@@ -76,8 +78,6 @@ class Firebase {
 
   allJobs = () => this.db.ref('jobs');
 
-  allJobsList = () => this.db.ref('jobs').orderByKey();
-
   jobById = id => this.db.ref(`/jobs/${id}`);
 
   jobsBySlug = slug =>
@@ -89,9 +89,6 @@ class Firebase {
     this.db.ref('jobs')
       .child(`${uid}`)
       .remove();
-
-  // Events API
-  events = () => this.db.ref('events');
 }
 
 export default Firebase;

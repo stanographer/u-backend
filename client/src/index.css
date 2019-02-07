@@ -1095,6 +1095,9 @@ a:not([href]):not([tabindex]):focus {
 .text-primary {
   color: #083358 !important; }
 
+.text-success {
+  color: #0074E4; }
+
 .Toastify__toast-body {
   padding: .5em 1em .62em 1em;
   font-family: 'Poppins Medium', sans-serif;

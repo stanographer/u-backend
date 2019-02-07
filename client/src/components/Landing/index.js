@@ -28,8 +28,9 @@ const Landing = () => {
               <div className="text-center m-0 vh-100 d-flex flex-column justify-content-center text-primary">
                 <h1 className="display-4 header-main">Upwordly</h1>
                 <p className="lead text-primary mt-2">
-                  <Typed strings={ ['One platform to sync, send, and integrate your real-time transcriptions.', 'Web-based live stenography, anywhere.'] }
-                         typeSpeed={ 40 }
+                  <Typed
+                    strings={ ['One platform to sync, send, and integrate your real-time transcriptions.', 'Web-based live stenography, anywhere.'] }
+                    typeSpeed={ 40 }
                   /></p>
                 <div className="mt-4">
                   <div className="btn-group-lg">
@@ -56,6 +57,10 @@ const Landing = () => {
               of
               tools to save or disseminate the transcript or to delete it. Simple.
             </p>
+            <a href="https://www.youtube.com/watch?v=PtlriHufTBA"
+               target="_blank"
+               rel="noopener noreferrer"
+               className="text-success">See how easy it is to connect your CAT software to Upwordly</a>
           </Col>
           <Col lg={ 6 } md={ 6 } sm={ 12 }>
             <div className="browser-mockup with-url">
@@ -105,7 +110,8 @@ const Landing = () => {
             <Button outline size="lg" className="btn btn-outline-light">$58 per month</Button>
           </Card> <Card body inverse className="bg-primary">
           <CardTitle>Agency</CardTitle>
-          <CardText>You're an agency employing 2-10 writers and expect to use the service 10-30 times per week.</CardText>
+          <CardText>You're an agency employing 2-10 writers and expect to use the service 10-30 times per
+            week.</CardText>
           <Button outline size="lg" className="btn btn-outline-light">$108 per month</Button>
         </Card> <Card body inverse className="bg-primary">
           <CardTitle>Enterprise</CardTitle>

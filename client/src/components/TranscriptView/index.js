@@ -1,3 +1,7 @@
+// Main component that shows the appropriate component based on
+// transcript access properties or availability.
+// It checks to make sure that the event exists in database and whatnot.
+
 import React from 'react';
 import { withFirebase } from '../Firebase';
 import TranscriptContainer from './TranscriptContainer';
@@ -5,6 +9,8 @@ import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import './index.css';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 const mapStateToProps = state => {
   return {
@@ -81,28 +87,39 @@ class ConnectedIndex extends React.Component {
 
     document.title = job.title;
 
+    if (job.completed) {
+      return <Redirect push
+                       to={ {
+        pathname: ROUTES.DOC,
+        state: { from: this.props.location },
+        search: `?user=${ user }&job=${ job.slug }`
+      } }
+      />;
+    }
+
     return (
       <div style={ { backgroundColor: style.backgroundColor } }>
-        { !loading
-          ?
-          job && jobId && job.privacy === true
+        {
+          !loading
+            ? job && jobId && job.privacy === true
             ? <p>this is a private event.</p>
             : job && jobId
-            ? <TranscriptContainer
-              className="transcript--main-container"
-              user={ user }
-              job={ job }
-              style={ style } />
-            : <p>No event found with that user/job combination!</p>
-          : <div className="sweet-loading">
-            <BarLoader
-              css={ override }
-              sizeUnit={ 'px' }
-              size={ 13 }
-              margin={ '6px' }
-              loading={ loading }
-            />
-          </div>
+              ? <TranscriptContainer
+                className="transcript--main-container"
+                user={ user }
+                job={ job }
+                style={ style }
+              />
+              : <p>No event found with that user/job combination!</p>
+            : <div className="sweet-loading">
+              <BarLoader
+                css={ override }
+                sizeUnit={ 'px' }
+                size={ 13 }
+                margin={ '6px' }
+                loading={ loading }
+              />
+            </div>
         }
       </div>
     );

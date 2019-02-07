@@ -6,6 +6,34 @@
   font-style: normal; }
 
 @font-face {
+  font-family: 'Comfortaa';
+  src: url("../fonts/Comfortaa/Comfortaa-Regular.eot");
+  src: url("../fonts/Comfortaa/Comfortaa-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Comfortaa/Comfortaa-Regular.woff2") format("woff2"), url("../fonts/Comfortaa/Comfortaa-Regular.woff") format("woff"), url("../fonts/Comfortaa/Comfortaa-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Comfortaa Bold';
+  src: url("../fonts/Comfortaa/Comfortaa-Bold.eot");
+  src: url("../fonts/Comfortaa/Comfortaa-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Comfortaa/Comfortaa-Bold.woff2") format("woff2"), url("../fonts/Comfortaa/Comfortaa-Bold.woff") format("woff"), url("../fonts/Comfortaa/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Crete Round Italic';
+  src: url("../fonts/CreteRound/CreteRound-Italic.eot");
+  src: url("../fonts/CreteRound/CreteRound-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/CreteRound/CreteRound-Italic.woff2") format("woff2"), url("../fonts/CreteRound/CreteRound-Italic.woff") format("woff"), url("../fonts/CreteRound/CreteRound-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Crete Round';
+  src: url("../fonts/CreteRound/CreteRound-Regular.eot");
+  src: url("../fonts/CreteRound/CreteRound-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/CreteRound/CreteRound-Regular.woff2") format("woff2"), url("../fonts/CreteRound/CreteRound-Regular.woff") format("woff"), url("../fonts/CreteRound/CreteRound-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
   font-family: 'Chivo';
   src: url("../fonts/Chivo/Chivo-Regular.eot");
   src: url("../fonts/Chivo/Chivo-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Chivo/Chivo-Regular.woff2") format("woff2"), url("../fonts/Chivo/Chivo-Regular.woff") format("woff"), url("../fonts/Chivo/Chivo-Regular.svg#Chivo-Regular") format("svg");
@@ -13,7 +41,7 @@
   font-style: normal; }
 
 @font-face {
-  font-family: 'Chivo-Bold';
+  font-family: 'Chivo Bold';
   src: url("../fonts/Chivo/Chivo-Bold.eot");
   src: url("../fonts/Chivo/Chivo-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Chivo/Chivo-Bold.woff2") format("woff2"), url("../fonts/Chivo/Chivo-Bold.woff") format("woff"), url("../fonts/Chivo/Chivo-Bold.svg#Chivo-Bold") format("svg");
   font-weight: bold;
@@ -55,8 +83,36 @@
   font-style: normal; }
 
 @font-face {
+  font-family: 'Nunito Bold';
+  src: url("../fonts/Nunito/Nunito-Bold.eot");
+  src: url("../fonts/Nunito/Nunito-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Nunito/Nunito-Bold.woff2") format("woff2"), url("../fonts/Nunito/Nunito-Bold.woff") format("woff"), url("../fonts/Nunito/Nunito-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Nunito';
+  src: url("../fonts/Nunito/Nunito-Regular.eot");
+  src: url("../fonts/Nunito/Nunito-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Nunito/Nunito-Regular.woff2") format("woff2"), url("../fonts/Nunito/Nunito-Regular.woff") format("woff"), url("../fonts/Nunito/Nunito-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
   font-family: 'Inconsolata';
   src: url("../fonts/Inconsolata/Inconsolata-Regular.eot");
   src: url("../fonts/Inconsolata/Inconsolata-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Inconsolata/Inconsolata-Regular.woff2") format("woff2"), url("../fonts/Inconsolata/Inconsolata-Regular.woff") format("woff"), url("../fonts/Inconsolata/Inconsolata-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Ubuntu Mono Bold';
+  src: url("../fonts/UbuntuMono/UbuntuMono-Bold.eot");
+  src: url("../fonts/UbuntuMono/UbuntuMono-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/UbuntuMono/UbuntuMono-Bold.woff2") format("woff2"), url("../fonts/UbuntuMono/UbuntuMono-Bold.woff") format("woff"), url("../fonts/UbuntuMono/UbuntuMono-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Ubuntu Mono';
+  src: url("../fonts/UbuntuMono/UbuntuMono-Regular.eot");
+  src: url("../fonts/UbuntuMono/UbuntuMono-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/UbuntuMono/UbuntuMono-Regular.woff2") format("woff2"), url("../fonts/UbuntuMono/UbuntuMono-Regular.woff") format("woff"), url("../fonts/UbuntuMono/UbuntuMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }

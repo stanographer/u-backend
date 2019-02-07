@@ -743,6 +743,10 @@ a:not([href]):not([tabindex]):focus {
   color: $primary !important;
 }
 
+.text-success {
+  color: $success;
+}
+
 .Toastify__toast-body {
   padding: .5em 1em .62em 1em;
   font-family: 'Poppins Medium', sans-serif;

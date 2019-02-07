@@ -8,8 +8,11 @@ import withAuthorization from '../Session/withAuthorization';
 import queryString from 'query-string';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faLockOpen, faLock, faDownload, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { fetchTranscript } from '../Dashboard/downloadTranscript';
 import {
+  Button,
+  ButtonGroup,
   Card,
   CardText,
   CardTitle,
@@ -36,18 +39,17 @@ class ConnectedTranscriptEditor extends React.Component {
       uid: '',
       textArea: '',
       job: {},
+      jobUid: '',
       clickToCopyShown: false
     };
 
     this.query = queryString.parse(this.props.location.search);
     this.sharedTextArea = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
     this.handleCountWords = this.handleCountWords.bind(this);
+    this.toggleComplete = this.toggleComplete.bind(this);
   }
 
   componentWillMount() {
-    const ottype = otText.type;
-    console.log(ottype);
     this.doc = connection.get(this.query.user, this.query.job);
 
     this.doc.subscribe(error => {
@@ -72,7 +74,6 @@ class ConnectedTranscriptEditor extends React.Component {
 
   componentDidMount() {
     const { firebase } = this.props;
-    this.focusTextInput();
 
     firebase.user(firebase.auth.currentUser.uid).once('value', snapshot => {
       const userSnapshot = snapshot.val();
@@ -85,14 +86,12 @@ class ConnectedTranscriptEditor extends React.Component {
   }
 
   componentWillUnmount() {
+    const { firebase } = this.props;
+
     this.doc.destroy();
     this.binding = null;
-  }
-
-  focusTextInput() {
-    // Explicitly focus the text input using the raw DOM API
-    // Note: we're accessing "current" to get the DOM node
-    this.sharedTextArea.current.focus();
+    firebase.user().off();
+    firebase.jobById().off();
   }
 
   handleCountWords(e) {
@@ -106,21 +105,50 @@ class ConnectedTranscriptEditor extends React.Component {
   findJob() {
     const { firebase } = this.props;
 
-    firebase.jobsBySlug(this.query.job).once('value', snapshot => {
-      if (!snapshot.val()) {
-        return;
-      }
-      const returnedJob = snapshot.val();
-
-      this.setState({
-        job: returnedJob[Object.keys(returnedJob)[0]],
-        loading: false
+    firebase.user(firebase.auth.currentUser.uid)
+      .child(`jobs/${ this.query.job }`)
+      .on('value', snapshot => {
+        if (!snapshot) return new Error('Cannot find snapshot');
+        this.setState({
+          jobUid: snapshot.val().id
+        });
+        firebase.jobById(snapshot.val().id)
+          .on('value', foundJob => {
+            this.setState({
+              job: foundJob.val()
+            });
+          });
       });
-    });
+  }
+
+  toggleComplete() {
+    const { firebase } = this.props;
+    const { job, jobUid } = this.state;
+
+    if (job.completed) {
+      firebase.jobById(jobUid)
+        .update({ completed: false }, () => {
+          this.setState({
+            job: { ...job, completed: false }
+          });
+          console.log(this.state);
+        });
+    } else {
+      const dateOptions = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+      firebase.jobById(jobUid)
+        .update({ completed: true, timeCompleted: new Date().toUTCString() }, () => {
+          this.setState({
+            job: { ...job, completed: true, timeCompleted: new Date().toUTCString() }
+          });
+          console.log(this.state);
+        });
+    }
   }
 
   render() {
-    library.add(faArrowLeft);
+    library.add(faArrowLeft, faLock, faLockOpen, faDownload, faPaperPlane);
+    const { job } = this.state;
+    console.log(job);
 
     const style = {
       color: '#172b4d',
@@ -135,6 +163,7 @@ class ConnectedTranscriptEditor extends React.Component {
             <div className="editor-wrapper">
               <Form className="editor-class">
                 <Input
+                  disabled={ job.completed }
                   className="editor"
                   ref={ this.sharedTextArea }
                   placeholder="Start writing here..."
@@ -142,6 +171,7 @@ class ConnectedTranscriptEditor extends React.Component {
                   autoCapitalize="off"
                   spellCheck="false"
                   type="textarea"
+                  autoFocus
                   onChange={ e => this.handleCountWords(e) }
                 />
               </Form>
@@ -172,6 +202,15 @@ class ConnectedTranscriptEditor extends React.Component {
                 </Tooltip>
               </Card>
               <Card body>
+                <CardTitle>INFO</CardTitle>
+                <CardText>
+                  Created: <strong>{`${new Date(job.timeCreated).toLocaleDateString('en-US')},
+                  ${new Date(job.timeCreated).toLocaleTimeString('en-GB')}`}</strong>
+                  <br />
+                  Completed: <strong>{ job.timeCompleted ? `${ new Date(job.timeCompleted).toLocaleDateString('en-US') }, ${ new Date(job.timeCompleted).toLocaleTimeString('en-GB') }` : 'Job was never marked completed.' }</strong>
+                </CardText>
+              </Card>
+              <Card body>
                 <CardTitle>STATS</CardTitle>
                 {
                   this.state.docLength === 0
@@ -183,6 +222,20 @@ class ConnectedTranscriptEditor extends React.Component {
                       Characters: { this.state.docLength }
                     </CardText>
                 }
+              </Card>
+              <Card body>
+                <CardTitle>ACTIONS</CardTitle>
+                <ButtonGroup color="info">
+                  <Button color="primary"
+                          onClick={ () => fetchTranscript(job.username, job.slug) }><FontAwesomeIcon
+                    icon="download" />&nbsp;&nbsp;&nbsp;Save</Button>
+                  <Button color="primary" disabled><FontAwesomeIcon icon="paper-plane" />&nbsp;&nbsp;&nbsp;Send</Button>
+                  <Button onClick={ () => this.toggleComplete() }
+                          color={ job.completed ? 'success' : 'primary' }>
+                    <FontAwesomeIcon icon={ job.completed ? 'lock' : 'lock-open' } />
+                    &nbsp;&nbsp;&nbsp;{ job.completed ? 'Completed' : 'Editing' }
+                  </Button>
+                </ButtonGroup>
               </Card>
             </div>
           </Col>

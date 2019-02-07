@@ -1,3 +1,5 @@
+// Component that acts as a container to the transcription component.
+
 import React from 'react';
 import ShareDBBinding from '../ShareDB';
 import { InView } from 'react-intersection-observer';
