@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { withFirebase } from '../Firebase';
-import TranscriptContainer from './TranscriptContainer';
+import TranscriptContainer from './Container';
 import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import './index.css';

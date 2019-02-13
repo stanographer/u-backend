@@ -19,7 +19,7 @@ import {
   disconnectToast,
   reconnectToast
 } from './Toasts';
-import TranscriptViewMenu from '../TranscriptViewMenu';
+import TranscriptViewMenu from '../ViewMenu';
 
 class LiveTranscriptView extends React.Component {
   constructor(props) {

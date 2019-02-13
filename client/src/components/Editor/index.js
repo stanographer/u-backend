@@ -8,7 +8,15 @@ import withAuthorization from '../Session/withAuthorization';
 import queryString from 'query-string';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft, faLockOpen, faLock, faDownload, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faCompress,
+  faExpand,
+  faDownload,
+  faLockOpen,
+  faLock,
+  faPaperPlane
+} from '@fortawesome/free-solid-svg-icons';
 import { fetchTranscript } from '../Dashboard/downloadTranscript';
 import {
   Button,
@@ -35,6 +43,7 @@ class ConnectedTranscriptEditor extends React.Component {
     this.state = {
       docLength: 0,
       docWords: 0,
+      expand: false,
       user: '',
       uid: '',
       textArea: '',
@@ -47,6 +56,7 @@ class ConnectedTranscriptEditor extends React.Component {
     this.sharedTextArea = React.createRef();
     this.handleCountWords = this.handleCountWords.bind(this);
     this.toggleComplete = this.toggleComplete.bind(this);
+    this.handleExpand = this.handleExpand.bind(this);
   }
 
   componentWillMount() {
@@ -94,14 +104,6 @@ class ConnectedTranscriptEditor extends React.Component {
     firebase.jobById().off();
   }
 
-  handleCountWords(e) {
-    const wordCount = !!e.target.value && e.target.value.split(' ').length;
-    this.setState({
-      docLength: !!e.target.value && e.target.value.length,
-      docWords: wordCount
-    });
-  }
-
   findJob() {
     const { firebase } = this.props;
 
@@ -119,6 +121,20 @@ class ConnectedTranscriptEditor extends React.Component {
             });
           });
       });
+  }
+
+  handleCountWords(e) {
+    const wordCount = !!e.target.value && e.target.value.split(' ').length;
+    this.setState({
+      docLength: !!e.target.value && e.target.value.length,
+      docWords: wordCount
+    });
+  }
+
+  handleExpand() {
+    this.setState({
+      expand: !this.state.expand
+    });
   }
 
   toggleComplete() {
@@ -146,7 +162,16 @@ class ConnectedTranscriptEditor extends React.Component {
   }
 
   render() {
-    library.add(faArrowLeft, faLock, faLockOpen, faDownload, faPaperPlane);
+    library.add(
+      faArrowLeft,
+      faCompress,
+      faDownload,
+      faExpand,
+      faLock,
+      faLockOpen,
+      faPaperPlane
+    );
+
     const { job } = this.state;
     console.log(job);
 
@@ -159,7 +184,14 @@ class ConnectedTranscriptEditor extends React.Component {
     return (
       <div>
         <Row>
-          <Col lg={ 6 } sm={ 12 }>
+          <Col lg={ !this.state.expand ? 6 : 12 } sm={ 12 }>
+            <span className="expand">
+              {
+                !this.state.expand
+                  ? <FontAwesomeIcon icon="expand" onClick={ () => this.handleExpand() } />
+                  : <FontAwesomeIcon icon="compress" onClick={ () => this.handleExpand() } />
+              }
+            </span>
             <div className="editor-wrapper">
               <Form className="editor-class">
                 <Input
@@ -177,7 +209,7 @@ class ConnectedTranscriptEditor extends React.Component {
               </Form>
             </div>
           </Col>
-          <Col lg={ 6 } sm={ 12 }>
+          <Col lg={ 6 } sm={ 12 } hidden={ this.state.expand }>
             <div>
               <Link to={ ROUTES.DASHBOARD } className="dashboard-link btn btn-primary align-bottom mt-5 mb-5">
                 <FontAwesomeIcon icon="arrow-left" onClick={ this.goBack } />&nbsp;&nbsp;&nbsp;
@@ -204,8 +236,8 @@ class ConnectedTranscriptEditor extends React.Component {
               <Card body>
                 <CardTitle>INFO</CardTitle>
                 <CardText>
-                  Created: <strong>{`${new Date(job.timeCreated).toLocaleDateString('en-US')},
-                  ${new Date(job.timeCreated).toLocaleTimeString('en-GB')}`}</strong>
+                  Created: <strong>{ `${ new Date(job.timeCreated).toLocaleDateString('en-US') },
+                  ${ new Date(job.timeCreated).toLocaleTimeString('en-GB') }` }</strong>
                   <br />
                   Completed: <strong>{ job.timeCompleted ? `${ new Date(job.timeCompleted).toLocaleDateString('en-US') }, ${ new Date(job.timeCompleted).toLocaleTimeString('en-GB') }` : 'Job was never marked completed.' }</strong>
                 </CardText>
@@ -236,6 +268,14 @@ class ConnectedTranscriptEditor extends React.Component {
                     &nbsp;&nbsp;&nbsp;{ job.completed ? 'Completed' : 'Editing' }
                   </Button>
                 </ButtonGroup>
+                {
+                  job.completed
+                    ? <p className="mt-3">
+                      <em>Viewers will be routed to a raw transcript rather than
+                        <br />live-updating captioning.</em>
+                    </p>
+                    : ''
+                }
               </Card>
             </div>
           </Col>

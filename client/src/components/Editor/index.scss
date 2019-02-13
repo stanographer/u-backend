@@ -53,3 +53,15 @@ body {
 .editor-class > .form-control {
   border: none !important;
 }
+
+.expand {
+  right: 3em;
+  position: absolute;
+  top: 2em;
+}
+
+.expand .svg-inline--fa {
+  font-size: 2em;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* For IE8 and earlier */
+}
