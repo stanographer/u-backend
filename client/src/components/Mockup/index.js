@@ -8,6 +8,7 @@ function Mockup() {
       this.text += newText + ' ';
     }
   };
+
   const [text, setText] = useState(captions.text);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function Mockup() {
   return (
     <div>
       <p>{ text }</p>
+      <div className="endOfText" />
     </div>
   );
 }

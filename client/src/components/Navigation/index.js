@@ -47,7 +47,6 @@ class NavigationAuth extends React.Component {
   }
 
   render() {
-    const { firstName, lastName } = this.props.user;
     return (
       <>
         <Navbar color="dark"
