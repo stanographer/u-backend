@@ -1,0 +1,60 @@
+/* Media query breakpoints */
+/* Media query mixins */
+/* Custom devices */
+body {
+  font-size: 1em; }
+
+.dashboard-link {
+  margin-left: 1.5em; }
+
+.editor {
+  padding: 1em !important;
+  font-family: 'Cousine', sans-serif;
+  color: #212529;
+  font-size: 2em !important;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  resize: none;
+  line-height: 1.5em !important; }
+  @media (min-width: 576px) {
+    .editor {
+      min-height: 50vh; } }
+  @media (min-width: 768px) {
+    .editor {
+      min-height: 50vh; } }
+  @media (min-width: 992px) {
+    .editor {
+      min-height: 100vh; } }
+  @media (min-width: 1200px) {
+    .editor {
+      min-height: 100vh; } }
+
+@media (min-width: 576px) {
+  .editor-wrapper {
+    border-bottom: 2px solid #e8e8e8; } }
+
+@media (min-width: 768px) {
+  .editor-wrapper {
+    border-right: 2px solid #e8e8e8; } }
+
+@media (min-width: 992px) {
+  .editor-wrapper {
+    border-right: 2px solid #e8e8e8; } }
+
+@media (min-width: 1200px) {
+  .editor-wrapper {
+    border-right: 2px solid #e8e8e8; } }
+
+.editor-class > .form-control {
+  border: none !important; }
+
+.expand {
+  right: 3em;
+  position: absolute;
+  top: 2em; }
+
+.expand .svg-inline--fa {
+  font-size: 2em;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  /* For IE8 and earlier */ }

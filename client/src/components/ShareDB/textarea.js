@@ -164,7 +164,9 @@ export const attachTextarea = function(elem, doc) {
           break;
       }
     }
-    return replaceText(newDoc.join('') + prev);
+    return setTimeout(() => {
+      replaceText(newDoc.join('') + prev);
+    }, 0);
   });
 
   // *** local -> remote changes

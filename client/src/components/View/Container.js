@@ -144,7 +144,10 @@ class LiveTranscriptView extends React.Component {
             <FontAwesomeIcon icon="cog"/>
           </Action>
         </Fab>
-        <TranscriptViewMenu visibility={ menuVisible } style={style} job={this.props.job} handleMenuClick={ this.handleMenuClick } />
+        <TranscriptViewMenu
+          visibility={ menuVisible }
+          style={style} job={this.props.job}
+          handleMenuClick={ this.handleMenuClick } />
         <div className="liveTranscript--container">
           <div className="liveTranscript">
             <ShareDBBinding

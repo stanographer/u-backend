@@ -84,43 +84,58 @@ class ConnectedIndex extends React.Component {
   render() {
     const { job, jobId, loading, user } = this.state;
     const { style } = this.props;
+    let view;
 
     document.title = job.title;
 
     if (job.completed) {
-      return <Redirect push
-                       to={ {
-        pathname: ROUTES.DOC,
-        state: { from: this.props.location },
-        search: `?user=${ user }&job=${ job.slug }`
-      } }
+      return <Redirect
+        push
+        to={ {
+          pathname: ROUTES.DOC,
+          state: { from: this.props.location },
+          search: `?user=${ user }&job=${ job.slug }`
+        } }
       />;
+    }
+
+    // If the component is not loading...
+    if (!loading) {
+
+      // If the job is private, don't show it.
+      if (job && jobId && job.privacy === true) {
+        view = <p>this is a private event.</p>;
+
+        // If there's a valid job and job ID, show the main transcript container.
+      } else if (job && jobId) {
+        view = <TranscriptContainer
+          className="transcript--main-container"
+          user={ user }
+          job={ job }
+          style={ style }
+        />;
+
+        // If no ID is found, error.
+      } else {
+        view = <p>No event found with that user/job combination!</p>;
+      }
+
+      // Show spinner while hitting the database.
+    } else {
+      view = <div className="sweet-loading">
+        <BarLoader
+          css={ override }
+          sizeUnit={ 'px' }
+          size={ 13 }
+          margin={ '6px' }
+          loading={ loading }
+        />
+      </div>;
     }
 
     return (
       <div style={ { backgroundColor: style.backgroundColor } }>
-        {
-          !loading
-            ? job && jobId && job.privacy === true
-            ? <p>this is a private event.</p>
-            : job && jobId
-              ? <TranscriptContainer
-                className="transcript--main-container"
-                user={ user }
-                job={ job }
-                style={ style }
-              />
-              : <p>No event found with that user/job combination!</p>
-            : <div className="sweet-loading">
-              <BarLoader
-                css={ override }
-                sizeUnit={ 'px' }
-                size={ 13 }
-                margin={ '6px' }
-                loading={ loading }
-              />
-            </div>
-        }
+        { view }
       </div>
     );
   }
