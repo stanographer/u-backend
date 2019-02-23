@@ -11,23 +11,32 @@ import {
   CardTitle,
   CardText,
   Col,
-  Container, DropdownItem, DropdownMenu, DropdownToggle,
-  Form, FormGroup,
-  Input, InputGroup, InputGroupAddon, Label,
-  Row, UncontrolledDropdown, Button
+  Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Form,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Label,
+  Row,
+  UncontrolledDropdown,
+  Button,
 } from 'reactstrap';
 import './index.css';
 
 const mapStateToProps = state => {
   return {
-    style: state.aloft_localstorage.style
+    style: state.aloft_localstorage.style,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     updateStyle: (style) => dispatch(updateStyle(style)),
-    resetStyle: () => dispatch(resetStyle())
+    resetStyle: () => dispatch(resetStyle()),
   };
 };
 
@@ -42,7 +51,7 @@ class Menu extends React.Component {
 
   onColorChange(e) {
     let stylePayload = {
-      id: 'color'
+      id: 'color',
     };
 
     stylePayload.value = e.hex;
@@ -51,7 +60,7 @@ class Menu extends React.Component {
 
   onBackgroundColorChange(e) {
     let stylePayload = {
-      id: 'backgroundColor'
+      id: 'backgroundColor',
     };
 
     stylePayload.value = e.hex;
@@ -108,8 +117,10 @@ class Menu extends React.Component {
             lineHeight,
             textTransform,
             textShadow,
-            fontFamily
+            fontFamily,
           } = this.props.style;
+
+    const { handleOpenMenu } = this.props;
 
     return (
       <div>
@@ -117,7 +128,7 @@ class Menu extends React.Component {
           visibility
             ? <div className="flyoutMenu">
               <Container fluid className="mt-4">
-                <Button type="button" className="close" aria-label="Close" onClick={ () => this.props.handleMenuClick() }>
+                <Button type="button" className="close" aria-label="Close" onClick={ () => handleOpenMenu() }>
                   <span aria-hidden="true">&times;</span>
                 </Button>
                 <Row>
@@ -157,10 +168,10 @@ class Menu extends React.Component {
                                               id="fontFamily"
                                               value="Cousine, monospace"
                                               onClick={ e => this.onStyleChange(e) }>Cousine</DropdownItem>
-                                <DropdownItem style={ { fontFamily: 'Crete Round, serif' } }
+                                <DropdownItem style={ { fontFamily: 'Input Mono, sansSerif' } }
                                               id="fontFamily"
-                                              value="Crete Round, serif"
-                                              onClick={ e => this.onStyleChange(e) }>Crete Round</DropdownItem>
+                                              value="Montserrat, sansSerif"
+                                              onClick={ e => this.onStyleChange(e) }>Montserrat</DropdownItem>
                                 <DropdownItem style={ { fontFamily: 'Montserrat, sansSerif' } }
                                               id="fontFamily"
                                               value="Montserrat, sansSerif"
@@ -178,6 +189,14 @@ class Menu extends React.Component {
                                               id="fontFamily"
                                               value="Inconsolata, monospace"
                                               onClick={ e => this.onStyleChange(e) }>Inconsolata</DropdownItem>
+                                <DropdownItem style={ { fontFamily: 'Input Mono, sansSerif' } }
+                                              id="fontFamily"
+                                              value="Input Mono, sansSerif"
+                                              onClick={ e => this.onStyleChange(e) }>Input Mono</DropdownItem>
+                                <DropdownItem style={ { fontFamily: 'Input Mono Light, sansSerif' } }
+                                              id="fontFamily"
+                                              value="Input Mono Light, sansSerif"
+                                              onClick={ e => this.onStyleChange(e) }>Input Mono Light</DropdownItem>
                                 <DropdownItem style={ { fontFamily: 'Ubuntu Mono, monospace' } }
                                               id="fontFamily"
                                               value="Ubuntu Mono, monospace"
@@ -348,3 +367,4 @@ class Menu extends React.Component {
 
 const TranscriptViewMenu = connect(mapStateToProps, mapDispatchToProps)(Menu);
 export default TranscriptViewMenu;
+

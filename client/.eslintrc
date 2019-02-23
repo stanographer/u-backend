@@ -1,7 +1,8 @@
 {
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+    "sourceType": "module"
   },
   "env": {
     "es6": true,
@@ -9,10 +10,7 @@
   },
   "rules": {
     // enable additional rules
-    "indent": [
-      "error",
-      2
-    ],
+//    "indent": 2,
     "linebreak-style": [
       "error",
       "unix"
@@ -30,7 +28,7 @@
     // override default options for rules from base configurations
     "comma-dangle": [
       "error",
-      "never"
+      "always"
     ],
     "no-cond-assign": [
       "error",

@@ -39,6 +39,8 @@ function ShareDBBinding(props) {
 
   return (
     <div
+      onClick={ e => props.handleMenuEscape(e) }
+      onTouchStart={ e => props.handleOpenMenu(e) }
       className={ cssClass || '' }
       style={ style || '' }>
       { text }
@@ -51,7 +53,7 @@ ShareDBBinding.propTypes = {
   onLoaded: PropTypes.func,
   cssClass: PropTypes.string,
   style: PropTypes.object,
-  flag: PropTypes.string
+  flag: PropTypes.string,
 };
 
 export default ShareDBBinding;

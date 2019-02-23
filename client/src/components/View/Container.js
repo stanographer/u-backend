@@ -1,6 +1,6 @@
 // Component that acts as a container to the transcription component.
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import ShareDBBinding from '../ShareDB';
 import { InView } from 'react-intersection-observer';
 import 'react-intersection-visible';
@@ -12,16 +12,17 @@ import 'react-tiny-fab/dist/styles.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowDown, faCog, faPlus } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
 
 import {
   loadingToast,
   loadSuccessToast,
   disconnectToast,
-  reconnectToast
+  reconnectToast,
 } from './Toasts';
 import TranscriptViewMenu from '../ViewMenu';
 
-class LiveTranscriptView extends React.Component {
+class LiveTranscriptView extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -29,7 +30,8 @@ class LiveTranscriptView extends React.Component {
       loading: true,
       menuVisible: false,
       style: {},
-      fabOpen: false
+      fabOpen: false,
+      autoscrolling: true,
     };
 
     const { user, job } = props;
@@ -38,10 +40,11 @@ class LiveTranscriptView extends React.Component {
     this.scrollDown = this.scrollDown.bind(this);
     this.onLoaded = this.onLoaded.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.handleOpenMenu = this.handleOpenMenu.bind(this);
+    this.handleMenuEscape = this.handleMenuEscape.bind(this);
   }
 
-  onScrollToBottom(atBottom) {
+  onVisibilityChange(atBottom) {
     const { loading } = this.state;
 
     if (!atBottom && !loading) {
@@ -52,17 +55,25 @@ class LiveTranscriptView extends React.Component {
   onLoaded() {
     loadSuccessToast();
     this.setState({
-      loading: false
+      loading: false,
     }, this.scrollDownDelay);
   }
 
   scrollDown() {
+    const { autoscrolling } = this.state;
+
     setTimeout(() => {
       scroll.scrollToBottom({
         delay: 0,
-        duration: 200,
-        isDynamic: true
+        duration: 150,
+        isDynamic: true,
       });
+
+      if (autoscrolling === false) {
+        this.setState({
+          autoscrolling: true,
+        });
+      }
     }, 0);
   }
 
@@ -71,22 +82,32 @@ class LiveTranscriptView extends React.Component {
       scroll.scrollToBottom({
         delay: 0,
         duration: 200,
-        isDynamic: true
+        isDynamic: true,
       });
-    }, 470);
+    }, 490);
   }
 
   toggleMenu() {
-    const { menuVisible } = this.state;
+    const { menuVisible, autoscrolling } = this.state;
 
     this.setState({
-      menuVisible: !menuVisible
+      menuVisible: !menuVisible,
     });
   }
 
-  handleMenuClick() {
+  handleOpenMenu(e) {
+    // _.debounce(() => this.toggleMenu, 2000);
     this.toggleMenu();
   }
+
+  handleMenuEscape(e) {
+    if (e.keyCode === 27) {
+      this.setState({
+        menuVisible: null,
+      });
+    }
+  }
+
 
   componentDidMount() {
     // HasConnected makes sure that the disconnection message isn't
@@ -102,13 +123,20 @@ class LiveTranscriptView extends React.Component {
 
     // Will display a message to the user that the connection is rectified.
     socket.onopen = () => {
-      if (hasDisconnected) reconnectToast();
+      if (hasDisconnected) return reconnectToast();
     };
+
+    document.addEventListener('keydown', e => {
+      this.handleMenuEscape(e);
+    }, true);
   }
 
   componentWillUnmount() {
     // Destroy subscription.
     this.doc.destroy();
+    document.removeEventListener('keydown', e => {
+      this.handleMenuEscape(e)
+    }, true);
   }
 
   render() {
@@ -119,38 +147,39 @@ class LiveTranscriptView extends React.Component {
     const { menuVisible } = this.state;
     const fabPosition = {
       top: 2,
-      right: 2
+      right: 2,
     };
 
     return (
-      <>
+      <div>
         <Fab
           mainButtonStyles={ { color: '#fff', backgroundColor: '#072247' } }
           position={ fabPosition }
           icon={ <FontAwesomeIcon icon="plus" /> }
-          event={ 'click' }
-        >
+          event={ 'click' }>
           <Action
             style={ { backgroundColor: '#ffd460', color: '#083358' } }
             text="Scroll to Bottom"
-            onClick={() => this.scrollDown()}
-          >
-            <FontAwesomeIcon icon="arrow-down"/>
+            onClick={ () => this.scrollDown() }>
+            <FontAwesomeIcon icon="arrow-down" />
           </Action>
           <Action
             text="Settings"
-            onClick={() => this.handleMenuClick()}
-          >
-            <FontAwesomeIcon icon="cog"/>
+            onClick={ () => this.handleOpenMenu() }>
+            <FontAwesomeIcon icon="cog" />
           </Action>
         </Fab>
         <TranscriptViewMenu
           visibility={ menuVisible }
-          style={style} job={this.props.job}
-          handleMenuClick={ this.handleMenuClick } />
+          style={ style }
+          job={ this.props.job }
+          handleOpenMenu={ this.handleOpenMenu }
+          scrollDown={ this.scrollDown } />
         <div className="liveTranscript--container">
           <div className="liveTranscript">
             <ShareDBBinding
+              handleOpenMenu={ this.handleOpenMenu }
+              handleMenuEscape={ this.handleMenuEscape }
               ref={ this.observer }
               cssClass="liveTranscript--text-format"
               style={ style }
@@ -159,12 +188,15 @@ class LiveTranscriptView extends React.Component {
               flag='≈'
               elementType="div" />
           </div>
-          <InView tag="div" threshold={ .1 } onChange={ state => this.onScrollToBottom(state) } />
+          <InView
+            tag="div"
+            threshold={ .1 }
+            onChange={ state => this.onVisibilityChange(state) } />
           <ToastContainer
             draggable
             autoClose={ 5000 } />
         </div>
-      </>
+      </div>
     );
   }
 }

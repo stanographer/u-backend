@@ -8,7 +8,7 @@ const server = {
   protocol: process.env.REACT_APP_ENV === 'production' ? 'wss://' : 'ws://',
   getAddress: function() {
     return this.protocol + this.host + this.port;
-  }
+  },
 };
 
 const socket = new ReconnectingWebSocket(server.getAddress(), [], {
@@ -17,7 +17,7 @@ const socket = new ReconnectingWebSocket(server.getAddress(), [], {
   reconnectInterval: 2000,
   maxReconnectInterval: 3000,
   timeoutInterval: 2000,
-  maxRetries: Infinity
+  maxRetries: Infinity,
 });
 
 const connection = new ShareDB.Connection(socket);
@@ -25,5 +25,5 @@ ShareDB.types.register(otText.type);
 
 export {
   connection,
-  socket
+  socket,
 };

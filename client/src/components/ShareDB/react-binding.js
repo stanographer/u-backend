@@ -3,7 +3,7 @@
  before sending changes back up.
  */
 
-export default class Binding {
+class Binding {
   constructor(snapshot, flag) {
     this.snapshot = snapshot;
     this.flag = flag;
@@ -13,6 +13,7 @@ export default class Binding {
   // through WebSockets.
 
   applyOp(op) {
+
     // When an op is received, transform it, and
     // set it equal to the component snapshot.
     this.snapshot = Binding.transformSnapshot(op, this.snapshot);
@@ -20,6 +21,7 @@ export default class Binding {
   }
 
   static transformSnapshot(op, snap) {
+
     // Create a new temp variable to hold changes.
     const newDoc = [];
 
@@ -48,3 +50,5 @@ export default class Binding {
     return newDoc.join('') + snap;
   }
 }
+
+export default Binding;

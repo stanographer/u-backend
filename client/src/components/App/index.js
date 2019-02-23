@@ -17,7 +17,7 @@ import DashboardPage from '../Dashboard';
 import Doc from '../Doc';
 import TranscriptEditor from '../Editor';
 import TranscriptView from '../View';
-import TranscriptViewTools from '../TranscriptViewTools';
+import TranscriptViewTools from '../ViewTools';
 import * as ROUTES from '../../constants/routes';
 
 const App = () =>

@@ -96,6 +96,36 @@
 }
 
 @font-face {
+  font-family: 'Input Mono Medium';
+  src: url('../fonts/InputMono/InputMono-Medium.eot');
+  src: url('../fonts/InputMono/InputMono-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/InputMono/InputMono-Medium.woff2') format('woff2'),
+  url('../fonts/InputMono/InputMono-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Input Mono Light';
+  src: url('../fonts/InputMono/InputMono-Light.eot');
+  src: url('../fonts/InputMono/InputMono-Light.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/InputMono/InputMono-Light.woff2') format('woff2'),
+  url('../fonts/InputMono/InputMono-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Input Mono';
+  src: url('../fonts/InputMono/InputMono-Regular.eot');
+  src: url('../fonts/InputMono/InputMono-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/InputMono/InputMono-Regular.woff2') format('woff2'),
+  url('../fonts/InputMono/InputMono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Montserrat';
   src: url('../fonts/Montserrat/Montserrat-Regular.eot');
   src: url('../fonts/Montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
