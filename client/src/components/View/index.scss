@@ -14,10 +14,14 @@ body:local {
 .liveTranscript--container {
   overflow-x: hidden;
   overflow-y: hidden;
+
+  @include sm {
+    overflow-y: scroll;
+  }
 }
 
 .liveTranscript--container_observer {
-  height: .5em;
+  height: 1em;
   color: transparent;
 }
 
@@ -51,7 +55,7 @@ body:local {
   @include sm-h {
     padding: .5em 1.5em .2em 1em;
     font-size: 62.5%;
-    min-width: 100vw;
+    //min-width: 100vw;
     right: 1em;
     margin: 0;
   }

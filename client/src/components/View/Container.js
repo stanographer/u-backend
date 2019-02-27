@@ -7,13 +7,10 @@ import 'react-intersection-visible';
 import { animateScroll as scroll } from 'react-scroll';
 import { connection, socket } from '../ShareDB/connection';
 import { ToastContainer } from 'react-toastify';
-import { Fab, Action } from 'react-tiny-fab';
-import 'react-tiny-fab/dist/styles.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowDown, faCog, faPlus } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
-
 import {
   loadingToast,
   loadSuccessToast,
@@ -21,6 +18,7 @@ import {
   reconnectToast,
 } from './Toasts';
 import TranscriptViewMenu from '../ViewMenu';
+import { Col, Row } from 'reactstrap';
 
 class LiveTranscriptView extends React.PureComponent {
   constructor(props) {
@@ -108,7 +106,6 @@ class LiveTranscriptView extends React.PureComponent {
     }
   }
 
-
   componentDidMount() {
     // HasConnected makes sure that the disconnection message isn't
     // shown to the user at start-up.
@@ -134,8 +131,10 @@ class LiveTranscriptView extends React.PureComponent {
   componentWillUnmount() {
     // Destroy subscription.
     this.doc.destroy();
+
+    // Remove listener.
     document.removeEventListener('keydown', e => {
-      this.handleMenuEscape(e)
+      this.handleMenuEscape(e);
     }, true);
   }
 
@@ -145,58 +144,44 @@ class LiveTranscriptView extends React.PureComponent {
 
     const { style } = this.props;
     const { menuVisible } = this.state;
-    const fabPosition = {
-      top: 2,
-      right: 2,
-    };
 
     return (
-      <div>
-        <Fab
-          mainButtonStyles={ { color: '#fff', backgroundColor: '#072247' } }
-          position={ fabPosition }
-          icon={ <FontAwesomeIcon icon="plus" /> }
-          event={ 'click' }>
-          <Action
-            style={ { backgroundColor: '#ffd460', color: '#083358' } }
-            text="Scroll to Bottom"
-            onClick={ () => this.scrollDown() }>
-            <FontAwesomeIcon icon="arrow-down" />
-          </Action>
-          <Action
-            text="Settings"
-            onClick={ () => this.handleOpenMenu() }>
-            <FontAwesomeIcon icon="cog" />
-          </Action>
-        </Fab>
-        <TranscriptViewMenu
-          visibility={ menuVisible }
-          style={ style }
-          job={ this.props.job }
-          handleOpenMenu={ this.handleOpenMenu }
-          scrollDown={ this.scrollDown } />
-        <div className="liveTranscript--container">
-          <div className="liveTranscript">
-            <ShareDBBinding
-              handleOpenMenu={ this.handleOpenMenu }
-              handleMenuEscape={ this.handleMenuEscape }
-              ref={ this.observer }
-              cssClass="liveTranscript--text-format"
+      <Fragment>
+        <Row>
+          <Col lg={ menuVisible ? 8 : 12 } sm={ 12 }>
+            <div className="liveTranscript--container"
+                 onClick={ () => this.handleOpenMenu() }>
+              <div className="liveTranscript">
+                <ShareDBBinding
+                  handleOpenMenu={ this.handleOpenMenu }
+                  handleMenuEscape={ this.handleMenuEscape }
+                  ref={ this.observer }
+                  cssClass="liveTranscript--text-format"
+                  style={ style }
+                  doc={ this.doc }
+                  onLoaded={ this.onLoaded }
+                  flag='≈'
+                  elementType="div" />
+              </div>
+              <InView
+                tag="div"
+                threshold={ .1 }
+                onChange={ state => this.onVisibilityChange(state) } />
+              <ToastContainer
+                draggable
+                autoClose={ 5000 } />
+            </div>
+          </Col>
+          <Col lg={ 4 } sm={ 12 } hidden={ !menuVisible } className="flyoutMenu">
+            <TranscriptViewMenu
+              visibility={ menuVisible }
               style={ style }
-              doc={ this.doc }
-              onLoaded={ this.onLoaded }
-              flag='≈'
-              elementType="div" />
-          </div>
-          <InView
-            tag="div"
-            threshold={ .1 }
-            onChange={ state => this.onVisibilityChange(state) } />
-          <ToastContainer
-            draggable
-            autoClose={ 5000 } />
-        </div>
-      </div>
+              job={ this.props.job }
+              handleOpenMenu={ this.handleOpenMenu }
+              scrollDown={ this.scrollDown } />
+          </Col>
+        </Row>
+      </Fragment>
     );
   }
 }

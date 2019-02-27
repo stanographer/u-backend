@@ -185,7 +185,7 @@ class ConnectedTranscriptEditor extends React.Component {
       <div>
         <Row>
           <Col lg={ !this.state.expand ? 6 : 12 } sm={ 12 }>
-            <span className="expand">
+            <span className="expand" aria-label="Expand textarea to full screen.">
               {
                 !this.state.expand
                   ? <FontAwesomeIcon icon="expand" onClick={ () => this.handleExpand() } />

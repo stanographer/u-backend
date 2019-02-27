@@ -1,21 +1,12 @@
 .flyoutMenu {
-  width: 100vw;
-  height: 73vh;
   background-color: ghostwhite;
   position: fixed;
+  right: 0;
   top: 0;
-  left: 0;
+  height: 100%;
   transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  overflow: scroll;
-  z-index: 1000;
-  font-family: 'Input Mono', sans-serif; }
-
-.flyoutMenu.hide {
-  transform: translate3d(-100vh, 0, 0); }
-
-.flyoutMenu.show {
-  transform: translate3d(0vh, 0, 0);
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 1000; }
 
 .flyoutMenu h2 a {
   color: #333;
@@ -24,3 +15,8 @@
 
 .flyoutMenu h2 a:hover {
   text-decoration: underline; }
+
+.menu-button {
+  position: fixed;
+  top: 2em;
+  right: 2em; }
