@@ -1,49 +1,61 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
+import PropTypes from 'prop-types';
 import {
-  Button, Card, CardText, CardTitle, Col, Row,
+  Button,
+  CardText,
+  Col,
+  Row,
 } from 'reactstrap';
-import styled from 'styled-components';
 import { fetchTranscript } from '../Dashboard/downloadTranscript';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faDownload, faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-
-const Header = styled.header`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-`;
-
-const Wrapper = styled.section`
-  background: ghostwhite;
-`;
+import { MenuParticle } from '../MenuParticle';
+import FontFamilyMenu from './FontFamilyMenu';
+import FontSizeMenu from './FontSizeMenu';
 
 const MenuComponent = (props) => {
-  const { visibility, job } = props;
+  const {
+          visibility,
+          job,
+          backgroundColor,
+          color,
+          fontSize,
+          lineHeight,
+          textTransform,
+          textShadow,
+          fontFamily,
+          style,
+          onFontSizeChange,
+          onStyleChange,
+        } = props;
+
   library.add(faArrowDown, faDownload);
   console.log(props);
 
   return (
     <Row>
       <Col sm={ 12 }>
-        <Card body className="no-bg">
+        <MenuParticle>
           <Button className="btn btn-primary" onClick={ () => props.scrollDown() }>
             <FontAwesomeIcon icon="arrow-down" />&nbsp;
             Scroll to Bottom
           </Button>
-        </Card>
-        <Card body className="no-bg">
-          <CardTitle>"{ job.title ? job.title : job.slug }"</CardTitle>
+        </MenuParticle>
+        <MenuParticle title={ job.title ? job.title : job.slug }>
           <CardText>
-            Speakers: <em>{ job.speakers ? job.speakers : 'None designated' }</em><br />
-            Stenographer: <em>{ job.userFullName }</em>
+            <strong>SPEAKER(S):</strong> { job.speakers ? job.speakers : 'None designated' }<br /><br />
+            <strong>STENOGRAPHER: </strong> { job.userFullName }
             <br />
             <br />
           </CardText>
-        </Card>
-
+        </MenuParticle>
+        <MenuParticle title="VIEW OPTIONS" class="mt-2">
+          <Fragment>
+            <FontFamilyMenu fontFamily={ props.style.fontFamily } onStyleChange={ onStyleChange } />
+            <FontSizeMenu onFontSizeChange={ onFontSizeChange } fontSize={ style.fontSize } />
+          </Fragment>
+        </MenuParticle>
         <Button close
                 className="close"
                 aria-label="Close"
@@ -52,6 +64,13 @@ const MenuComponent = (props) => {
       </Col>
     </Row>
   );
+};
+
+MenuComponent.propTypes = {
+  handleOpenMenu: PropTypes.func,
+  job: PropTypes.object,
+  onStyleChange: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default MenuComponent;

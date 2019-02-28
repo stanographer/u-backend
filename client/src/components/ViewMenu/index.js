@@ -24,6 +24,7 @@ class Menu extends React.Component {
 
     this.onStyleChange = this.onStyleChange.bind(this);
     this.onColorChange = this.onColorChange.bind(this);
+    this.onFontSizeChange = this.onFontSizeChange.bind(this);
     this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
   }
 
@@ -42,6 +43,19 @@ class Menu extends React.Component {
     };
 
     stylePayload.value = e.hex;
+    return this.props.updateStyle(stylePayload);
+  }
+
+  onFontSizeChange(val) {
+    let stylePayload = {};
+    if (val && val > -1 && val < 100) {
+      val += 'em';
+    } else {
+      val = '1em';
+    }
+
+    stylePayload.id = 'fontSize';
+    stylePayload.value = val;
     return this.props.updateStyle(stylePayload);
   }
 
@@ -91,7 +105,12 @@ class Menu extends React.Component {
       <Fragment>
         {
           visibility
-            ? <MenuComponent { ...this.props } />
+            ? <MenuComponent
+              { ...this.props }
+              onFontSizeChange={ this.onFontSizeChange }
+              onStyleChange={ this.onStyleChange }
+              onColorChange={ this.onColorChange }
+              onBackgroundColorChange={ this.onBackgroundColorChange } />
             : ''
         }
       </Fragment>
@@ -99,5 +118,5 @@ class Menu extends React.Component {
   }
 }
 
-const TranscriptViewMenu = connect(mapStateToProps, mapDispatchToProps)(Menu);
-export default TranscriptViewMenu;
+const ViewMenu = connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default ViewMenu;

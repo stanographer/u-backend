@@ -10,9 +10,12 @@ body:local {
 .liveTranscript--container {
   overflow-x: hidden;
   overflow-y: hidden; }
+  @media (min-width: 576px) {
+    .liveTranscript--container {
+      overflow-y: scroll; } }
 
 .liveTranscript--container_observer {
-  height: .5em;
+  height: 1em;
   color: transparent; }
 
 .liveTranscript--menu {
@@ -43,7 +46,6 @@ body:local {
     .liveTranscript--text-format {
       padding: .5em 1.5em .2em 1em;
       font-size: 62.5%;
-      min-width: 100vw;
       right: 1em;
       margin: 0; } }
   @media (min-width: 768px) {

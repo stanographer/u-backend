@@ -23,6 +23,7 @@
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
+    "rc-slider": "^8.6.6",
     "react": "16.7.0-alpha.2",
     "react-burger-menu": "^2.6.5",
     "react-clipboard.js": "^2.0.2",

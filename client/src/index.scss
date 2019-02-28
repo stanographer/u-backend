@@ -51,7 +51,7 @@ html, body {
   @include xl {
     font-size: 17px;
   }
-}
+
 
 a {
   color: $primary;
@@ -408,6 +408,11 @@ a:not([href]):not([tabindex]):focus {
 
 .dropdown-item {
   padding: .9rem 1.5rem;
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .flex-column {
