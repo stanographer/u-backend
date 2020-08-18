@@ -3,7 +3,7 @@
  */
 const fastify = require('fastify')({logger: true});
 const production = process.env.PRODUCTION !== null;
-const port = process.env.PORT || 1234;
+const port = process.env.PORT || 9999;
 
 // Creates an echo server.
 function handle(conn) {
@@ -21,7 +21,7 @@ fastify.register(require('fastify-cors'), {
   origin: (origin, cb) => {
 
     // Request from localhost will pass.
-    if (/localhost:3000/.test(origin)) {
+    if (/localhost/.test(origin)) {
       cb(null, true);
       return;
     }
@@ -38,7 +38,7 @@ fastify.route({
 
   // Handles http requests.
   handler: (req, reply) => {
-    reply.send({hello: 'world'});
+    reply.send('hey bitch');
   },
 
   // Handles websockets connections.
@@ -52,8 +52,15 @@ fastify.route({
 // Run the server-service!
 const start = async () => {
   try {
-    await fastify.listen(port);
-    fastify.log.info(`Listening to http://localhost:${port} ${production ? '(on production)' : ''}`);
+    await fastify.listen(port, '0.0.0.0', (err, address) => {
+      if (err) {
+        fastify.log.error(err);
+        process.exit(1);
+      }
+      fastify.log.info(`server listening on ${address}`);
+    });
+
+    fastify.log.info(`Listening to containter address: http://localhost:${port} ${production ? '(on production)' : ''}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

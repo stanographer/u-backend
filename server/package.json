@@ -1,0 +1,34 @@
+{
+  "name": "u-backend",
+  "version": "1.0.0",
+  "description": "\"Upword.ly is a CMS for live captioning and transcriptions.\"",
+  "main": "app.js",
+  "scripts": {
+    "db": "docker build -t stanographer/u-backend .",
+    "ds": "docker run -it --rm stanographer/u-backend",
+    "start": "PRODUCTION=true PORT=9999 node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanographer/u-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stanographer/u-backend/issues"
+  },
+  "homepage": "https://github.com/stanographer/u-backend#readme",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "fastify": "^3.2.1",
+    "fastify-websocket": "^2.0.7",
+    "lib0": "^0.2.33",
+    "y-protocols": "^1.0.1",
+    "y-websockets-server": "^9.2.1",
+    "yjs": "^13.3.2"
+  },
+  "devDependencies": {
+    "fastify-cors": "^4.1.0"
+  }
+}
