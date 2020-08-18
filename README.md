@@ -1,6 +1,6 @@
 # Upword.ly
 
-[Travis Build Status](https://travis-ci.com/stanographer/u-backend.svg?branch=master)
+(https://travis-ci.com/stanographer/u-backend.svg?branch=master)
 
 "CMS for real-time captioning and transcriptions."
 
