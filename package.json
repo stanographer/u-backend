@@ -1,76 +1,32 @@
 {
   "name": "upwordly",
-  "version": "0.1.0",
-  "description": "CMS for real-time captioning and transcriptions.",
-  "main": "app.js",
+  "version": "1.0.0",
+  "description": "\"CMS for real-time captioning and transcriptions.\"",
+  "main": "index.js",
   "scripts": {
-    "docker-up": "sudo docker-compose up",
-    "docker-build": "sudo docker-compose build",
-    "docker-prod": "sudo docker-compose -f docker-compose.prod.yml up",
-    "docker-prune": "sudo docker system prune -a",
-    "startdev": "NODE_ENV=dev nodemon ./bin/www",
-    "start": "NODE_ENV=production node ./bin/www",
-    "test": "NODE_ENV=dev jest"
-  },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "node"
+    "start": "PRODUCTION=true PORT=1234 node src/server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stanographer/upwordly.git"
   },
-  "keywords": [
-    "steno",
-    "stenography",
-    "captioning",
-    "captions",
-    "transcription",
-    "transcriptions",
-    "live",
-    "transcriptions",
-    "live",
-    "captioning",
-    "realtime",
-    "captioning",
-    "realtime",
-    "transcription",
-    "real-time",
-    "transcription",
-    "real-time",
-    "captioning"
-  ],
-  "author": "Stanley Sakai, Sam Kimbrel",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/stanographer/upwordly/issues"
   },
   "homepage": "https://github.com/stanographer/upwordly#readme",
   "dependencies": {
-    "@teamwork/sharedb": "^3.0.1",
-    "@teamwork/websocket-json-stream": "^1.1.1",
-    "body-parser": "^1.18.3",
-    "cluster": "^0.7.7",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.5",
-    "cowsay": "^1.3.1",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "http": "0.0.0",
-    "os": "^0.1.1",
-    "ot-text": "^1.0.2",
-    "path": "^0.12.7",
-    "sharedb-firebase": "0.0.1",
-    "sharedb-mongo": "^1.0.0-beta.8",
-    "sharedb-redis-pubsub": "^1.0.0-beta.1",
-    "supertest": "^3.3.0",
-    "ws": "^6.1.2"
+    "debug": "^4.1.1",
+    "fastify": "^3.2.1",
+    "fastify-websocket": "^2.0.7",
+    "lib0": "^0.2.33",
+    "y-protocols": "^1.0.1",
+    "y-websockets-server": "^9.2.1",
+    "yjs": "^13.3.2"
   },
   "devDependencies": {
-    "debug": "^4.1.1",
-    "http-errors": "^1.7.1",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.18.9",
-    "standard": "^12.0.1"
+    "fastify-cors": "^4.1.0"
   }
 }

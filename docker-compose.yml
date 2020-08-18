@@ -1,22 +1,9 @@
-version: '3'
+version: '3.4'
+
 services:
-  server:
-    container_name: upwordly
-    restart: always
-    build: .
+  server-service:
+    build: ./src/server-service
+    volumes:
+      - ./src/server-service:/usr/src/app
     ports:
-      - '1988:1988'
-      - '9090:9090'
-    depends_on:
-      - mongo
-      - redis
-  mongo:
-    container_name: mongo
-    image: mongo
-    ports:
-      - '27017:27017'
-  redis:
-    container_name: redis
-    image: redis:alpine
-    ports:
-      - '6379:6379'
+      - 5001:5001

@@ -2,6 +2,8 @@
 
 "CMS for real-time captioning and transcriptions."
 
+docker build -t upwordly .
+
 #### Overview
 
 Upword.ly allows real-time captioners to share their transcription feed to remote participants or to send their feed of live-produced text to any device with an Internet connection.
