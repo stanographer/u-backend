@@ -44,7 +44,7 @@ fastify.route({
   // Handles websockets connections.
   wsHandler: (conn, req) => {
     conn.setEncoding('utf8');
-    conn.write('hello client');
+    conn.write('hello frontend');
     conn.on('message', message => conn.socket.send('hi there!'));
   },
 });

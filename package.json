@@ -1,10 +1,13 @@
 {
   "name": "u-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "\"Upword.ly is a CMS for live captioning and transcriptions.\"",
   "main": "app.js",
   "scripts": {
-    "db": "docker build -t stanographer/u-backend .",
+    "d": "next dev",
+    "b": "next build",
+    "s": "next start",
+    "db": "docker build -t stanographer/u-backend server",
     "ds": "docker run -it --rm stanographer/u-backend",
     "start": "PRODUCTION=true PORT=9999 node app",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +27,9 @@
     "fastify": "^3.2.1",
     "fastify-websocket": "^2.0.7",
     "lib0": "^0.2.33",
+    "next": "^9.5.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "y-protocols": "^1.0.1",
     "y-websockets-server": "^9.2.1",
     "yjs": "^13.3.2"

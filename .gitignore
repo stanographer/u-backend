@@ -1,3 +1,5 @@
+# Dev
+
 .gitignore
 
 # OS generated files
@@ -14,3 +16,8 @@ Thumbs.db
 
 .idea
 node_modules
+
+# Next
+
+frontend/.next
+frontend/node_modules

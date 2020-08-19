@@ -1,7 +1,5 @@
 # Upword.ly
 
-(https://travis-ci.com/stanographer/u-backend.svg?branch=master)
-
 "CMS for real-time captioning and transcriptions."
 
 docker build -t upwordly .
