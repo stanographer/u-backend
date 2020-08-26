@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/stanographer/u-backend#readme",
   "dependencies": {
+    "@teamwork/websocket-json-stream": "^2.0.0",
     "debug": "^4.1.1",
     "fastify": "^3.2.1",
     "fastify-websocket": "^2.0.7",
@@ -30,9 +31,9 @@
     "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "y-protocols": "^1.0.1",
-    "y-websockets-server": "^9.2.1",
-    "yjs": "^13.3.2"
+    "reconnecting-websocket": "^4.4.0",
+    "rich-text": "^4.1.0",
+    "sharedb": "^1.4.1"
   },
   "devDependencies": {
     "fastify-cors": "^4.1.0"

@@ -3,55 +3,33 @@
  */
 const fastify = require('fastify')({logger: true});
 const production = process.env.PRODUCTION !== null;
+const ShareDB = require('sharedb');
+const richText = require('rich-text');
+const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const port = process.env.PORT || 9999;
 
-// Creates an echo server.
-function handle(conn) {
-  conn.pipe(conn);
-}
+// Register as rich-text type.
+ShareDB.types.register(richText.type);
+let backend = new ShareDB({presence: true});
 
-fastify.register(require('fastify-websocket'), {
-  handle,
-  options: {
-    maxPayload: 1048576, // we set the maximum allowed messages size to 1 MiB (1024 bytes * 1024 bytes)
-  },
-});
+// Remove this later. ------------------
+const subscribe = () => {
+  let connection = backend.connect();
+  let doc = connection.get('examples', 'richtext');
 
-fastify.register(require('fastify-cors'), {
-  origin: (origin, cb) => {
-
-    // Request from localhost will pass.
-    if (/localhost/.test(origin)) {
-      cb(null, true);
+  doc.fetch(function(err) {
+    if (err) throw err;
+    if (doc.type === null) {
+      doc.create([{insert: 'Hi!'}], 'rich-text', () => console.log('success?'));
       return;
     }
-
-    cb(null, true);
-  },
-  allowedHeaders: 'Content-Type,Authorization',
-  credentials: true,
-});
-
-fastify.route({
-  method: 'GET',
-  url: '/',
-
-  // Handles http requests.
-  handler: (req, reply) => {
-    reply.send('hey bitch');
-  },
-
-  // Handles websockets connections.
-  wsHandler: (conn, req) => {
-    conn.setEncoding('utf8');
-    conn.write('hello frontend');
-    conn.on('message', message => conn.socket.send('hi there!'));
-  },
-});
+  });
+};
 
 // Run the server-service!
 const start = async () => {
   try {
+    subscribe();
     await fastify.listen(port, '0.0.0.0', (err, address) => {
       if (err) {
         fastify.log.error(err);
@@ -66,5 +44,26 @@ const start = async () => {
     process.exit(1);
   }
 };
+
+fastify.register(require('fastify-websocket'), {
+  options: {
+    maxPayload: 1048576, // we set the maximum allowed messages size to 1 MiB (1024 bytes * 1024 bytes)
+  },
+});
+
+fastify.get('/', { websocket: true }, function wsHandler (connection, req) {
+
+  // Bind to fastify server.
+  connection.socket.on('connection', ws => {
+    console.log('Connection established with: ', ws);
+    let stream = new WebSocketJSONStream(ws);
+    backend.listen(stream);
+  });
+
+  connection.socket.on('message', message => {
+    connection.socket.send('hi from server');
+  });
+});
+
 
 start();

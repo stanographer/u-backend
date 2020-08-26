@@ -1,0 +1,23 @@
+# Dev
+
+.gitignore
+
+# OS generated files
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Webstorm
+
+.idea
+node_modules
+
+# Next
+
+frontend/.next
+frontend/node_modules
